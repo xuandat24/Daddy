@@ -1,24 +1,35 @@
 /* ===================================================
    🎂 STYLESHEET: SINH NHẬT BỐ NHƯ
-   Tối ưu hóa siêu mượt (60fps), chuẩn di động & máy tính
+   Hộp kỷ niệm 3D xoay full góc, nền sáng lấp lánh cánh hoa rơi,
+   nến chuẩn xác, pháo hoa & bóng bay liên tục, 60fps mượt mà
    =================================================== */
 
 :root {
-  --bg-dark: #090514;
-  --bg-card: rgba(22, 13, 44, 0.75);
+  --bg-dark: #0c061a;
+  --bg-card: rgba(26, 14, 50, 0.85);
   --gold: #f5c842;
   --gold-light: #ffea85;
   --gold-dark: #d4a017;
   --purple: #8b28d6;
   --purple-light: #c084fc;
   --pink: #ec4899;
+  --rose: #f43f5e;
   --text-main: #f8fafc;
   --text-muted: #cbd5e1;
   --radius-lg: 24px;
   --radius-md: 16px;
+  --cube-size: 260px;
+  --cube-half: 130px;
   --font-title: 'Playfair Display', serif;
   --font-script: 'Dancing Script', cursive;
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+@media (max-width: 600px) {
+  :root {
+    --cube-size: 210px;
+    --cube-half: 105px;
+  }
 }
 
 *, *::before, *::after {
@@ -49,11 +60,22 @@ html, body {
   width: 100vw;
   height: 100vh;
   pointer-events: none;
-  z-index: 99;
+  z-index: 95;
   display: block;
 }
 
-#fairy-canvas {
+#petals-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 96;
+  display: block;
+}
+
+#celebration-canvas {
   position: fixed;
   top: 0;
   left: 0;
@@ -64,12 +86,12 @@ html, body {
   display: none;
 }
 
-#fairy-canvas.active {
+#celebration-canvas.active {
   display: block;
 }
 
 /* ===================================================
-   BÓNG BAY CHÂN THỰC
+   BÓNG BAY 3D CHÂN THỰC BAY LIÊN TỤC
    =================================================== */
 #balloons-container {
   position: fixed;
@@ -81,12 +103,12 @@ html, body {
 
 .balloon {
   position: absolute;
-  bottom: -120px;
-  width: 48px;
-  height: 60px;
+  bottom: -130px;
+  width: 52px;
+  height: 64px;
   border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
-  opacity: 0.85;
-  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
+  opacity: 0.88;
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,0.35));
   animation: floatUp 14s linear infinite;
   will-change: transform;
 }
@@ -94,12 +116,12 @@ html, body {
 .balloon::after {
   content: "";
   position: absolute;
-  bottom: -12px;
+  bottom: -14px;
   left: 50%;
   transform: translateX(-50%);
-  width: 1px;
-  height: 35px;
-  background: rgba(255, 255, 255, 0.4);
+  width: 1.5px;
+  height: 38px;
+  background: rgba(255, 255, 255, 0.45);
 }
 
 .balloon::before {
@@ -107,10 +129,10 @@ html, body {
   position: absolute;
   top: 10px;
   left: 10px;
-  width: 12px;
-  height: 18px;
+  width: 13px;
+  height: 20px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.5);
   transform: rotate(-30deg);
 }
 
@@ -119,10 +141,10 @@ html, body {
     transform: translateY(0) rotate(0deg);
     opacity: 0;
   }
-  10% { opacity: 0.85; }
-  90% { opacity: 0.85; }
+  8% { opacity: 0.88; }
+  90% { opacity: 0.88; }
   100% {
-    transform: translateY(-120vh) rotate(15deg);
+    transform: translateY(-125vh) rotate(16deg);
     opacity: 0;
   }
 }
@@ -134,29 +156,38 @@ html, body {
   position: fixed;
   bottom: 24px;
   right: 20px;
-  width: 52px;
-  height: 52px;
+  width: 54px;
+  height: 54px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--purple), var(--pink));
-  border: 2px solid rgba(245, 200, 66, 0.6);
-  box-shadow: 0 4px 20px rgba(139, 40, 214, 0.5);
+  background: linear-gradient(135deg, var(--rose), var(--purple));
+  border: 2.5px solid var(--gold);
+  box-shadow: 0 4px 20px rgba(236, 72, 153, 0.5), 0 0 15px rgba(245, 200, 66, 0.4);
   color: #fff;
   cursor: pointer;
   z-index: 990;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   transition: transform 0.2s, box-shadow 0.2s;
   touch-action: manipulation;
 }
 
 .music-btn:hover {
-  transform: scale(1.08);
+  transform: scale(1.1);
+}
+
+.music-btn.playing {
+  animation: pulseMusic 2s infinite alternate;
 }
 
 .music-btn.playing .music-note {
-  animation: spinSlow 4s linear infinite;
+  animation: spinSlow 5s linear infinite;
+}
+
+@keyframes pulseMusic {
+  0% { box-shadow: 0 0 10px var(--gold); }
+  100% { box-shadow: 0 0 25px var(--pink), 0 0 15px var(--gold); }
 }
 
 @keyframes spinSlow {
@@ -165,13 +196,14 @@ html, body {
 }
 
 /* ===================================================
-   1. CẢNH TRANG ĐẦU: LOCK SCREEN MẬT KHẨU
+   1. CẢNH TRANG ĐẦU: KHÓA MẬT KHẨU (NỀN SÁNG, LẤP LÁNH, HOA RƠI)
    =================================================== */
 .lock-screen {
   position: fixed;
   inset: 0;
   z-index: 1000;
-  background: radial-gradient(ellipse at 50% 25%, #2a0b4d 0%, #110526 55%, #080214 100%);
+  /* Nền sáng, ấm áp, rạng rỡ với sắc hồng đào và vàng kim */
+  background: radial-gradient(circle at 50% 20%, #ffffff 0%, #fff0f3 35%, #fce7f3 70%, #fed7aa 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -180,35 +212,35 @@ html, body {
   overflow-y: auto;
 }
 
-.lock-bg-sparkles {
+.lock-stars-layer {
   position: absolute;
   inset: 0;
   pointer-events: none;
   overflow: hidden;
 }
 
-.sparkle-dot {
+.bright-star {
   position: absolute;
   border-radius: 50%;
-  background: radial-gradient(circle, #fff 0%, var(--gold) 60%, transparent 100%);
-  animation: sparkleTwinkle var(--t, 2s) ease-in-out infinite alternate;
+  background: radial-gradient(circle, #fff 10%, #f59e0b 60%, transparent 100%);
+  animation: starSparkle var(--dur, 2s) ease-in-out infinite alternate;
 }
 
-@keyframes sparkleTwinkle {
-  0% { transform: scale(0.3); opacity: 0.2; }
-  100% { transform: scale(1.2); opacity: 1; filter: drop-shadow(0 0 6px var(--gold)); }
+@keyframes starSparkle {
+  0% { transform: scale(0.3); opacity: 0.3; }
+  100% { transform: scale(1.3); opacity: 1; filter: drop-shadow(0 0 6px #f59e0b); }
 }
 
 .lock-card {
   position: relative;
   width: min(390px, 94vw);
-  background: rgba(28, 14, 52, 0.85);
-  border: 1.5px solid rgba(245, 200, 66, 0.35);
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(245, 158, 11, 0.45);
   border-radius: var(--radius-lg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  padding: 26px 22px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(192, 132, 252, 0.2);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  padding: 28px 22px 24px;
+  box-shadow: 0 18px 45px rgba(225, 29, 72, 0.16), 0 0 30px rgba(245, 158, 11, 0.25);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -218,18 +250,26 @@ html, body {
 }
 
 .lock-header {
-  margin-bottom: 16px;
+  margin-bottom: 14px;
+  width: 100%;
 }
 
+/* KHUNG TRÒN ĐỂ THÊM ẢNH BỐ */
 .lock-avatar-wrap {
   position: relative;
-  width: 86px;
-  height: 86px;
+  width: 96px;
+  height: 96px;
   margin: 0 auto 12px;
   border-radius: 50%;
-  padding: 3px;
-  background: linear-gradient(135deg, var(--gold), var(--pink), var(--purple-light));
-  box-shadow: 0 0 20px rgba(245, 200, 66, 0.4);
+  padding: 3.5px;
+  background: linear-gradient(135deg, #f59e0b, #ec4899, #a855f7);
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4), 0 0 15px rgba(236, 72, 153, 0.3);
+  cursor: pointer;
+  transition: transform 0.25s ease;
+}
+
+.lock-avatar-wrap:hover {
+  transform: scale(1.06);
 }
 
 .lock-avatar-img {
@@ -244,34 +284,62 @@ html, body {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: #23103d;
+  background: linear-gradient(145deg, #fff1f2, #ffe4e6);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 2.5rem;
+  color: #831843;
 }
 
-.lock-avatar-ring {
+.avatar-icon {
+  font-size: 2.3rem;
+  line-height: 1;
+}
+
+.avatar-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #be185d;
+  margin-top: 2px;
+}
+
+.avatar-shine-ring {
   position: absolute;
   inset: -6px;
   border-radius: 50%;
-  border: 1.5px dashed rgba(245, 200, 66, 0.6);
-  animation: spinSlow 12s linear infinite;
+  border: 2px dashed #f59e0b;
+  animation: spinSlow 14s linear infinite;
   pointer-events: none;
+}
+
+.avatar-badge {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(217, 119, 6, 0.4);
+  white-space: nowrap;
 }
 
 .lock-title {
   font-family: var(--font-script);
-  font-size: 1.75rem;
+  font-size: 1.85rem;
   font-weight: 700;
-  color: var(--gold-light);
-  text-shadow: 0 0 10px rgba(245, 200, 66, 0.4);
+  color: #831843;
   line-height: 1.25;
+  margin-top: 6px;
 }
 
 .lock-sub {
   font-size: 0.88rem;
-  color: var(--text-muted);
+  color: #6b7280;
   margin-top: 4px;
 }
 
@@ -286,28 +354,29 @@ html, body {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  border: 2px solid rgba(245, 200, 66, 0.6);
-  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid #f59e0b;
+  background: rgba(245, 158, 11, 0.1);
   transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .pin-dot.filled {
-  background: var(--gold);
-  border-color: #fff;
-  transform: scale(1.15);
-  box-shadow: 0 0 12px var(--gold);
+  background: #f59e0b;
+  border-color: #d97706;
+  transform: scale(1.2);
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.7);
 }
 
 .pin-hint {
   font-size: 0.78rem;
-  color: #a78bfa;
+  color: #9d174d;
+  font-weight: 500;
   margin-bottom: 6px;
 }
 
 .pin-err {
   font-size: 0.84rem;
-  color: #ff6b6b;
-  font-weight: 500;
+  color: #dc2626;
+  font-weight: 600;
   margin-bottom: 8px;
   animation: shake 0.4s ease;
 }
@@ -318,58 +387,59 @@ html, body {
   75% { transform: translateX(8px); }
 }
 
-/* Numpad cảm ứng nhạy trên di động */
+/* Numpad cảm ứng nhạy, nút to rõ trên di động */
 .numpad {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
   width: 100%;
   max-width: 290px;
-  margin-top: 8px;
+  margin-top: 6px;
 }
 
 .num-key {
   height: 56px;
   border-radius: 50px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.07);
-  color: #fff;
-  font-size: 1.45rem;
-  font-weight: 600;
+  border: 1.5px solid rgba(244, 114, 182, 0.4);
+  background: #ffffff;
+  color: #831843;
+  font-size: 1.5rem;
+  font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   touch-action: manipulation;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
   transition: background 0.15s, transform 0.15s, border-color 0.15s;
   user-select: none;
 }
 
 .num-key:active {
-  background: rgba(245, 200, 66, 0.3);
+  background: #fef08a;
   transform: scale(0.92);
-  border-color: var(--gold);
+  border-color: #f59e0b;
 }
 
 .num-key.key-action {
-  font-size: 1.1rem;
-  background: rgba(236, 72, 153, 0.15);
-  color: var(--gold-light);
-  border-color: rgba(236, 72, 153, 0.3);
+  font-size: 1.15rem;
+  background: #fdf2f8;
+  color: #be185d;
+  border-color: #fbcfe8;
 }
 
 .num-key.key-action:active {
-  background: rgba(236, 72, 153, 0.4);
+  background: #fce7f3;
 }
 
-/* MODAL CHÚC MỪNG KHI MỞ KHÓA THÀNH CÔNG */
+/* MODAL CHÚC MỪNG KHI MỞ KHÓA */
 .lock-success-modal {
   position: absolute;
   inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(12, 4, 26, 0.92);
+  background: rgba(255, 241, 242, 0.95);
   backdrop-filter: blur(14px);
   padding: 20px;
   z-index: 10;
@@ -378,12 +448,12 @@ html, body {
 
 .success-box {
   width: min(380px, 92vw);
-  background: linear-gradient(145deg, rgba(62, 18, 100, 0.9), rgba(28, 8, 54, 0.95));
-  border: 1.5px solid var(--gold);
+  background: #ffffff;
+  border: 2px solid #f59e0b;
   border-radius: var(--radius-lg);
   padding: 32px 24px;
   text-align: center;
-  box-shadow: 0 0 50px rgba(245, 200, 66, 0.4);
+  box-shadow: 0 20px 50px rgba(225, 29, 72, 0.2), 0 0 30px rgba(245, 158, 11, 0.35);
   animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
@@ -396,20 +466,20 @@ html, body {
 .success-title {
   font-family: var(--font-script);
   font-size: 2rem;
-  color: var(--gold);
+  color: #be185d;
   margin-bottom: 4px;
 }
 
 .success-name {
   font-family: var(--font-title);
-  font-size: 1.5rem;
-  color: #fff;
+  font-size: 1.55rem;
+  color: #831843;
   margin-bottom: 12px;
 }
 
 .success-desc {
-  font-size: 0.92rem;
-  color: var(--text-muted);
+  font-size: 0.94rem;
+  color: #4b5563;
   line-height: 1.6;
   margin-bottom: 20px;
 }
@@ -417,7 +487,7 @@ html, body {
 .success-loading-bar {
   width: 100%;
   height: 6px;
-  background: rgba(255, 255, 255, 0.1);
+  background: #f3f4f6;
   border-radius: 6px;
   overflow: hidden;
   margin-bottom: 18px;
@@ -426,7 +496,7 @@ html, body {
 .bar-fill {
   height: 100%;
   width: 0%;
-  background: linear-gradient(90deg, var(--gold), var(--pink));
+  background: linear-gradient(90deg, #f59e0b, #ec4899);
   border-radius: 6px;
   animation: loadFill 2s ease forwards;
 }
@@ -437,21 +507,21 @@ html, body {
 
 .btn-enter {
   padding: 12px 28px;
-  background: linear-gradient(135deg, var(--gold), var(--pink));
-  color: #1a052e;
+  background: linear-gradient(135deg, #f59e0b, #ec4899);
+  color: #ffffff;
   font-weight: 700;
   font-size: 1rem;
   border: none;
   border-radius: 50px;
   cursor: pointer;
-  box-shadow: 0 4px 18px rgba(245, 200, 66, 0.5);
+  box-shadow: 0 4px 18px rgba(245, 158, 11, 0.5);
   transition: transform 0.2s, box-shadow 0.2s;
   touch-action: manipulation;
 }
 
 .btn-enter:hover, .btn-enter:active {
   transform: scale(1.05);
-  box-shadow: 0 6px 24px rgba(245, 200, 66, 0.8);
+  box-shadow: 0 6px 24px rgba(245, 158, 11, 0.7);
 }
 
 /* ===================================================
@@ -471,7 +541,7 @@ html, body {
 /* HERO */
 .hero {
   position: relative;
-  min-height: 92vh;
+  min-height: 90vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -483,7 +553,7 @@ html, body {
 .hero-aurora {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 30%, rgba(139, 40, 214, 0.3) 0%, rgba(236, 72, 153, 0.15) 45%, transparent 70%);
+  background: radial-gradient(circle at 50% 30%, rgba(139, 40, 214, 0.35) 0%, rgba(236, 72, 153, 0.2) 45%, transparent 70%);
   pointer-events: none;
 }
 
@@ -513,10 +583,10 @@ html, body {
 
 .hero-sub {
   font-family: var(--font-script);
-  font-size: clamp(1.2rem, 3.5vw, 1.8rem);
+  font-size: clamp(1.25rem, 3.8vw, 1.9rem);
   color: var(--gold);
   margin-bottom: 12px;
-  text-shadow: 0 0 12px rgba(245, 200, 66, 0.4);
+  text-shadow: 0 0 14px rgba(245, 200, 66, 0.45);
 }
 
 .hero-title {
@@ -557,8 +627,8 @@ html, body {
   display: inline-flex;
   align-items: center;
   gap: 16px;
-  background: rgba(25, 12, 48, 0.7);
-  border: 1px solid rgba(245, 200, 66, 0.35);
+  background: rgba(28, 14, 52, 0.75);
+  border: 1px solid rgba(245, 200, 66, 0.4);
   border-radius: var(--radius-md);
   padding: 14px 22px;
   backdrop-filter: blur(10px);
@@ -590,7 +660,7 @@ html, body {
 .date-divider {
   width: 1px;
   height: 36px;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.18);
 }
 
 .date-bday {
@@ -617,7 +687,7 @@ html, body {
   flex-direction: column;
   align-items: center;
   gap: 6px;
-  opacity: 0.7;
+  opacity: 0.75;
 }
 
 .bounce-arrow {
@@ -632,7 +702,7 @@ html, body {
 
 /* SECTIONS BASE */
 .section {
-  padding: 64px 16px;
+  padding: 68px 16px;
   position: relative;
   overflow: hidden;
 }
@@ -644,7 +714,7 @@ html, body {
 
 .section-title {
   font-family: var(--font-title);
-  font-size: clamp(1.6rem, 4vw, 2.5rem);
+  font-size: clamp(1.7rem, 4.2vw, 2.6rem);
   text-align: center;
   margin-bottom: 8px;
   background: linear-gradient(135deg, var(--gold), var(--purple-light));
@@ -656,7 +726,7 @@ html, body {
 .section-sub {
   text-align: center;
   color: var(--text-muted);
-  font-size: 0.92rem;
+  font-size: 0.94rem;
   margin-bottom: 34px;
   max-width: 600px;
   margin-left: auto;
@@ -665,7 +735,7 @@ html, body {
 
 /* COUNTDOWN */
 .countdown-section {
-  background: linear-gradient(180deg, #090514 0%, #13082b 100%);
+  background: linear-gradient(180deg, #0c061a 0%, #15092e 100%);
 }
 
 .countdown-grid {
@@ -677,7 +747,7 @@ html, body {
 
 .cd-card {
   background: var(--bg-card);
-  border: 1px solid rgba(245, 200, 66, 0.25);
+  border: 1px solid rgba(245, 200, 66, 0.28);
   border-radius: var(--radius-md);
   padding: 16px 20px;
   display: flex;
@@ -693,7 +763,7 @@ html, body {
   font-weight: 700;
   color: var(--gold);
   line-height: 1;
-  text-shadow: 0 0 16px rgba(245, 200, 66, 0.4);
+  text-shadow: 0 0 16px rgba(245, 200, 66, 0.45);
 }
 
 .cd-lbl {
@@ -718,9 +788,9 @@ html, body {
   50% { transform: scale(1.05); }
 }
 
-/* BÁNH KEM & THỔI NẾN */
+/* BÁNH KEM & THỔI NẾN (CÂN CHỈNH CHUẨN XÁC THEO ẢNH) */
 .cake-section {
-  background: linear-gradient(180deg, #13082b 0%, #190a38 100%);
+  background: linear-gradient(180deg, #15092e 0%, #1b0a3c 100%);
 }
 
 .cake-container {
@@ -732,11 +802,11 @@ html, body {
 
 .cake-frame {
   position: relative;
-  width: min(460px, 92vw);
+  width: min(480px, 92vw);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: 0 10px 40px rgba(139, 40, 214, 0.5), 0 0 30px rgba(245, 200, 66, 0.2);
-  border: 1px solid rgba(245, 200, 66, 0.3);
+  box-shadow: 0 12px 45px rgba(139, 40, 214, 0.5), 0 0 35px rgba(245, 200, 66, 0.25);
+  border: 1.5px solid rgba(245, 200, 66, 0.35);
 }
 
 .cake-photo {
@@ -748,9 +818,10 @@ html, body {
 .cake-glow-effect {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 50% 32%, rgba(255, 170, 0, 0.22) 0%, transparent 65%);
+  background: radial-gradient(ellipse at 50% 38%, rgba(255, 170, 0, 0.25) 0%, transparent 65%);
   pointer-events: none;
   animation: candleGlow 2s ease-in-out infinite alternate;
+  transition: opacity 0.5s ease;
 }
 
 @keyframes candleGlow {
@@ -763,49 +834,56 @@ html, body {
   inset: 0;
 }
 
-/* Ngọn nến lung linh */
-.candle {
+/* NGỌN LỬA NẾN ĐẶT CHUẨN XÁC TRÊN ĐỈNH NẾN CỦA BÁNH */
+.interactive-flame {
   position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  width: 26px;
+  height: 38px;
+  transform: translate(-50%, -100%);
   cursor: pointer;
   user-select: none;
   touch-action: manipulation;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.flame-particle {
+  font-size: 24px;
+  line-height: 1;
+  animation: flameFlicker 0.3s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 10px rgba(255, 140, 0, 1)) drop-shadow(0 0 18px rgba(245, 200, 66, 0.8));
   transition: transform 0.2s;
-  padding: 6px;
 }
 
-.candle:active {
-  transform: scale(1.2);
-}
-
-.c-flame {
-  font-size: clamp(20px, 4.5vw, 28px);
-  animation: flameFlicker 0.35s ease-in-out infinite alternate;
-  filter: drop-shadow(0 0 8px rgba(255, 160, 0, 0.95));
+.interactive-flame:hover .flame-particle,
+.interactive-flame:active .flame-particle {
+  transform: scale(1.3);
 }
 
 @keyframes flameFlicker {
-  0% { transform: scaleX(1) scaleY(1) rotate(-3deg); }
-  100% { transform: scaleX(0.85) scaleY(1.18) rotate(3deg); }
+  0% { transform: scaleX(1) scaleY(1) rotate(-4deg); }
+  100% { transform: scaleX(0.85) scaleY(1.2) rotate(4deg); }
 }
 
-.c-body {
-  width: 7px;
-  height: clamp(18px, 3.8vw, 26px);
-  background: linear-gradient(to right, var(--gold), #fff9db);
-  border-radius: 4px;
-  box-shadow: 0 0 8px rgba(245, 200, 66, 0.6);
-}
-
-.candle.blown .c-flame {
+.interactive-flame.blown .flame-particle {
   display: none;
 }
 
-.candle.blown .c-body {
-  opacity: 0.35;
-  box-shadow: none;
+/* Khói bốc lên khi nến tắt */
+.smoke-puff {
+  position: absolute;
+  bottom: 0;
+  font-size: 1.2rem;
+  opacity: 0;
+  animation: smokeRise 0.8s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes smokeRise {
+  0% { opacity: 0.9; transform: translateY(0) scale(0.6); }
+  100% { opacity: 0; transform: translateY(-30px) scale(1.6); }
 }
 
 .candle-counter {
@@ -820,11 +898,38 @@ html, body {
   justify-content: center;
 }
 
+/* BANNER CHÚC MỪNG TƯNG BỪNG KHI THỔI TẮT NẾN */
+.cake-wishes-banner {
+  margin-top: 12px;
+  background: linear-gradient(135deg, rgba(139, 40, 214, 0.4), rgba(236, 72, 153, 0.35));
+  border: 1.5px solid var(--gold);
+  border-radius: var(--radius-md);
+  padding: 18px 24px;
+  text-align: center;
+  max-width: min(520px, 92vw);
+  box-shadow: 0 0 30px rgba(245, 200, 66, 0.4);
+  animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.cake-wishes-banner h3 {
+  font-family: var(--font-title);
+  color: var(--gold);
+  font-size: 1.25rem;
+  margin-bottom: 6px;
+}
+
+.cake-wishes-banner p {
+  font-family: var(--font-script);
+  color: #fff;
+  font-size: 1.2rem;
+  line-height: 1.4;
+}
+
 .btn {
-  padding: 12px 24px;
+  padding: 12px 26px;
   border-radius: 50px;
   border: none;
-  font-size: 0.92rem;
+  font-size: 0.94rem;
   font-weight: 600;
   cursor: pointer;
   touch-action: manipulation;
@@ -848,73 +953,156 @@ html, body {
   box-shadow: 0 4px 16px rgba(245, 200, 66, 0.4);
 }
 
-/* QUẢ CẦU KỶ NIỆM 3D */
+/* ===================================================
+   HỘP VUÔNG KỶ NIỆM 3D (XOAY FULL GÓC 360°, KHÔNG BỊ MẤT)
+   =================================================== */
 .memories-section {
-  background: linear-gradient(180deg, #190a38 0%, #090514 100%);
+  background: linear-gradient(180deg, #1b0a3c 0%, #0c061a 100%);
 }
 
-.sphere-wrapper {
-  perspective: 900px;
-  width: min(420px, 92vw);
-  height: min(420px, 92vw);
-  margin: 0 auto;
+.cube-scene-container {
   position: relative;
+  width: 100%;
+  height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1100px;
+  user-select: none;
   touch-action: pan-y;
 }
 
-.sphere-inner {
-  width: 100%;
-  height: 100%;
+.cube-ambient-glow {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.25) 0%, rgba(139, 40, 214, 0.18) 45%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(20px);
+}
+
+.cube-3d {
+  width: var(--cube-size);
+  height: var(--cube-size);
   position: relative;
   transform-style: preserve-3d;
   will-change: transform;
+  cursor: grab;
 }
 
-.sphere-item {
+.cube-3d:active {
+  cursor: grabbing;
+}
+
+/* 6 MẶT CỦA KHỐI HỘP VUÔNG 3D */
+.cube-face {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  transform-origin: center;
-  cursor: pointer;
-  touch-action: manipulation;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-
-.sphere-face {
-  border-radius: 50%;
+  width: var(--cube-size);
+  height: var(--cube-size);
+  border-radius: 14px;
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: #1e1038;
+  border: 2px solid rgba(245, 200, 66, 0.55);
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5), 0 0 18px rgba(139, 40, 214, 0.4);
+  /* backface-visibility: visible để không bao giờ bị biến mất khi xoay */
+  backface-visibility: visible;
+  -webkit-backface-visibility: visible;
+  cursor: pointer;
+}
+
+/* Tọa độ 6 mặt của khối lập phương */
+.face-front  { transform: translateZ(var(--cube-half)); }
+.face-back   { transform: rotateY(180deg) translateZ(var(--cube-half)); }
+.face-right  { transform: rotateY(90deg) translateZ(var(--cube-half)); }
+.face-left   { transform: rotateY(-90deg) translateZ(var(--cube-half)); }
+.face-top    { transform: rotateX(90deg) translateZ(var(--cube-half)); }
+.face-bottom { transform: rotateX(-90deg) translateZ(var(--cube-half)); }
+
+/* ÁNH SÁNG ẢO DIỆU (SPECULAR SHEEN) KHI XOAY */
+.face-sheen {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.05) 40%, transparent 60%);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.face-content {
+  width: 100%;
+  height: 100%;
   position: relative;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
-  transition: transform 0.2s, filter 0.2s;
+  display: flex;
+  flex-direction: column;
 }
 
-.sphere-item:hover .sphere-face, .sphere-item:active .sphere-face {
-  transform: scale(1.15);
-  filter: brightness(1.25);
-}
-
-.sphere-item-photo {
+.face-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 50%;
+  display: block;
 }
 
-.sphere-item-placeholder {
+.face-placeholder {
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: clamp(1.4rem, 3.5vw, 2rem);
-  background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.3), transparent 70%), var(--item-col);
+  padding: 16px;
+  text-align: center;
+  background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.2), transparent 70%), var(--face-bg, #7c3aed);
 }
 
-/* POPUP LỜI CHÚC */
+.face-emoji {
+  font-size: clamp(2.4rem, 6vw, 3.5rem);
+  margin-bottom: 8px;
+}
+
+.face-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(12, 6, 26, 0.95) 0%, rgba(12, 6, 26, 0.6) 70%, transparent 100%);
+  padding: 20px 10px 10px;
+  text-align: center;
+  z-index: 4;
+}
+
+.face-caption-title {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.face-caption-sub {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* Bóng sàn 3D của khối hộp */
+.cube-floor-shadow {
+  position: absolute;
+  bottom: 30px;
+  width: calc(var(--cube-size) * 1.2);
+  height: 36px;
+  background: radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.2) 45%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.cube-controls-hint {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  margin-top: 10px;
+  opacity: 0.85;
+}
+
+/* POPUP LỜI CHÚC & ẢNH */
 .sphere-popup {
   position: fixed;
   inset: 0;
@@ -923,21 +1111,21 @@ html, body {
   align-items: center;
   justify-content: center;
   background: rgba(9, 5, 20, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   padding: 16px;
 }
 
 .popup-box {
-  background: linear-gradient(145deg, rgba(46, 16, 77, 0.95), rgba(20, 7, 36, 0.98));
-  border: 1.5px solid rgba(245, 200, 66, 0.4);
+  background: linear-gradient(145deg, rgba(46, 16, 77, 0.96), rgba(20, 7, 36, 0.98));
+  border: 1.5px solid rgba(245, 200, 66, 0.45);
   border-radius: var(--radius-lg);
   padding: 30px 22px;
-  max-width: min(400px, 92vw);
+  max-width: min(420px, 92vw);
   width: 100%;
   position: relative;
   text-align: center;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(192, 132, 252, 0.3);
+  box-shadow: 0 14px 45px rgba(0, 0, 0, 0.8), 0 0 35px rgba(192, 132, 252, 0.35);
   animation: popIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
@@ -945,13 +1133,13 @@ html, body {
   position: absolute;
   top: 12px;
   right: 14px;
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.12);
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: #fff;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -960,20 +1148,27 @@ html, body {
 }
 
 .popup-media-wrap {
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .popup-media-wrap img {
   width: 100%;
-  max-height: 220px;
+  max-height: 230px;
   object-fit: cover;
   border-radius: var(--radius-md);
-  border: 1.5px solid rgba(245, 200, 66, 0.3);
+  border: 1.5px solid rgba(245, 200, 66, 0.35);
 }
 
 .popup-media-wrap .popup-emoji {
-  font-size: 4rem;
+  font-size: 4.2rem;
   line-height: 1;
+}
+
+.popup-title {
+  font-family: var(--font-title);
+  color: var(--gold);
+  font-size: 1.3rem;
+  margin-bottom: 8px;
 }
 
 .popup-msg-text {
@@ -1065,8 +1260,7 @@ html, body {
     padding: 12px 14px;
     min-width: 65px;
   }
-  .sphere-wrapper {
-    width: min(320px, 90vw);
-    height: min(320px, 90vw);
+  .cube-scene-container {
+    height: 340px;
   }
 }

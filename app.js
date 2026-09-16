@@ -1,93 +1,160 @@
 "use strict";
 
 // ============================================================
-// 🎂 CẤU HÌNH & DỮ LIỆU CHÚC MỪNG SINH NHẬT BỐ NHƯ
+// 🎂 CẤU HÌNH & DỮ LIỆU SINH NHẬT BỐ NHƯ
 // ============================================================
-const BDAY_MONTH = 9;   // Tháng 9
-const BDAY_DAY   = 17;  // Ngày 17
-const PIN_CODE   = "1709"; // Mật khẩu 17/09
+const BDAY_MONTH = 9;      // Tháng 9
+const BDAY_DAY   = 17;     // Ngày 17
+const PIN_CODE   = "1709"; // Mật khẩu ngày sinh: 17/09
 
-// Danh sách 12 lời chúc ý nghĩa, sâu sắc nhất dành tặng Bố Như
-const MEMORIES_DATA = [
+// Dữ liệu 6 mặt của Khối Hộp Kỷ Niệm 3D
+// Người dùng có thể thêm ảnh vào thư mục photos/ với tên p1.jpg -> p6.jpg
+const CUBE_FACES = [
   {
-    photo: null,
+    photo: "photos/p1.jpg",
+    title: "Tình Yêu Của Bố",
+    sub: "Kỷ niệm yêu thương",
+    wish: "Bố Như ơi, con yêu Bố nhiều lắm! Cảm ơn Bố vì cả cuộc đời đã luôn là điểm tựa vững chãi nhất cho cả gia đình chúng con.",
     emoji: "❤️",
-    color: "#ec4899",
-    message: "Bố Như ơi, con yêu bố nhiều lắm! Cảm ơn bố vì cả cuộc đời đã luôn là điểm tựa vững chãi nhất cho con."
+    color: "#ec4899"
   },
   {
-    photo: null,
+    photo: "photos/p2.jpg",
+    title: "Người Hùng Của Con",
+    sub: "Che chở bão giông",
+    wish: "Bố là người hùng thầm lặng – không khoác áo choàng nhưng luôn dang rộng vòng tay che chở cho con qua mọi thử thách cuộc đời.",
     emoji: "🌟",
-    color: "#f59e0b",
-    message: "Bố là người hùng thầm lặng của con – không khoác áo choàng nhưng luôn che chở con qua mọi bão giông cuộc đời."
+    color: "#f59e0b"
   },
   {
-    photo: null,
+    photo: "photos/p3.jpg",
+    title: "Chúc Thọ Bố Như",
+    sub: "Tuổi mới bình an",
+    wish: "Kính chúc Bố Như bước sang tuổi mới luôn mạnh khỏe, tràn ngập niềm vui, an nhiên và đong đầy hạnh phúc bên con cháu!",
     emoji: "🎂",
-    color: "#8b5cf6",
-    message: "Chúc mừng sinh nhật Bố Như kính yêu! Chúc bố bước sang tuổi mới luôn dồi dào sức khỏe, tràn ngập niềm vui và bình an!"
+    color: "#8b5cf6"
   },
   {
-    photo: null,
+    photo: "photos/p4.jpg",
+    title: "Bàn Tay Che Chở",
+    sub: "Hy sinh thầm lặng",
+    wish: "Cảm ơn những nếp nhăn và đôi bàn tay chai sạn của Bố – tất cả sự hy sinh thầm lặng suốt năm tháng ấy con luôn khắc ghi trong tim.",
     emoji: "🌿",
-    color: "#10b981",
-    message: "Cảm ơn những nếp nhăn và đôi bàn tay chai sạn của bố – tất cả sự hy sinh thầm lặng ấy con luôn khắc ghi trong tim."
+    color: "#10b981"
   },
   {
-    photo: null,
+    photo: "photos/p5.jpg",
+    title: "Tình Thấu Biển Trời",
+    sub: "Mái ấm bình yên",
+    wish: "Tình thương của Bố như núi cao biển rộng, ấm áp và bao la. Dù con có đi xa đến đâu, về bên Bố vẫn là nơi bình yên và hạnh phúc nhất!",
     emoji: "🏔️",
-    color: "#06b6d4",
-    message: "Tình thương của bố như núi cao biển rộng, ấm áp và bao la. Con luôn tự hào vì được làm con của bố!"
+    color: "#06b6d4"
   },
   {
-    photo: null,
-    emoji: "☀️",
-    color: "#f97316",
-    message: "Nụ cười của bố chính là nguồn động lực lớn nhất để con nỗ lực từng ngày. Chúc bố luôn mỉm cười rạng rỡ như ánh mặt trời!"
-  },
-  {
-    photo: null,
-    emoji: "🏠",
-    color: "#3b82f6",
-    message: "Dù con có đi xa đến đâu, về bên bố vẫn là nơi bình yên và ấm áp nhất trên thế giới này."
-  },
-  {
-    photo: null,
-    emoji: "🦋",
-    color: "#d946ef",
-    message: "Bố dạy con bằng cả cuộc đời mẫu mực, kiên cường và bao dung. Bố là người thầy vĩ đại nhất của con!"
-  },
-  {
-    photo: null,
-    emoji: "🎁",
-    color: "#eab308",
-    message: "Món quà tuyệt vời nhất mà cuộc đời ban tặng cho con chính là có Bố Như là người cha kính yêu."
-  },
-  {
-    photo: null,
+    photo: "photos/p6.jpg",
+    title: "Bách Niên Giai Lão",
+    sub: "Mãi mãi bên con",
+    wish: "Chúc Bố Như sống lâu trăm tuổi, luôn mỉm cười rạng rỡ, vạn sự như ý và mãi là niềm tự hào lớn nhất của cuộc đời chúng con! ❤️",
     emoji: "💖",
-    color: "#f43f5e",
-    message: "Chúc Bố Như bách niên giai lão, sống vui khỏe, hạnh phúc an nhiên từng ngày bên con cháu!"
-  },
-  {
-    photo: null,
-    emoji: "✨",
-    color: "#a855f7",
-    message: "Mỗi ngày trôi qua, con đều thầm cảm ơn trời phật vì bố vẫn luôn mạnh khỏe bên cạnh gia đình chúng con."
-  },
-  {
-    photo: null,
-    emoji: "🎈",
-    color: "#14b8a6",
-    message: "Happy Birthday Bố Như! Cả gia đình chúc mừng ngày sinh nhật tuyệt vời nhất của người bố kính yêu!"
+    color: "#f43f5e"
   }
 ];
 
-// Phát hiện thiết bị di động
 const IS_MOBILE = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) || window.innerWidth < 650;
 
 // ============================================================
-// 1. CẢNH TRANG ĐẦU: KHÓA MẬT KHẨU (1709)
+// 1. CÁNH HOA & LÁ HOA RƠI TỰ NHIÊN (CANVAS PETALS)
+// ============================================================
+(function initPetals() {
+  const canvas = document.getElementById("petals-canvas");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  let w = canvas.width = window.innerWidth;
+  let h = canvas.height = window.innerHeight;
+
+  window.addEventListener("resize", () => {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  });
+
+  const petals = [];
+  const TOTAL_PETALS = IS_MOBILE ? 24 : 36;
+  const COLORS = [
+    { fill: "#f43f5e", type: "rose" },     // Hồng đỏ
+    { fill: "#fbcfe8", type: "sakura" },   // Hoa đào
+    { fill: "#fb7185", type: "rose" },     // Hoa hồng đào
+    { fill: "#4ade80", type: "leaf" },     // Lá xanh non
+    { fill: "#22c55e", type: "leaf" },     // Lá xanh tươi
+    { fill: "#fef08a", type: "yellow" }    // Cánh hoa vàng
+  ];
+
+  for (let i = 0; i < TOTAL_PETALS; i++) {
+    petals.push(createPetal(true));
+  }
+
+  function createPetal(randomY) {
+    const c = COLORS[Math.floor(Math.random() * COLORS.length)];
+    return {
+      x: Math.random() * w,
+      y: randomY ? Math.random() * h : -20,
+      sz: Math.random() * 8 + 8,
+      vx: (Math.random() - 0.5) * 1.2,
+      vy: Math.random() * 1.4 + 1.0,
+      rotX: Math.random() * Math.PI,
+      rotY: Math.random() * Math.PI,
+      rotZ: Math.random() * Math.PI,
+      vRotX: Math.random() * 0.03 + 0.01,
+      vRotY: Math.random() * 0.03 + 0.01,
+      vRotZ: Math.random() * 0.02 + 0.01,
+      color: c.fill,
+      isLeaf: c.type === "leaf"
+    };
+  }
+
+  function drawPetals() {
+    ctx.clearRect(0, 0, w, h);
+
+    for (let i = 0; i < petals.length; i++) {
+      const p = petals[i];
+      p.y += p.vy;
+      p.x += p.vx + Math.sin(p.y * 0.015) * 0.8;
+      p.rotX += p.vRotX;
+      p.rotY += p.vRotY;
+      p.rotZ += p.vRotZ;
+
+      if (p.y > h + 20) {
+        petals[i] = createPetal(false);
+        continue;
+      }
+
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rotZ);
+      const scaleX = Math.cos(p.rotX);
+      const scaleY = Math.sin(p.rotY);
+      ctx.scale(scaleX, scaleY);
+
+      ctx.fillStyle = p.color;
+      ctx.globalAlpha = 0.78;
+      ctx.beginPath();
+      if (p.isLeaf) {
+        // Vẽ lá cây
+        ctx.ellipse(0, 0, p.sz * 0.5, p.sz * 1.2, Math.PI / 4, 0, Math.PI * 2);
+      } else {
+        // Vẽ cánh hoa mềm
+        ctx.ellipse(0, 0, p.sz, p.sz * 1.3, 0, 0, Math.PI * 2);
+      }
+      ctx.fill();
+      ctx.restore();
+    }
+
+    requestAnimationFrame(drawPetals);
+  }
+  drawPetals();
+})();
+
+// ============================================================
+// 2. KHÓA MẬT KHẨU (1709) & CẢNH TRANG ĐẦU
 // ============================================================
 let currentPin = "";
 const pinDots = [
@@ -101,22 +168,22 @@ const lockScreen = document.getElementById("lock-screen");
 const lockSuccess = document.getElementById("lock-success");
 const pinErr = document.getElementById("pin-err");
 
-// Tạo các hạt lấp lánh ở trang khóa
-(function initLockSparkles() {
-  const container = document.getElementById("lock-sparkles");
+// Tạo các ngôi sao vàng lấp lánh ở nền sáng
+(function initBrightStars() {
+  const container = document.getElementById("lock-stars");
   if (!container) return;
-  for (let i = 0; i < 40; i++) {
-    const dot = document.createElement("div");
-    dot.className = "sparkle-dot";
-    const sz = Math.random() * 3 + 1.5;
-    dot.style.cssText = `
+  for (let i = 0; i < 45; i++) {
+    const star = document.createElement("div");
+    star.className = "bright-star";
+    const sz = Math.random() * 3 + 2;
+    star.style.cssText = `
       width: ${sz}px; height: ${sz}px;
       left: ${Math.random() * 100}%;
       top: ${Math.random() * 100}%;
-      --t: ${Math.random() * 2 + 1.5}s;
+      --dur: ${Math.random() * 2 + 1.2}s;
       animation-delay: -${Math.random() * 3}s;
     `;
-    container.appendChild(dot);
+    container.appendChild(star);
   }
 })();
 
@@ -127,6 +194,9 @@ function updatePinDots() {
 }
 
 function handleKeyInput(val) {
+  // Cố gắng mở nhạc ngay khi bấm phím
+  triggerMusicAutoplay();
+
   pinErr.classList.add("hidden");
   if (val === "C") {
     currentPin = "";
@@ -156,15 +226,11 @@ function checkPinCode() {
   }
 }
 
-// Bắt sự kiện bàn phím số
 document.getElementById("numpad").addEventListener("click", e => {
   const btn = e.target.closest(".num-key");
-  if (btn) {
-    handleKeyInput(btn.dataset.val);
-  }
+  if (btn) handleKeyInput(btn.dataset.val);
 });
 
-// Hỗ trợ cả bàn phím máy tính
 window.addEventListener("keydown", e => {
   if (!lockScreen || lockScreen.classList.contains("hidden")) return;
   if (e.key >= "0" && e.key <= "9") handleKeyInput(e.key);
@@ -173,15 +239,13 @@ window.addEventListener("keydown", e => {
 });
 
 function unlockSuccess() {
-  // Bắn pháo hoa rực rỡ chào mừng
-  startFireworks();
+  // Bắn pháo hoa rực rỡ chúc mừng
   for (let i = 0; i < 4; i++) {
     setTimeout(() => {
       spawnFirework(Math.random() * window.innerWidth, Math.random() * window.innerHeight * 0.5);
-    }, i * 180);
+    }, i * 200);
   }
 
-  // Ẩn bàn phím và hiện modal chúc mừng
   lockSuccess.classList.remove("hidden");
 
   let transitionTimer = setTimeout(transitionToMainPage, 2600);
@@ -203,13 +267,12 @@ function transitionToMainPage() {
     requestAnimationFrame(() => {
       mainContent.classList.add("visible");
     });
-    document.getElementById("music-btn").classList.remove("hidden");
     initMainPageFeatures();
   }, 700);
 }
 
 // ============================================================
-// 2. ENGINE PHÁO HOA SIÊU MƯỢT (60 FPS, KHÔNG LAG)
+// 3. ENGINE PHÁO HOA LIÊN TỤC (60 FPS, SIÊU MƯỢT)
 // ============================================================
 const FW_COLORS = [
   "#f5c842", "#ff385c", "#ff9f1c", "#2ec4b6", "#a855f7",
@@ -219,15 +282,13 @@ const FW_COLORS = [
 let fwCanvas, fwCtx, fwW, fwH;
 let fwParticles = [];
 let fwRockets = [];
-let fwIsRunning = false;
-const MAX_PARTICLES = IS_MOBILE ? 85 : 120; // Giới hạn số lượng hạt để cực kỳ mượt mà
+const MAX_PARTICLES = IS_MOBILE ? 85 : 120;
 
-function startFireworks() {
-  if (fwIsRunning) return;
-  fwIsRunning = true;
+(function initFireworksEngine() {
   fwCanvas = document.getElementById("fireworks-canvas");
+  if (!fwCanvas) return;
   fwCtx = fwCanvas.getContext("2d");
-  
+
   function resize() {
     fwW = fwCanvas.width = window.innerWidth;
     fwH = fwCanvas.height = window.innerHeight;
@@ -235,21 +296,16 @@ function startFireworks() {
   resize();
   window.addEventListener("resize", resize);
 
-  // Phóng quả đầu tiên
-  launchRocket();
-  // Nhịp bắn tên lửa vừa phải (1.4s) không dồn dập gây lag
-  setInterval(() => {
-    if (fwIsRunning) launchRocket();
-  }, 1450);
-
+  // Phóng tên lửa liên tục
+  setInterval(launchRocket, 1400);
   requestAnimationFrame(fireworkLoop);
 
-  // Chạm hoặc click bất kỳ đâu để nổ pháo hoa tại điểm chạm
+  // Chạm/click bất kỳ đâu để nổ pháo hoa tại điểm chạm
   window.addEventListener("pointerdown", e => {
-    if (e.target.closest(".num-key") || e.target.closest(".btn") || e.target.closest(".candle")) return;
+    if (e.target.closest(".num-key") || e.target.closest(".btn") || e.target.closest(".interactive-flame")) return;
     spawnFirework(e.clientX, e.clientY);
   });
-}
+})();
 
 function launchRocket() {
   if (fwRockets.length > 2) return;
@@ -264,7 +320,6 @@ function launchRocket() {
 }
 
 function spawnFirework(x, y) {
-  // Đảm bảo không tràn bộ nhớ hạt
   if (fwParticles.length >= MAX_PARTICLES - 28) {
     fwParticles.splice(0, 28);
   }
@@ -288,16 +343,14 @@ function spawnFirework(x, y) {
 }
 
 function fireworkLoop() {
-  // Xóa nhẹ để giữ hiệu suất cao
   fwCtx.clearRect(0, 0, fwW, fwH);
   fwCtx.globalCompositeOperation = "lighter";
 
-  // Cập nhật tên lửa bay lên
   for (let i = fwRockets.length - 1; i >= 0; i--) {
     const r = fwRockets[i];
     r.x += r.vx;
     r.y += r.vy;
-    r.vy += 0.08; // trọng lực nhẹ
+    r.vy += 0.08;
 
     fwCtx.fillStyle = r.color;
     fwCtx.beginPath();
@@ -310,15 +363,14 @@ function fireworkLoop() {
     }
   }
 
-  // Cập nhật các hạt pháo hoa nổ
   for (let i = fwParticles.length - 1; i >= 0; i--) {
     const p = fwParticles[i];
     p.ox = p.x;
     p.oy = p.y;
     p.x += p.vx;
     p.y += p.vy;
-    p.vy += 0.075; // trọng lực
-    p.vx *= 0.985; // cản không khí
+    p.vy += 0.075;
+    p.vx *= 0.985;
     p.alpha -= p.decay;
 
     if (p.alpha <= 0) {
@@ -326,7 +378,6 @@ function fireworkLoop() {
       continue;
     }
 
-    // Vẽ tia sáng gọn nhẹ (siêu mượt trên mobile)
     fwCtx.strokeStyle = p.color;
     fwCtx.globalAlpha = p.alpha;
     fwCtx.lineWidth = p.size;
@@ -343,15 +394,14 @@ function fireworkLoop() {
 }
 
 // ============================================================
-// 3. CÁC TÍNH NĂNG TRANG CHÍNH (ĐÃ SỬA HOÀN HẢO)
+// 4. CÁC TÍNH NĂNG TRANG CHÍNH
 // ============================================================
 function initMainPageFeatures() {
   initDatesAndCountdown();
   initHeroStars();
   initBalloons();
-  initCandles();
-  initMemoriesSphere();
-  initMusic();
+  initInteractiveCandles();
+  init3DCube();
 }
 
 // NGÀY THÁNG VÀ ĐẾM NGƯỢC
@@ -401,7 +451,7 @@ function initDatesAndCountdown() {
   setInterval(updateCountdown, 1000);
 }
 
-// NGÔI SAO LẤP LÁNH Ở HERO
+// SAO HERO
 function initHeroStars() {
   const container = document.getElementById("hero-stars");
   if (!container) return;
@@ -420,222 +470,231 @@ function initHeroStars() {
   }
 }
 
-// BÓNG BAY LƠ LỬNG
+// BÓNG BAY LIÊN TỤC
 function initBalloons() {
   const container = document.getElementById("balloons-container");
-  const colors = ["#ec4899", "#f59e0b", "#8b5cf6", "#10b981", "#06b6d4", "#f43f5e"];
-  for (let i = 0; i < 8; i++) {
+  const colors = ["#ec4899", "#f59e0b", "#8b5cf6", "#10b981", "#06b6d4", "#f43f5e", "#ffd166", "#06d6a0"];
+  for (let i = 0; i < 10; i++) {
     const b = document.createElement("div");
     b.className = "balloon";
     const col = colors[i % colors.length];
     b.style.background = `radial-gradient(circle at 35% 30%, #fff 0%, ${col} 65%)`;
-    b.style.left = `${(i * 12) + Math.random() * 8}%`;
+    b.style.left = `${(i * 10) + Math.random() * 6}%`;
     b.style.animationDuration = `${Math.random() * 6 + 12}s`;
-    b.style.animationDelay = `${Math.random() * 8}s`;
+    b.style.animationDelay = `${Math.random() * 10}s`;
     container.appendChild(b);
   }
 }
 
-// BÁNH KEM VÀ THỔI NẾN
-function initCandles() {
+// ============================================================
+// 5. THỔI NẾN SINH NHẬT (CÂN CHỈNH CHUẨN XÁC THEO ẢNH BÁNH)
+// ============================================================
+function initInteractiveCandles() {
   const layer = document.getElementById("candles-layer");
   const countEl = document.getElementById("candles-left");
   const btnBlowAll = document.getElementById("btn-blow-all");
   const btnRelight = document.getElementById("btn-relight");
+  const banner = document.getElementById("cake-wishes-banner");
+  const cakeGlow = document.getElementById("cake-glow");
 
-  // Vị trí 5 ngọn nến trên bề mặt bánh
-  const candleCoords = [
-    { x: 30, y: 34 },
-    { x: 40, y: 28 },
-    { x: 50, y: 26 },
-    { x: 60, y: 28 },
-    { x: 70, y: 34 }
+  // Vị trí 7 ngọn nến trên đỉnh tầng bánh kem thật trong ảnh cake.jpg
+  const CANDLE_POSITIONS = [
+    { x: 36.4, y: 37.8 },
+    { x: 40.5, y: 38.0 },
+    { x: 44.8, y: 38.2 },
+    { x: 49.8, y: 38.0 },
+    { x: 54.8, y: 38.2 },
+    { x: 59.8, y: 38.0 },
+    { x: 62.5, y: 37.8 }
   ];
 
-  let unblownCount = 5;
-  const candleEls = [];
+  let unblownCount = CANDLE_POSITIONS.length;
+  countEl.textContent = unblownCount;
+  const flameEls = [];
 
-  candleCoords.forEach((coord, i) => {
-    const c = document.createElement("div");
-    c.className = "candle";
-    c.style.left = `${coord.x}%`;
-    c.style.top = `${coord.y}%`;
-    c.innerHTML = `
-      <div class="c-flame">🔥</div>
-      <div class="c-body"></div>
+  CANDLE_POSITIONS.forEach((pos, idx) => {
+    const flameWrap = document.createElement("div");
+    flameWrap.className = "interactive-flame";
+    flameWrap.style.left = `${pos.x}%`;
+    flameWrap.style.top = `${pos.y}%`;
+    flameWrap.innerHTML = `
+      <span class="flame-particle">🔥</span>
     `;
 
-    c.addEventListener("click", () => blowCandle(c));
-    layer.appendChild(c);
-    candleEls.push(c);
+    flameWrap.addEventListener("click", () => blowFlame(flameWrap));
+    layer.appendChild(flameWrap);
+    flameEls.push(flameWrap);
   });
 
-  function blowCandle(candleEl) {
-    if (candleEl.classList.contains("blown")) return;
-    candleEl.classList.add("blown");
+  function blowFlame(flameEl) {
+    if (flameEl.classList.contains("blown")) return;
+    flameEl.classList.add("blown");
+
+    // Tạo khói bốc lên
+    const smoke = document.createElement("span");
+    smoke.className = "smoke-puff";
+    smoke.textContent = "💨";
+    flameEl.appendChild(smoke);
+    setTimeout(() => smoke.remove(), 800);
+
     unblownCount--;
     countEl.textContent = unblownCount;
 
     if (unblownCount === 0) {
-      triggerAllCandlesBlown();
+      triggerCandlesCelebration();
     }
   }
 
   btnBlowAll.addEventListener("click", () => {
-    candleEls.forEach(c => c.classList.add("blown"));
+    flameEls.forEach(f => {
+      if (!f.classList.contains("blown")) {
+        f.classList.add("blown");
+        const smoke = document.createElement("span");
+        smoke.className = "smoke-puff";
+        smoke.textContent = "💨";
+        f.appendChild(smoke);
+        setTimeout(() => smoke.remove(), 800);
+      }
+    });
     unblownCount = 0;
     countEl.textContent = "0";
-    triggerAllCandlesBlown();
+    triggerCandlesCelebration();
   });
 
   btnRelight.addEventListener("click", () => {
-    candleEls.forEach(c => c.classList.remove("blown"));
-    unblownCount = 5;
-    countEl.textContent = "5";
+    flameEls.forEach(f => f.classList.remove("blown"));
+    unblownCount = CANDLE_POSITIONS.length;
+    countEl.textContent = unblownCount;
     btnRelight.classList.add("hidden");
     btnBlowAll.classList.remove("hidden");
+    banner.classList.add("hidden");
+    cakeGlow.style.opacity = "1";
   });
 
-  function triggerAllCandlesBlown() {
+  function triggerCandlesCelebration() {
     btnBlowAll.classList.add("hidden");
     btnRelight.classList.remove("hidden");
+    banner.classList.remove("hidden");
+    cakeGlow.style.opacity = "0.2";
 
-    // Kích hoạt hiệu ứng tiên nữ bay lên lấp lánh
-    launchFairyDust();
+    // Kích hoạt mưa confetti và sao tiên nữ rực rỡ tưng bừng
+    launchCelebrationShower();
 
-    // Bắn thêm pháo hoa chúc mừng
-    for (let i = 0; i < 4; i++) {
+    // Bắn liên tiếp pháo hoa
+    for (let i = 0; i < 5; i++) {
       setTimeout(() => {
         spawnFirework(Math.random() * window.innerWidth, Math.random() * window.innerHeight * 0.45);
-      }, i * 220);
+      }, i * 180);
     }
 
-    // Tự động cuộn mượt mà xuống phần kỷ niệm
+    // Tự động cuộn mượt mà đến Khối Hộp Kỷ Niệm 3D
     setTimeout(() => {
       document.getElementById("memories-section").scrollIntoView({ behavior: "smooth" });
-    }, 1100);
+    }, 1400);
   }
 }
 
-// HIỆU ỨNG TIÊN NỮ SAO LẤP LÁNH (FAIRY DUST)
-function launchFairyDust() {
-  const canvas = document.getElementById("fairy-canvas");
+// HIỆU ỨNG TƯNG BỪNG: MƯA CONFETTI & SAO TIÊN NỮ
+function launchCelebrationShower() {
+  const canvas = document.getElementById("celebration-canvas");
   if (!canvas) return;
   canvas.classList.add("active");
   const ctx = canvas.getContext("2d");
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
-  const fairies = [];
-  for (let i = 0; i < 45; i++) {
-    fairies.push({
-      x: window.innerWidth * 0.5 + (Math.random() - 0.5) * 80,
-      y: window.innerHeight * 0.65,
-      vx: (Math.random() - 0.5) * 6,
-      vy: -(Math.random() * 5 + 3.5),
-      size: Math.random() * 3.5 + 1.5,
+  const confettis = [];
+  for (let i = 0; i < 80; i++) {
+    confettis.push({
+      x: window.innerWidth * 0.5 + (Math.random() - 0.5) * 200,
+      y: window.innerHeight * 0.5,
+      vx: (Math.random() - 0.5) * 14,
+      vy: -(Math.random() * 12 + 6),
+      size: Math.random() * 6 + 4,
       color: FW_COLORS[Math.floor(Math.random() * FW_COLORS.length)],
+      rot: Math.random() * Math.PI,
+      vRot: (Math.random() - 0.5) * 0.2,
       life: 1,
-      decay: Math.random() * 0.012 + 0.008
+      decay: Math.random() * 0.008 + 0.006
     });
   }
 
   let frames = 0;
-  function fairyLoop() {
+  function loop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     let anyAlive = false;
 
-    for (const f of fairies) {
-      if (f.life <= 0) continue;
+    for (const c of confettis) {
+      if (c.life <= 0) continue;
       anyAlive = true;
-      f.x += f.vx;
-      f.y += f.vy;
-      f.vy += 0.03; // bay lượn nhẹ
-      f.life -= f.decay;
+      c.x += c.vx;
+      c.y += c.vy;
+      c.vy += 0.22; // Trọng lực rơi
+      c.vx *= 0.98;
+      c.rot += c.vRot;
+      c.life -= c.decay;
 
       ctx.save();
-      ctx.globalAlpha = f.life;
-      ctx.fillStyle = f.color;
-      ctx.beginPath();
-      ctx.arc(f.x, f.y, f.size, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.translate(c.x, c.y);
+      ctx.rotate(c.rot);
+      ctx.globalAlpha = c.life;
+      ctx.fillStyle = c.color;
+      ctx.fillRect(-c.size / 2, -c.size / 2, c.size, c.size * 1.4);
       ctx.restore();
     }
 
     frames++;
-    if (anyAlive && frames < 180) {
-      requestAnimationFrame(fairyLoop);
+    if (anyAlive && frames < 240) {
+      requestAnimationFrame(loop);
     } else {
       canvas.classList.remove("active");
       ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
   }
-  fairyLoop();
+  loop();
 }
 
 // ============================================================
-// 4. QUẢ CẦU KỶ NIỆM 3D (LỜI CHÚC Ý NGHĨA & HÌNH ẢNH)
+// 6. KHỐI HỘP KỶ NIỆM 3D (XOAY FULL GÓC 360°, KHÔNG BỊ MẤT)
 // ============================================================
-function initMemoriesSphere() {
-  const inner = document.getElementById("sphere-inner");
-  const scene = document.getElementById("sphere-scene");
-  const popup = document.getElementById("sphere-popup");
+function init3DCube() {
+  const cube = document.getElementById("cube-3d");
+  const scene = document.getElementById("cube-scene");
+  const popup = document.getElementById("cube-popup");
   const popupClose = document.getElementById("popup-close");
   const popupMedia = document.getElementById("popup-media");
+  const popupTitle = document.getElementById("popup-title");
   const popupMsg = document.getElementById("popup-msg");
 
-  const radius = IS_MOBILE ? 115 : 160;
-  const itemSize = IS_MOBILE ? 62 : 82;
-  const phiGolden = (1 + Math.sqrt(5)) / 2;
-  const total = MEMORIES_DATA.length;
+  // Nạp nội dung cho 6 mặt của khối lập phương
+  CUBE_FACES.forEach((item, idx) => {
+    const faceEl = document.getElementById(`face-${idx}`);
+    if (!faceEl) return;
 
-  MEMORIES_DATA.forEach((item, i) => {
-    // Phân bố đều các điểm trên mặt cầu (Fibonacci Sphere)
-    const theta = 2 * Math.PI * i / phiGolden;
-    const phi = Math.acos(1 - 2 * (i + 0.5) / total);
-    const x = radius * Math.sin(phi) * Math.cos(theta);
-    const y = radius * Math.cos(phi);
-    const z = radius * Math.sin(phi) * Math.sin(theta);
-
-    const el = document.createElement("div");
-    el.className = "sphere-item";
-    el.style.cssText = `
-      width: ${itemSize}px; height: ${itemSize}px;
-      margin: ${-itemSize / 2}px 0 0 ${-itemSize / 2}px;
-      transform: translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, ${z.toFixed(1)}px);
+    faceEl.innerHTML = `
+      <img src="${item.photo}" class="face-img" alt="${item.title}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="face-placeholder" style="--face-bg: ${item.color}; display: none;">
+        <span class="face-emoji">${item.emoji}</span>
+      </div>
+      <div class="face-caption">
+        <div class="face-caption-title">${item.title}</div>
+        <div class="face-caption-sub">${item.sub}</div>
+      </div>
     `;
 
-    const face = document.createElement("div");
-    face.className = "sphere-face";
-    face.style.width = face.style.height = `${itemSize}px`;
-    face.style.setProperty("--item-col", item.color);
-
-    if (item.photo) {
-      const img = document.createElement("img");
-      img.src = item.photo;
-      img.className = "sphere-item-photo";
-      face.appendChild(img);
-    } else {
-      const ph = document.createElement("div");
-      ph.className = "sphere-item-placeholder";
-      ph.textContent = item.emoji;
-      face.appendChild(ph);
-    }
-
-    el.appendChild(face);
-
-    // Mở popup khi chạm hoặc nhấp chuột
-    el.addEventListener("click", () => openMemoryPopup(item));
-    inner.appendChild(el);
+    // Mở popup chi tiết khi nhấp vào mặt hộp
+    faceEl.closest(".cube-face").addEventListener("click", () => {
+      openCubePopup(item);
+    });
   });
 
-  function openMemoryPopup(item) {
-    if (item.photo) {
-      popupMedia.innerHTML = `<img src="${item.photo}" alt="Ảnh kỷ niệm Bố Như">`;
-    } else {
-      popupMedia.innerHTML = `<div class="popup-emoji">${item.emoji}</div>`;
-    }
-    popupMsg.textContent = item.message;
+  function openCubePopup(item) {
+    popupTitle.textContent = item.title;
+    popupMsg.textContent = item.wish;
+    popupMedia.innerHTML = `
+      <img src="${item.photo}" alt="${item.title}" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <div class="popup-emoji" style="display: none;">${item.emoji}</div>
+    `;
     popup.classList.remove("hidden");
   }
 
@@ -644,93 +703,145 @@ function initMemoriesSphere() {
     if (e.target === popup) popup.classList.add("hidden");
   });
 
-  // Xoay 3D cảm ứng & chuột mượt mà
-  let rotY = 0;
-  let rotX = -10;
+  // Vật lý xoay 3D Full góc mượt mà
+  let rotX = -15;
+  let rotY = 25;
   let isDragging = false;
-  let startX = 0;
+  let startX = 0, startY = 0;
+  let lastDeltaX = 0, lastDeltaY = 0;
 
   scene.addEventListener("pointerdown", e => {
     isDragging = true;
     startX = e.clientX;
+    startY = e.clientY;
+    lastDeltaX = 0;
+    lastDeltaY = 0;
+  });
+
+  window.addEventListener("pointermove", e => {
+    if (!isDragging) return;
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+
+    rotY += dx * 0.45;
+    rotX -= dy * 0.45;
+
+    startX = e.clientX;
+    startY = e.clientY;
+    lastDeltaX = dx;
+    lastDeltaY = dy;
   });
 
   window.addEventListener("pointerup", () => { isDragging = false; });
-  window.addEventListener("pointermove", e => {
-    if (!isDragging) return;
-    const delta = e.clientX - startX;
-    rotY += delta * 0.45;
-    startX = e.clientX;
-  });
+  window.addEventListener("pointercancel", () => { isDragging = false; });
 
-  // Tự động xoay êm dịu khi nghỉ
-  function animateSphere() {
+  // Vòng lặp xoay tự nhiên liên tục
+  function animateCube() {
     if (!isDragging) {
-      rotY += 0.22;
+      rotY += 0.35; // Xoay chậm rãi quanh trục Y
+      rotX += Math.sin(Date.now() * 0.001) * 0.08; // Dao động nhẹ trục X tạo chiều sâu 3D
     }
-    inner.style.transform = `rotateY(${rotY}deg) rotateX(${rotX}deg)`;
-    requestAnimationFrame(animateSphere);
+    cube.style.transform = `rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg)`;
+    requestAnimationFrame(animateCube);
   }
-  animateSphere();
+  animateCube();
 }
 
 // ============================================================
-// 5. NHẠC CHÚC MỪNG SINH NHẬT (WEB AUDIO API TỰ ĐỘNG)
+// 7. HỆ THỐNG PHÁT NHẠC SINH NHẬT (AUTOPLAY & WEB AUDIO)
 // ============================================================
+const bgAudio = document.getElementById("bg-music");
+const musicBtn = document.getElementById("music-btn");
+let isAudioPlaying = false;
 let audioCtx = null;
-let isMusicPlaying = false;
-let musicInterval = null;
+let melodyTimeout = null;
 
-function initMusic() {
-  const musicBtn = document.getElementById("music-btn");
-  musicBtn.addEventListener("click", toggleMusic);
-}
+function triggerMusicAutoplay() {
+  if (isAudioPlaying) return;
 
-function toggleMusic() {
-  const musicBtn = document.getElementById("music-btn");
-  if (isMusicPlaying) {
-    stopBirthdaySong();
-    musicBtn.classList.remove("playing");
-    isMusicPlaying = false;
+  // Thử phát bằng file audio trước
+  if (bgAudio) {
+    bgAudio.play().then(() => {
+      isAudioPlaying = true;
+      musicBtn.classList.add("playing");
+    }).catch(() => {
+      // Nếu browser chặn hoặc chưa có file music.mp3, chuyển sang Web Audio API
+      playWebAudioMelody();
+    });
   } else {
-    playBirthdaySong();
-    musicBtn.classList.add("playing");
-    isMusicPlaying = true;
+    playWebAudioMelody();
   }
 }
 
-function playBirthdaySong() {
-  if (!audioCtx) {
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  }
-  if (audioCtx.state === "suspended") {
-    audioCtx.resume();
-  }
+// Thử phát ngay khi load trang
+window.addEventListener("load", () => {
+  triggerMusicAutoplay();
+});
 
-  // Nốt nhạc Happy Birthday du dương
-  const melody = [
-    { f: 261.63, d: 0.35 }, { f: 261.63, d: 0.25 }, { f: 293.66, d: 0.6 },
-    { f: 261.63, d: 0.6 },  { f: 349.23, d: 0.6 },  { f: 329.63, d: 1.0 },
-    { f: 261.63, d: 0.35 }, { f: 261.63, d: 0.25 }, { f: 293.66, d: 0.6 },
-    { f: 261.63, d: 0.6 },  { f: 392.00, d: 0.6 },  { f: 349.23, d: 1.0 },
-    { f: 261.63, d: 0.35 }, { f: 261.63, d: 0.25 }, { f: 523.25, d: 0.6 },
-    { f: 440.00, d: 0.6 },  { f: 349.23, d: 0.6 },  { f: 329.63, d: 0.6 }, { f: 293.66, d: 0.8 },
-    { f: 466.16, d: 0.35 }, { f: 466.16, d: 0.25 }, { f: 440.00, d: 0.6 },
-    { f: 349.23, d: 0.6 },  { f: 392.00, d: 0.6 },  { f: 349.23, d: 1.2 }
-  ];
+// Lắng nghe tương tác đầu tiên để vượt qua chính sách Autoplay của Browser
+const firstInteractionEvents = ["click", "touchstart", "keydown", "pointerdown"];
+function handleFirstInteraction() {
+  triggerMusicAutoplay();
+  firstInteractionEvents.forEach(evt => window.removeEventListener(evt, handleFirstInteraction));
+}
+firstInteractionEvents.forEach(evt => window.addEventListener(evt, handleFirstInteraction, { passive: true }));
 
-  let noteIndex = 0;
-  function playNextNote() {
-    if (!isMusicPlaying) return;
-    const note = melody[noteIndex];
-    playTone(note.f, note.d);
-    noteIndex = (noteIndex + 1) % melody.length;
-    musicInterval = setTimeout(playNextNote, note.d * 1000 + 70);
+// Nút bật / tắt nhạc
+musicBtn.addEventListener("click", () => {
+  if (isAudioPlaying) {
+    stopAllMusic();
+  } else {
+    triggerMusicAutoplay();
   }
-  playNextNote();
+});
+
+function stopAllMusic() {
+  if (bgAudio) bgAudio.pause();
+  if (melodyTimeout) clearTimeout(melodyTimeout);
+  musicBtn.classList.remove("playing");
+  isAudioPlaying = false;
+}
+
+// Web Audio API Synthesizer bài hát Happy Birthday du dương
+function playWebAudioMelody() {
+  try {
+    if (!audioCtx) {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (audioCtx.state === "suspended") {
+      audioCtx.resume();
+    }
+
+    isAudioPlaying = true;
+    musicBtn.classList.add("playing");
+
+    const melody = [
+      { f: 261.63, d: 0.35 }, { f: 261.63, d: 0.25 }, { f: 293.66, d: 0.6 },
+      { f: 261.63, d: 0.6 },  { f: 349.23, d: 0.6 },  { f: 329.63, d: 1.0 },
+      { f: 261.63, d: 0.35 }, { f: 261.63, d: 0.25 }, { f: 293.66, d: 0.6 },
+      { f: 261.63, d: 0.6 },  { f: 392.00, d: 0.6 },  { f: 349.23, d: 1.0 },
+      { f: 261.63, d: 0.35 }, { f: 261.63, d: 0.25 }, { f: 523.25, d: 0.6 },
+      { f: 440.00, d: 0.6 },  { f: 349.23, d: 0.6 },  { f: 329.63, d: 0.6 }, { f: 293.66, d: 0.8 },
+      { f: 466.16, d: 0.35 }, { f: 466.16, d: 0.25 }, { f: 440.00, d: 0.6 },
+      { f: 349.23, d: 0.6 },  { f: 392.00, d: 0.6 },  { f: 349.23, d: 1.2 }
+    ];
+
+    let noteIdx = 0;
+    function playStep() {
+      if (!isAudioPlaying) return;
+      const n = melody[noteIdx];
+      playTone(n.f, n.d);
+      noteIdx = (noteIdx + 1) % melody.length;
+      melodyTimeout = setTimeout(playStep, n.d * 1000 + 70);
+    }
+    playStep();
+  } catch (err) {
+    // Không làm gián đoạn nếu trình duyệt chưa hỗ trợ
+  }
 }
 
 function playTone(freq, duration) {
+  if (!audioCtx) return;
   try {
     const osc = audioCtx.createOscillator();
     const gain = audioCtx.createGain();
@@ -738,18 +849,12 @@ function playTone(freq, duration) {
     osc.frequency.value = freq;
 
     gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
-    gain.gain.linearRampToValueAtTime(0.12, audioCtx.currentTime + 0.05);
+    gain.gain.linearRampToValueAtTime(0.1, audioCtx.currentTime + 0.05);
     gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
 
     osc.connect(gain);
     gain.connect(audioCtx.destination);
     osc.start();
     osc.stop(audioCtx.currentTime + duration);
-  } catch (err) {
-    // Không làm gián đoạn nếu trình duyệt chặn audio
-  }
-}
-
-function stopBirthdaySong() {
-  if (musicInterval) clearTimeout(musicInterval);
+  } catch (e) {}
 }
