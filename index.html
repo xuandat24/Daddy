@@ -17,7 +17,7 @@
 
 <!-- Canvas pháo hoa liên tục (60fps mượt mà) -->
 <canvas id="fireworks-canvas"></canvas>
-<!-- Canvas cánh hoa đào & lá hoa rơi nhiều như gió -->
+<!-- Canvas cánh hoa đào & lá hoa rơi nhiều như gió (z-index cao hiển thị rõ rệt mọi nơi) -->
 <canvas id="petals-canvas"></canvas>
 <!-- Canvas hiệu ứng sao tiên nữ & confetti khi thổi nến -->
 <canvas id="celebration-canvas"></canvas>
@@ -32,22 +32,50 @@
 </button>
 
 <!-- ========================================== -->
-<!-- 1. CẢNH TRANG ĐẦU: KHÓA MẬT KHẨU (NỀN SÁNG, HOA ĐÀO & LÁ RƠI NHƯ GIÓ) -->
+<!-- 1. CẢNH TRANG ĐẦU: MÀN HÌNH KHÓA BÁNH SINH NHẬT TO & HOA ĐÀO RƠI NHƯ GIÓ -->
 <!-- ========================================== -->
 <div id="lock-screen" class="lock-screen">
   <div class="lock-stars-layer" id="lock-stars"></div>
 
-  <!-- Card mật khẩu to rộng, trang trí lộng lẫy -->
+  <!-- Card mật khẩu to rộng, thiết kế dạng bánh kem sinh nhật lộng lẫy -->
   <div class="lock-card" id="lock-card">
-    <div class="lock-header">
-      <!-- Khung tròn to viền bánh kem sinh nhật lộng lẫy để hiển thị ảnh Bố -->
-      <div class="lock-avatar-wrap" id="lock-avatar-wrap">
-        <div class="cake-crown-deco">👑 🎂 👑</div>
-        <img src="photos/IMG_0408.png" class="lock-avatar-img" id="avatar-img" alt="Bố Như" onerror="this.src='photos/dad.jpg';">
-        <div class="avatar-shine-ring"></div>
-        <div class="avatar-badge">🎂 Bố Như • 17/09</div>
+    
+    <!-- Cụm Bánh Sinh Nhật Lộng Lẫy bao quanh ảnh Bố Như (IMG_0409 (1).jpg) -->
+    <div class="lock-cake-container">
+      <!-- 5 ngọn nến lung linh trên đỉnh bánh sinh nhật -->
+      <div class="lock-cake-candles">
+        <span class="cake-candle"><i class="flame">🔥</i><span class="candle-stick c-pink"></span></span>
+        <span class="cake-candle"><i class="flame">🔥</i><span class="candle-stick c-gold"></span></span>
+        <span class="cake-candle middle"><i class="flame">🔥</i><span class="candle-stick c-purple"></span></span>
+        <span class="cake-candle"><i class="flame">🔥</i><span class="candle-stick c-gold"></span></span>
+        <span class="cake-candle"><i class="flame">🔥</i><span class="candle-stick c-pink"></span></span>
       </div>
-      
+
+      <!-- Tầng bánh kem lớn chứa ảnh Bố Như to rõ ràng -->
+      <div class="cake-tier-frame">
+        <div class="cake-frosting-top">
+          <span>🍓</span><span>🌸</span><span>✨</span><span>👑</span><span>✨</span><span>🌸</span><span>🍓</span>
+        </div>
+        
+        <div class="lock-avatar-wrap" id="lock-avatar-wrap">
+          <img src="photos/IMG_0409 (1).jpg" class="lock-avatar-img" id="avatar-img" alt="Bố Như" onerror="this.src='photos/IMG_0409%20(1).jpg'">
+          <div class="avatar-shine-ring"></div>
+        </div>
+
+        <div class="cake-cream-bottom">
+          <span class="cream-piping">🧁</span>
+          <span class="cream-piping">🍒</span>
+          <span class="cream-piping">🧁</span>
+        </div>
+      </div>
+
+      <!-- Đế bánh sinh nhật hoàng gia mạ vàng -->
+      <div class="cake-stand-pedestal">
+        <span>🎂 BỐ NHƯ • 17/09 🎂</span>
+      </div>
+    </div>
+
+    <div class="lock-header">
       <h1 class="lock-title">Chào Mừng Ngày Sinh Nhật Bố! 💕</h1>
       <p class="lock-sub">Nhập ngày tháng sinh của Bố Như để mở quà</p>
     </div>
@@ -149,7 +177,7 @@
     </div>
   </section>
 
-  <!-- BÁNH SINH NHẬT & THỔI NẾN (CÂN CHỈNH CHUẨN XÁC) -->
+  <!-- BÁNH SINH NHẬT & THỔI NẾN -->
   <section class="section cake-section" id="cake-section">
     <div class="section-inner">
       <h2 class="section-title">🕯️ Thổi Nến Sinh Nhật</h2>
@@ -158,9 +186,7 @@
       <div class="cake-container">
         <div class="cake-frame" id="cake-frame">
           <img src="cake.jpg" class="cake-photo" alt="Bánh sinh nhật Bố Như" id="cake-img">
-          <!-- Vùng hào quang nến -->
           <div class="cake-glow-effect" id="cake-glow"></div>
-          <!-- Các ngọn nến tương tác đặt chính xác vị trí nến trên bánh -->
           <div class="candles-layer" id="candles-layer"></div>
         </div>
 
@@ -171,7 +197,6 @@
           <button type="button" class="btn btn-gold hidden" id="btn-relight">🕯️ Thắp Lại Nến</button>
         </div>
 
-        <!-- Banner thông báo khi thổi tắt nến tưng bừng -->
         <div class="cake-wishes-banner hidden" id="cake-wishes-banner">
           <div class="banner-sparkle">✨ 🎂 ✨</div>
           <h3>Ước nguyện sinh nhật đã thành hiện thực!</h3>
@@ -195,14 +220,11 @@
       </div>
 
       <div class="alpha-cubes-scene" id="alpha-scene">
-        <!-- Vầng hào quang cầu vồng nhẹ ở trung tâm đường cong Alpha -->
         <div class="alpha-rainbow-halo"></div>
-        <!-- Vòng đường cong Alpha ảo ảnh -->
         <svg class="alpha-curve-svg" viewBox="-320 -160 640 320" aria-hidden="true">
           <path class="alpha-path" d="M 0,0 C 120,130 260,90 260,0 C 260,-90 120,-130 0,0 C -120,130 -260,90 -260,0 C -260,-90 -120,-130 0,0 Z"></path>
         </svg>
 
-        <!-- Container chứa 8 hộp lập phương 3D -->
         <div class="alpha-cubes-track" id="cubes-track"></div>
       </div>
 
@@ -212,33 +234,28 @@
     </div>
   </section>
 
-  <!-- THIỆP CHÚC MỪNG SINH NHẬT 3D CAO CẤP (SIÊU SÁNG, LỘNG LẪY, NHIỀU HIỆU ỨNG ĐẸP) -->
+  <!-- THIỆP CHÚC MỪNG SINH NHẬT 3D CAO CẤP (SIÊU SÁNG, LỘNG LẪY, HIỂN THỊ ẢNH THẬT RÕ NÉT) -->
   <div class="greeting-card-modal hidden" id="card-modal">
     <div class="card-backdrop" id="card-backdrop"></div>
     
     <div class="luxury-card-wrap" id="luxury-card">
-      <!-- Hiệu ứng sao kim cương và hoa confetti bên trong thiệp -->
       <div class="card-sparkles-ambient"></div>
-
-      <!-- Dải ruy băng nơ vàng kim trang trí góc thiệp -->
       <div class="card-ribbon"><span>🎂 BỐ NHƯ</span></div>
       <button type="button" class="card-close-btn" id="card-close" aria-label="Đóng thiệp">✕</button>
 
-      <!-- Khung thiệp chính có ánh sáng ngọc trai và viền vàng kim lấp lánh -->
       <div class="card-inner-body">
-        <!-- Khung ảnh kỷ niệm viền nổi mạ vàng -->
+        <!-- Khung ảnh kỷ niệm viền nổi mạ vàng hiển thị ảnh thật sắc nét -->
         <div class="card-photo-frame">
           <div class="photo-glow-border"></div>
           <div class="card-photo-box" id="card-photo-box">
-            <!-- Ảnh người dùng hiển thị to rõ -->
+            <!-- Ảnh thật IMG_0409 (X).jpg nạp tại đây -->
           </div>
           <div class="card-photo-pin">📍 Kỷ niệm yêu thương của Bố</div>
         </div>
 
-        <!-- Nội dung thiệp chúc mừng sáng đẹp -->
         <div class="card-text-content">
           <div class="card-header-badge">✨ KÍNH TẶNG BỐ NHƯ YÊU QUÝ ✨</div>
-          <h2 class="card-title" id="card-title">Sức Khỏe Vàng & Trường Thọ</h2>
+          <h2 class="card-title" id="card-title">Sức Khỏe Vàng & Dẻo Dai</h2>
           
           <div class="card-divider-flourish">
             <span>❦</span><div class="flourish-line"></div><span>❤️</span><div class="flourish-line"></div><span>❦</span>
@@ -248,7 +265,6 @@
             <p class="card-message" id="card-message">Kính chúc Bố Như luôn dồi dào sức khỏe...</p>
           </div>
 
-          <!-- Nút tương tác thả tim tưng bừng -->
           <div class="card-actions">
             <button type="button" class="btn-love-burst" id="btn-love-burst">
               <span>Con yêu Bố nhiều lắm ❤️</span>

@@ -8,10 +8,10 @@ const BDAY_DAY   = 17;     // Ngày 17
 const PIN_CODE   = "1709"; // Mật khẩu ngày sinh: 17/09
 
 // 8 Hộp Kỷ Niệm 3D với 8 chủ đề lời chúc ý nghĩa, hiện đại và sâu sắc
-// Liên kết chính xác 8 ảnh thực tế trong thư mục photos/ của bạn:
+// Liên kết chính xác 8 ảnh thực tế (đã chuyển đổi JPEG chất lượng cao) trong thư mục photos/:
 const CUBE_ITEMS = [
   {
-    photo: "photos/IMG_0408.png",
+    photo: "photos/IMG_0409 (1).jpg",
     title: "Sức Khỏe Vàng & Dẻo Dai",
     sub: "Thân tâm an lạc",
     wish: "Kính chúc Bố Như luôn dồi dào sức khỏe, đôi chân luôn vững vàng, mỗi ngày thức dậy đều tràn đầy năng lượng tươi mới và sự dẻo dai.",
@@ -19,7 +19,7 @@ const CUBE_ITEMS = [
     color: "#ec4899"
   },
   {
-    photo: "photos/IMG_0409.png",
+    photo: "photos/IMG_0409 (2).jpg",
     title: "Niềm Vui & Tiếng Cười",
     sub: "Nụ cười rạng rỡ",
     wish: "Chúc Bố mỗi ngày trôi qua đều ngập tràn tiếng cười, tìm thấy niềm vui trong từng khoảnh khắc giản dị và lúc nào tâm hồn cũng trẻ trung, yêu đời.",
@@ -27,7 +27,7 @@ const CUBE_ITEMS = [
     color: "#f59e0b"
   },
   {
-    photo: "photos/IMG_0413.png",
+    photo: "photos/IMG_0409 (3).jpg",
     title: "Công Việc Thuận Lợi & Hanh Thông",
     sub: "Vạn sự hanh thông",
     wish: "Chúc cho mọi dự định và công việc của Bố luôn xuôi chèo mát mái, vạn sự hanh thông, gặt hái nhiều thành quả tốt đẹp và trọn vẹn ý nguyện.",
@@ -35,7 +35,7 @@ const CUBE_ITEMS = [
     color: "#8b5cf6"
   },
   {
-    photo: "photos/IMG_0415.png",
+    photo: "photos/IMG_0409 (4).jpg",
     title: "Bình An & Thư Thái Tâm Hồn",
     sub: "An nhiên tự tại",
     wish: "Chúc Bố luôn có những phút giây an yên, tâm hồn thư thái nhẹ nhàng, không còn những âu lo bộn bề, mỗi ngày đều là một ngày bình an trọn vẹn.",
@@ -43,7 +43,7 @@ const CUBE_ITEMS = [
     color: "#10b981"
   },
   {
-    photo: "photos/IMG_0423.png",
+    photo: "photos/IMG_0409 (5).jpg",
     title: "Cuộc Sống Viên Mãn & May Mắn",
     sub: "Hạnh phúc đủ đầy",
     wish: "Chúc cuộc sống của Bố luôn ngập tràn điều may mắn, ấm no sung túc, gia đạo an vui và được tận hưởng trọn vẹn những quả ngọt của cuộc đời.",
@@ -51,7 +51,7 @@ const CUBE_ITEMS = [
     color: "#06b6d4"
   },
   {
-    photo: "photos/IMG_0425.png",
+    photo: "photos/IMG_0409 (6).jpg",
     title: "Gia Đình Sum Vầy & Ấm Áp",
     sub: "Tổ ấm yêu thương",
     wish: "Cảm ơn Bố vì luôn là ngọn lửa ấm che chở và sưởi ấm gia đình. Chúc tổ ấm của chúng ta mãi mãi sum vầy, thuận hòa và đong đầy tình yêu thương.",
@@ -59,7 +59,7 @@ const CUBE_ITEMS = [
     color: "#f97316"
   },
   {
-    photo: "photos/IMG_0439.png",
+    photo: "photos/IMG_0409 (7).jpg",
     title: "Điểm Tựa Vững Chãi Của Con",
     sub: "Niềm tự hào vô bờ",
     wish: "Bố luôn là tấm gương sáng, là điểm tựa vững chãi nhất để con tự tin bước đi. Con biết ơn và tự hào vô cùng vì được làm con của Bố Như!",
@@ -67,7 +67,7 @@ const CUBE_ITEMS = [
     color: "#d946ef"
   },
   {
-    photo: "photos/IMG_0447.png",
+    photo: "photos/IMG_0409 (8).jpg",
     title: "Tuổi Mới Rực Rỡ & Hạnh Phúc",
     sub: "Mừng sinh nhật Bố",
     wish: "Chúc mừng sinh nhật Bố Như thân yêu! Chúc Bố bước sang tuổi mới với muôn vàn phước lành, niềm vui nhân đôi và hạnh phúc đong đầy bên con cháu! ❤️",
@@ -79,7 +79,7 @@ const CUBE_ITEMS = [
 const IS_MOBILE = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) || window.innerWidth < 650;
 
 // ============================================================
-// 1. HOA ĐÀO & LÁ HOA RƠI NHIỀU NHƯ GIÓ (CANVAS PETALS)
+// 1. HOA ĐÀO & LÁ HOA RƠI NHIỀU NHƯ GIÓ (CANVAS PETALS & LEAVES IN THE WIND)
 // ============================================================
 (function initPetalsWind() {
   const canvas = document.getElementById("petals-canvas");
@@ -94,16 +94,16 @@ const IS_MOBILE = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) |
   });
 
   const petals = [];
-  // Tăng nhiều cánh hoa & lá hoa rơi theo gió (65 cánh hoa)
-  const TOTAL_PETALS = IS_MOBILE ? 45 : 68;
-  const COLORS = [
-    { fill: "#fb7185", type: "sakura" }, // Hoa đào hồng
-    { fill: "#f43f5e", type: "rose" },   // Hoa hồng đỏ thắm
-    { fill: "#fbcfe8", type: "sakura" }, // Hoa đào phấn nhẹ
-    { fill: "#fda4af", type: "sakura" }, // Hoa đào tươi
-    { fill: "#4ade80", type: "leaf" },   // Lá xanh non
-    { fill: "#22c55e", type: "leaf" },   // Lá xanh tươi
-    { fill: "#fef08a", type: "gold" }    // Hạt vàng lấp lánh
+  // Mật độ hoa đào, lá rơi dày dặn, dạt theo gió xuân rực rỡ
+  const TOTAL_PETALS = IS_MOBILE ? 60 : 92;
+  const PETAL_TYPES = [
+    { fill: "#f43f5e", fill2: "#fb7185", type: "sakura" }, // Hoa đào hồng thắm
+    { fill: "#fb7185", fill2: "#fda4af", type: "sakura" }, // Hoa đào hồng phấn
+    { fill: "#fbcfe8", fill2: "#ffffff", type: "sakura" }, // Cánh hoa đào trắng hồng
+    { fill: "#e11d48", fill2: "#be123c", type: "rose" },   // Cánh hoa hồng nhung
+    { fill: "#22c55e", fill2: "#4ade80", type: "leaf" },   // Lá xanh tươi non
+    { fill: "#16a34a", fill2: "#22c55e", type: "leaf" },   // Lá xanh biếc
+    { fill: "#f59e0b", fill2: "#fef08a", type: "gold" }    // Bụi vàng lấp lánh
   ];
 
   for (let i = 0; i < TOTAL_PETALS; i++) {
@@ -111,61 +111,107 @@ const IS_MOBILE = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) |
   }
 
   function createPetal(randomY) {
-    const c = COLORS[Math.floor(Math.random() * COLORS.length)];
+    const pt = PETAL_TYPES[Math.floor(Math.random() * PETAL_TYPES.length)];
     return {
-      x: Math.random() * (w + 200) - 100,
-      y: randomY ? Math.random() * h : -25,
-      sz: Math.random() * 8 + 7,
-      vx: Math.random() * 1.8 + 1.2, // Gió thổi dạt sang phải
-      vy: Math.random() * 1.6 + 1.2,
+      x: Math.random() * (w + 300) - 150,
+      y: randomY ? Math.random() * h : -30,
+      sz: Math.random() * 8 + 8,
+      vx: Math.random() * 2.8 + 2.0, // Gió thổi mạnh sang phải
+      vy: Math.random() * 1.8 + 1.2, // Rơi từ từ xuống dưới
+      wobble: Math.random() * Math.PI * 2,
+      vWobble: Math.random() * 0.05 + 0.02,
       rotX: Math.random() * Math.PI,
       rotY: Math.random() * Math.PI,
-      rotZ: Math.random() * Math.PI,
-      vRotX: Math.random() * 0.03 + 0.015,
-      vRotY: Math.random() * 0.03 + 0.015,
-      vRotZ: Math.random() * 0.02 + 0.01,
-      color: c.fill,
-      isLeaf: c.type === "leaf"
+      rotZ: Math.random() * Math.PI * 2,
+      vRotX: Math.random() * 0.035 + 0.015,
+      vRotY: Math.random() * 0.035 + 0.015,
+      vRotZ: (Math.random() - 0.5) * 0.04,
+      fill: pt.fill,
+      fill2: pt.fill2,
+      type: pt.type
     };
   }
 
   let windTime = 0;
   function drawPetals() {
     ctx.clearRect(0, 0, w, h);
-    windTime += 0.015;
-    // Mô phỏng cơn gió mùa xuân thổi lượn sóng
-    const gustX = Math.sin(windTime) * 1.6 + 1.2;
+    windTime += 0.018;
+
+    // Cơn gió xuân thổi lượn sóng cuồn cuộn
+    const windGust = Math.sin(windTime * 1.4) * 3.2 + Math.cos(windTime * 0.8) * 2.0 + 2.2;
 
     for (let i = 0; i < petals.length; i++) {
       const p = petals[i];
-      p.y += p.vy;
-      p.x += p.vx + gustX;
+      p.wobble += p.vWobble;
+      p.y += p.vy + Math.sin(p.wobble) * 0.6;
+      p.x += p.vx + windGust + Math.cos(p.wobble) * 0.8;
+
       p.rotX += p.vRotX;
       p.rotY += p.vRotY;
       p.rotZ += p.vRotZ;
 
-      if (p.y > h + 25 || p.x > w + 60) {
+      // Hết màn hình thì tạo lại bên trái/trên để gió thổi vào liên tục
+      if (p.y > h + 30 || p.x > w + 80) {
         petals[i] = createPetal(false);
-        petals[i].x = Math.random() * (w * 0.7) - 60;
+        petals[i].x = Math.random() * (w * 0.6) - 100;
         continue;
       }
 
       ctx.save();
       ctx.translate(p.x, p.y);
       ctx.rotate(p.rotZ);
-      const scaleX = Math.cos(p.rotX);
-      const scaleY = Math.sin(p.rotY);
-      ctx.scale(scaleX, scaleY);
 
-      ctx.fillStyle = p.color;
-      ctx.globalAlpha = 0.82;
-      ctx.beginPath();
-      if (p.isLeaf) {
-        ctx.ellipse(0, 0, p.sz * 0.5, p.sz * 1.25, Math.PI / 4, 0, Math.PI * 2);
+      // Tránh scale = 0 tuyệt đối để canvas không bao giờ bị lỗi ma trận
+      const sx = Math.sign(Math.cos(p.rotX) || 1) * Math.max(0.15, Math.abs(Math.cos(p.rotX)));
+      const sy = Math.sign(Math.sin(p.rotY) || 1) * Math.max(0.15, Math.abs(Math.sin(p.rotY)));
+      ctx.scale(sx, sy);
+
+      ctx.globalAlpha = 0.92;
+
+      if (p.type === "leaf") {
+        // Vẽ lá cây xanh tươi có sống lá
+        const grad = ctx.createLinearGradient(0, -p.sz, 0, p.sz);
+        grad.addColorStop(0, p.fill2);
+        grad.addColorStop(1, p.fill);
+        ctx.fillStyle = grad;
+
+        ctx.beginPath();
+        ctx.moveTo(0, -p.sz * 1.3);
+        ctx.bezierCurveTo(p.sz * 0.8, -p.sz * 0.5, p.sz * 0.8, p.sz * 0.5, 0, p.sz * 1.3);
+        ctx.bezierCurveTo(-p.sz * 0.8, p.sz * 0.5, -p.sz * 0.8, -p.sz * 0.5, 0, -p.sz * 1.3);
+        ctx.fill();
+
+        // Gân lá
+        ctx.strokeStyle = "rgba(255,255,255,0.45)";
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(0, -p.sz);
+        ctx.lineTo(0, p.sz);
+        ctx.stroke();
+      } else if (p.type === "sakura" || p.type === "rose") {
+        // Vẽ cánh hoa đào mềm mại hình trái tim/khía
+        const grad = ctx.createRadialGradient(0, 0, 1, 0, 0, p.sz * 1.2);
+        grad.addColorStop(0, p.fill2);
+        grad.addColorStop(0.8, p.fill);
+        grad.addColorStop(1, p.fill);
+        ctx.fillStyle = grad;
+
+        ctx.beginPath();
+        ctx.moveTo(0, p.sz * 1.1);
+        ctx.bezierCurveTo(-p.sz * 1.2, p.sz * 0.4, -p.sz * 1.1, -p.sz * 0.8, -p.sz * 0.2, -p.sz * 1.1);
+        ctx.bezierCurveTo(0, -p.sz * 0.8, 0, -p.sz * 0.8, p.sz * 0.2, -p.sz * 1.1);
+        ctx.bezierCurveTo(p.sz * 1.1, -p.sz * 0.8, p.sz * 1.2, p.sz * 0.4, 0, p.sz * 1.1);
+        ctx.fill();
       } else {
-        ctx.ellipse(0, 0, p.sz, p.sz * 1.35, 0, 0, Math.PI * 2);
+        // Hạt bụi vàng lấp lánh
+        ctx.fillStyle = p.fill2;
+        ctx.shadowColor = "#f59e0b";
+        ctx.shadowBlur = 8;
+        ctx.beginPath();
+        ctx.arc(0, 0, p.sz * 0.35, 0, Math.PI * 2);
+        ctx.fill();
       }
-      ctx.fill();
+
       ctx.restore();
     }
 
@@ -687,7 +733,7 @@ function initAlphaCubes() {
       facesHtml += `
         <div class="cube-face-mini ${fc}">
           <div class="cube-face-sheen"></div>
-          <img src="${item.photo}" class="cube-face-img" alt="${item.title}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <img src="${encodeURI(item.photo)}" class="cube-face-img" alt="${item.title}" onerror="if(!this.dataset.retry){this.dataset.retry='1';this.src='${item.photo}';}else{this.style.display='none';this.nextElementSibling.style.display='flex';}">
           <div class="cube-face-fallback" style="--cube-bg: ${item.color}; display: none;">
             <span class="c-emoji">${item.emoji}</span>
             <span class="c-tag">${item.title}</span>
@@ -812,7 +858,7 @@ function openLuxuryCard(item) {
 
   // Hiển thị ảnh thực tế to rõ và sắc nét
   photoBox.innerHTML = `
-    <img src="${item.photo}" alt="${item.title}" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <img src="${encodeURI(item.photo)}" alt="${item.title}" onerror="if(!this.dataset.retry){this.dataset.retry='1';this.src='${item.photo}';}else{this.style.display='none';this.nextElementSibling.style.display='block';}">
     <div class="card-emoji-big" style="display: none;">${item.emoji}</div>
   `;
 

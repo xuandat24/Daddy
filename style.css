@@ -1,7 +1,7 @@
 /* ===================================================
    🎂 STYLESHEET: SINH NHẬT BỐ NHƯ
-   Avatar to hình bánh kem, hoa đào rơi như gió, 8 hộp 3D lượn sóng,
-   dòng chỉ dẫn rõ ràng, thiệp chúc mừng sáng lộng lẫy, 60fps mượt mà
+   Màn hình khóa bánh sinh nhật lớn, hoa đào rơi như gió (z-index 1005),
+   8 hộp 3D hiển thị ảnh thật, thiệp chúc mừng sáng lộng lẫy
    =================================================== */
 
 :root {
@@ -18,8 +18,8 @@
   --text-muted: #cbd5e1;
   --radius-lg: 24px;
   --radius-md: 16px;
-  --c-size: 116px;
-  --c-half: 58px;
+  --c-size: 118px;
+  --c-half: 59px;
   --font-title: 'Playfair Display', serif;
   --font-script: 'Dancing Script', cursive;
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
@@ -27,8 +27,8 @@
 
 @media (max-width: 600px) {
   :root {
-    --c-size: 90px;
-    --c-half: 45px;
+    --c-size: 92px;
+    --c-half: 46px;
   }
 }
 
@@ -64,6 +64,7 @@ html, body {
   display: block;
 }
 
+/* Z-INDEX 1005 ĐỂ HOA ĐÀO RƠI TRỰC TIẾP TRÊN MÀN HÌNH KHÓA (Z-INDEX 1000) */
 #petals-canvas {
   position: fixed;
   top: 0;
@@ -71,7 +72,7 @@ html, body {
   width: 100vw;
   height: 100vh;
   pointer-events: none;
-  z-index: 96;
+  z-index: 1005 !important;
   display: block;
 }
 
@@ -82,7 +83,7 @@ html, body {
   width: 100vw;
   height: 100vh;
   pointer-events: none;
-  z-index: 100;
+  z-index: 1010;
   display: none;
 }
 
@@ -196,7 +197,7 @@ html, body {
 }
 
 /* ===================================================
-   1. CẢNH TRANG ĐẦU: KHÓA MẬT KHẨU (NỀN SÁNG, AVATAR TO)
+   1. CẢNH TRANG ĐẦU: KHÓA MẬT KHẨU (NỀN SÁNG, BÁNH KEM TO)
    =================================================== */
 .lock-screen {
   position: fixed;
@@ -230,66 +231,149 @@ html, body {
   100% { transform: scale(1.3); opacity: 1; filter: drop-shadow(0 0 6px #f59e0b); }
 }
 
-/* CARD MẬT KHẨU TO RỘNG */
+/* ===================================================
+   CARD MẬT KHẨU TO RỘNG HÌNH BÁNH SINH NHẬT HOÀNG GIA
+   =================================================== */
 .lock-card {
   position: relative;
-  width: min(430px, 94vw);
-  background: rgba(255, 255, 255, 0.92);
-  border: 2px solid rgba(245, 158, 11, 0.5);
-  border-radius: var(--radius-lg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  padding: 30px 24px 26px;
-  box-shadow: 0 20px 50px rgba(225, 29, 72, 0.18), 0 0 35px rgba(245, 158, 11, 0.3);
+  width: min(520px, 95vw);
+  background: linear-gradient(180deg, #ffffff 0%, #fffbf2 30%, #fff1f5 70%, #fde2e8 100%);
+  border: 4px solid #f59e0b;
+  border-radius: 54px 54px 42px 42px;
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  padding: 34px 26px 28px;
+  box-shadow: 0 28px 75px rgba(225, 29, 72, 0.28), 0 0 55px rgba(245, 158, 11, 0.45), inset 0 3px 0 #ffffff;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   z-index: 2;
   transition: transform 0.4s ease, opacity 0.4s ease;
+  overflow: visible;
 }
 
-.lock-header {
+/* ĐƯỜNG KEM SINH NHẬT LƯỢN SÓNG VIỀN TRÊN BÁNH */
+.lock-card::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 92%;
+  height: 22px;
+  background: radial-gradient(circle at 10px 10px, #fff1f2 8px, transparent 9px) repeat-x;
+  background-size: 20px 20px;
+  pointer-events: none;
+}
+
+/* KHUNG HÌNH BÁNH SINH NHẬT TO LỘNG LẪY BAO QUANH ẢNH BỐ */
+.lock-cake-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-bottom: 16px;
   width: 100%;
 }
 
-/* KHUNG TRÒN TO VIỀN BÁNH SINH NHẬT */
+.lock-cake-candles {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 16px;
+  margin-bottom: -10px;
+  z-index: 10;
+}
+
+.cake-candle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: candleDance 1.2s infinite alternate ease-in-out;
+}
+
+.cake-candle.middle {
+  transform: scale(1.15);
+  margin-bottom: 4px;
+}
+
+.cake-candle .flame {
+  font-size: 1.65rem;
+  font-style: normal;
+  animation: flameFlicker 0.4s infinite alternate ease-in-out;
+  filter: drop-shadow(0 0 8px #f59e0b) drop-shadow(0 0 16px #ef4444);
+}
+
+.candle-stick {
+  width: 10px;
+  height: 22px;
+  border-radius: 4px 4px 2px 2px;
+  box-shadow: inset -2px 0 3px rgba(0,0,0,0.25);
+  margin-top: -4px;
+}
+
+.candle-stick.c-pink {
+  background: repeating-linear-gradient(45deg, #f43f5e, #f43f5e 4px, #fff 4px, #fff 8px);
+}
+.candle-stick.c-gold {
+  background: repeating-linear-gradient(45deg, #f59e0b, #f59e0b 4px, #fff 4px, #fff 8px);
+}
+.candle-stick.c-purple {
+  background: repeating-linear-gradient(45deg, #8b5cf6, #8b5cf6 4px, #fff 4px, #fff 8px);
+  height: 28px;
+}
+
+@keyframes candleDance {
+  0% { transform: rotate(-3deg); }
+  100% { transform: rotate(3deg); }
+}
+
+/* TẦNG BÁNH KEM CHỨA ẢNH BỐ NHƯ */
+.cake-tier-frame {
+  position: relative;
+  background: linear-gradient(145deg, #ffffff 0%, #fff0f3 50%, #ffe4e8 100%);
+  border: 4px solid #f59e0b;
+  border-radius: 50% 50% 46% 46%;
+  padding: 12px 18px 16px;
+  box-shadow: 0 14px 38px rgba(245, 158, 11, 0.45), 0 0 30px rgba(236, 72, 153, 0.35);
+}
+
+.cake-frosting-top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.25rem;
+  margin-bottom: 8px;
+}
+
+/* KHUNG AVATAR BỐ NHƯ PHÓNG TO RÕ NÉT */
 .lock-avatar-wrap {
   position: relative;
-  width: 136px;
-  height: 136px;
-  margin: 0 auto 16px;
+  width: 172px;
+  height: 172px;
   border-radius: 50%;
-  padding: 4px;
-  background: linear-gradient(135deg, #f59e0b, #ec4899, #a855f7);
-  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.5), 0 0 20px rgba(236, 72, 153, 0.4);
-  cursor: pointer;
-  transition: transform 0.25s ease;
+  padding: 5px;
+  background: linear-gradient(135deg, #f59e0b, #ec4899, #8b5cf6, #3b82f6);
+  box-shadow: 0 10px 30px rgba(245, 158, 11, 0.6), 0 0 20px rgba(236, 72, 153, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
+  background-size: 200% 200%;
+  animation: rainbowBorder 6s ease infinite;
+}
+
+@keyframes rainbowBorder {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 @media (max-width: 600px) {
   .lock-avatar-wrap {
-    width: 115px;
-    height: 115px;
+    width: 142px;
+    height: 142px;
   }
-}
-
-.cake-crown-deco {
-  position: absolute;
-  top: -24px;
-  font-size: 1.4rem;
-  line-height: 1;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.25));
-  animation: bounce 1.8s infinite;
-  z-index: 10;
-}
-
-.lock-avatar-wrap:hover {
-  transform: scale(1.06);
 }
 
 .lock-avatar-img {
@@ -298,104 +382,101 @@ html, body {
   border-radius: 50%;
   object-fit: cover;
   display: block;
-}
-
-.lock-avatar-fallback {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: linear-gradient(145deg, #fff1f2, #ffe4e6);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: #831843;
-}
-
-.avatar-icon {
-  font-size: 2.8rem;
-  line-height: 1;
-}
-
-.avatar-tag {
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: #be185d;
-  margin-top: 2px;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
 }
 
 .avatar-shine-ring {
   position: absolute;
-  inset: -8px;
+  inset: -10px;
   border-radius: 50%;
-  border: 2.5px dashed #f59e0b;
-  animation: spinSlow 14s linear infinite;
+  border: 3px dashed #f59e0b;
+  animation: spinSlow 16s linear infinite;
   pointer-events: none;
 }
 
-.avatar-badge {
-  position: absolute;
-  bottom: -8px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: linear-gradient(135deg, #f59e0b, #d97706);
-  color: #fff;
-  font-size: 0.78rem;
-  font-weight: 700;
-  padding: 3px 12px;
-  border-radius: 20px;
-  box-shadow: 0 2px 8px rgba(217, 119, 6, 0.4);
-  white-space: nowrap;
+.cake-cream-bottom {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  font-size: 1.15rem;
+  margin-top: 6px;
+}
+
+.cake-stand-pedestal {
+  margin-top: -10px;
+  background: linear-gradient(135deg, #f59e0b, #d97706, #b45309);
+  color: #ffffff;
+  font-size: 0.94rem;
+  font-weight: 800;
+  padding: 6px 22px;
+  border-radius: 25px;
+  border: 2px solid #ffea85;
+  box-shadow: 0 6px 18px rgba(217, 119, 6, 0.6), 0 0 15px rgba(245, 200, 66, 0.4);
+  z-index: 6;
+  letter-spacing: 0.06em;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+}
+
+.lock-header {
+  margin-bottom: 12px;
+  width: 100%;
 }
 
 .lock-title {
   font-family: var(--font-script);
-  font-size: 1.95rem;
+  font-size: clamp(2rem, 5vw, 2.45rem);
   font-weight: 700;
   color: #831843;
-  line-height: 1.25;
+  line-height: 1.2;
   margin-top: 6px;
+  text-shadow: 0 1px 2px rgba(244, 63, 94, 0.2);
 }
 
 .lock-sub {
-  font-size: 0.92rem;
-  color: #6b7280;
+  font-size: clamp(0.9rem, 2.2vw, 1.02rem);
+  color: #64748b;
   margin-top: 4px;
+  font-weight: 500;
 }
 
 .pin-dots-container {
   display: flex;
-  gap: 18px;
+  gap: 20px;
   margin: 14px 0 10px;
 }
 
 .pin-dot {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
-  border: 2px solid #f59e0b;
-  background: rgba(245, 158, 11, 0.1);
+  border: 2.5px solid #f59e0b;
+  background: rgba(245, 158, 11, 0.12);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
   transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .pin-dot.filled {
-  background: #f59e0b;
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
   border-color: #d97706;
-  transform: scale(1.2);
-  box-shadow: 0 0 14px rgba(245, 158, 11, 0.75);
+  transform: scale(1.3);
+  box-shadow: 0 0 18px rgba(245, 158, 11, 0.9), 0 0 8px rgba(239, 68, 68, 0.6);
 }
 
 .pin-hint {
-  font-size: 0.82rem;
+  font-size: 0.86rem;
   color: #9d174d;
-  font-weight: 500;
-  margin-bottom: 6px;
+  font-weight: 600;
+  background: rgba(254, 205, 211, 0.5);
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 8px;
+  border: 1px dashed rgba(244, 63, 94, 0.4);
 }
 
 .pin-err {
-  font-size: 0.86rem;
+  font-size: 0.9rem;
   color: #dc2626;
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 8px;
   animation: shake 0.4s ease;
 }
@@ -406,48 +487,61 @@ html, body {
   75% { transform: translateX(8px); }
 }
 
+/* BÀN PHÍM SỐ PHÍM BÁNH MACARON TO RÕ ĐẸP MẮT */
 .numpad {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 14px;
   width: 100%;
-  max-width: 310px;
-  margin-top: 6px;
+  max-width: 330px;
+  margin-top: 8px;
 }
 
 .num-key {
-  height: 58px;
-  border-radius: 50px;
-  border: 1.5px solid rgba(244, 114, 182, 0.4);
-  background: #ffffff;
+  height: 60px;
+  border-radius: 26px;
+  border: 2px solid rgba(244, 114, 182, 0.5);
+  background: linear-gradient(180deg, #ffffff 0%, #fff5f8 100%);
   color: #831843;
-  font-size: 1.55rem;
-  font-weight: 700;
+  font-size: 1.68rem;
+  font-weight: 800;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   touch-action: manipulation;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
-  transition: background 0.15s, transform 0.15s, border-color 0.15s;
+  box-shadow: 0 5px 14px rgba(236, 72, 153, 0.15), inset 0 2px 0 #ffffff;
+  transition: all 0.15s ease;
   user-select: none;
+}
+
+.num-key:hover {
+  border-color: #f59e0b;
+  transform: translateY(-2px);
+  box-shadow: 0 7px 18px rgba(245, 158, 11, 0.35);
 }
 
 .num-key:active {
   background: #fef08a;
-  transform: scale(0.92);
+  transform: scale(0.92) translateY(2px);
   border-color: #f59e0b;
+  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.4);
 }
 
 .num-key.key-action {
-  font-size: 1.2rem;
-  background: #fdf2f8;
+  font-size: 1.35rem;
+  background: linear-gradient(180deg, #fff0f5 0%, #ffe4ec 100%);
   color: #be185d;
   border-color: #fbcfe8;
 }
 
-.num-key.key-action:active {
+.num-key.key-action:hover {
   background: #fce7f3;
+  border-color: #f43f5e;
+}
+
+.num-key.key-action:active {
+  background: #fbcfe8;
 }
 
 /* MODAL CHÚC MỪNG KHI MỞ KHÓA */
@@ -1222,7 +1316,6 @@ html, body {
   position: relative;
   width: min(540px, 94vw);
   max-height: 90vh;
-  /* Màu sắc sáng tinh khôi, ngọc trai ánh vàng champagne */
   background: linear-gradient(145deg, #ffffff 0%, #fffbf2 40%, #fff1f3 100%);
   border: 3.5px solid #f59e0b;
   border-radius: 28px;
@@ -1306,7 +1399,6 @@ html, body {
   text-align: center;
 }
 
-/* KHUNG ẢNH KỶ NIỆM RÕ NÉT */
 .card-photo-frame {
   position: relative;
   width: min(300px, 78vw);
@@ -1549,7 +1641,7 @@ html, body {
 /* RESPONSIVE MOBILE TWEAKS */
 @media (max-width: 600px) {
   .lock-card {
-    padding: 24px 18px 22px;
+    padding: 22px 16px 20px;
   }
   .num-key {
     height: 52px;
