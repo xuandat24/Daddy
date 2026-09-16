@@ -1,88 +1,132 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
-  <title>🎂 Happy Birthday Bo Nhu! 🎂</title>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>🎂 Chúc Mừng Sinh Nhật Bố Như!</title>
+  <meta name="description" content="Trang web chúc mừng sinh nhật đặc biệt dành tặng Bố Như kính yêu">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- Fireworks canvas (fixed, always on top) -->
+<!-- Canvas pháo hoa liên tục (tối ưu hóa 60fps mượt mà) -->
 <canvas id="fireworks-canvas"></canvas>
+<!-- Canvas tiên nữ sao lấp lánh khi thổi nến -->
+<canvas id="fairy-canvas"></canvas>
 
-<!-- ===== LOCK SCREEN ===== -->
-<div id="lock-screen">
-  <canvas id="lock-canvas"></canvas>
-  <div class="lock-petals" id="lock-petals"></div>
-  <div class="lock-wrap">
-    <div class="lock-card" id="lock-card">
-      <div class="lock-left">
-        <div class="lock-photo-frame">
-          <img src="photos/dad.jpg" class="lock-photo" alt="Bo Nhu" onerror="this.style.display='none'">
-          <div class="lock-photo-bg">
-            <span class="lock-photo-icon">👨‍👧</span>
-            <small>Ảnh bố</small>
-          </div>
+<!-- Bóng bay lơ lửng -->
+<div id="balloons-container" aria-hidden="true"></div>
+
+<!-- Nút bật/tắt nhạc sinh nhật -->
+<button id="music-btn" class="music-btn hidden" aria-label="Bật tắt nhạc">
+  <span class="music-note">♪</span>
+  <span class="music-waves"><b></b><b></b><b></b></span>
+</button>
+
+<!-- ========================================== -->
+<!-- 1. CẢNH TRANG ĐẦU: MÀN HÌNH KHÓA MẬT KHẨU -->
+<!-- ========================================== -->
+<div id="lock-screen" class="lock-screen">
+  <div class="lock-bg-sparkles" id="lock-sparkles"></div>
+
+  <div class="lock-card" id="lock-card">
+    <div class="lock-header">
+      <div class="lock-avatar-wrap">
+        <img src="photos/dad.jpg" class="lock-avatar-img" alt="Bố Như" onerror="this.style.display='none';document.getElementById('lock-fallback-avatar').style.display='flex'">
+        <div class="lock-avatar-fallback" id="lock-fallback-avatar">
+          <span>👨‍👧‍👦</span>
         </div>
-        <p class="lock-love">Con yêu Bố ❤️</p>
+        <div class="lock-avatar-ring"></div>
       </div>
-      <div class="lock-right">
-        <div class="lock-sparkle-line">✨✨✨✨✨</div>
-        <h2 class="lock-title">Hãy nhập ngày sinh<br>của Bố Như yêu quý 💕</h2>
-        <div class="pin-display" id="pin-display">
-          <span class="pin-dot" id="d0"></span>
-          <span class="pin-dot" id="d1"></span>
-          <span class="pin-dot" id="d2"></span>
-          <span class="pin-dot" id="d3"></span>
-        </div>
-        <p class="pin-hint">Gợi ý: Nhập NGÀY+THÁNG sinh của Bố (4 số)</p>
-        <div class="numpad" id="numpad">
-          <button class="nk" data-v="1">1</button>
-          <button class="nk" data-v="2">2</button>
-          <button class="nk" data-v="3">3</button>
-          <button class="nk" data-v="4">4</button>
-          <button class="nk" data-v="5">5</button>
-          <button class="nk" data-v="6">6</button>
-          <button class="nk" data-v="7">7</button>
-          <button class="nk" data-v="8">8</button>
-          <button class="nk" data-v="9">9</button>
-          <button class="nk nk-action" data-v="C">C</button>
-          <button class="nk" data-v="0">0</button>
-          <button class="nk nk-action" data-v="X">⌫</button>
-        </div>
-        <p class="pin-error hidden" id="pin-error">❌ Sai rồi! Thử lại nhé 😊</p>
-      </div>
+      <h1 class="lock-title">Chào mừng đến ngày đặc biệt! 💕</h1>
+      <p class="lock-sub">Nhập ngày tháng sinh của Bố Như để mở quà</p>
+    </div>
+
+    <!-- 4 chấm hiển thị mã PIN -->
+    <div class="pin-dots-container" id="pin-dots">
+      <span class="pin-dot" id="dot-0"></span>
+      <span class="pin-dot" id="dot-1"></span>
+      <span class="pin-dot" id="dot-2"></span>
+      <span class="pin-dot" id="dot-3"></span>
+    </div>
+
+    <p class="pin-hint">💡 Gợi ý: Ngày + Tháng sinh của Bố (4 chữ số)</p>
+    <p class="pin-err hidden" id="pin-err">❌ Mã chưa đúng rồi, Bố thử lại nhé! 😊</p>
+
+    <!-- Bàn phím số điện thoại tiện lợi -->
+    <div class="numpad" id="numpad">
+      <button type="button" class="num-key" data-val="1">1</button>
+      <button type="button" class="num-key" data-val="2">2</button>
+      <button type="button" class="num-key" data-val="3">3</button>
+      <button type="button" class="num-key" data-val="4">4</button>
+      <button type="button" class="num-key" data-val="5">5</button>
+      <button type="button" class="num-key" data-val="6">6</button>
+      <button type="button" class="num-key" data-val="7">7</button>
+      <button type="button" class="num-key" data-val="8">8</button>
+      <button type="button" class="num-key" data-val="9">9</button>
+      <button type="button" class="num-key key-action" data-val="C" title="Xóa hết">C</button>
+      <button type="button" class="num-key" data-val="0">0</button>
+      <button type="button" class="num-key key-action" data-val="DEL" title="Xóa một số">⌫</button>
     </div>
   </div>
-  <div class="lock-success hidden" id="lock-success">
-    <div class="success-inner">
-      <div class="success-emoji">🎉 🎂 🎉</div>
-      <h1 class="success-h1">Chúc mừng sinh nhật</h1>
-      <h2 class="success-h2">Bố Như thân yêu của con!</h2>
-      <p class="success-p">💕 Con yêu Bố nhiều lắm! 💕</p>
+
+  <!-- Thông điệp chúc mừng khi mở khóa thành công -->
+  <div class="lock-success-modal hidden" id="lock-success">
+    <div class="success-box">
+      <div class="success-icon">🎉 🎂 🎉</div>
+      <h2 class="success-title">Chúc Mừng Sinh Nhật</h2>
+      <h3 class="success-name">Bố Như Thân Yêu Của Con!</h3>
+      <p class="success-desc">💕 Con chúc Bố luôn mạnh khỏe, bình an và hạnh phúc đong đầy bên gia đình! 💕</p>
+      <div class="success-loading-bar"><div class="bar-fill"></div></div>
+      <button type="button" class="btn-enter" id="btn-enter-now">Khám Phá Món Quà 🎁</button>
     </div>
   </div>
 </div>
 
-<!-- ===== MAIN PAGE ===== -->
-<div id="main-page" class="hidden">
+<!-- ========================================== -->
+<!-- 2. TRANG CHÍNH: NỘI DUNG ĐÃ SỬA HOÀN THIỆN -->
+<!-- ========================================== -->
+<main id="main-content" class="main-content hidden">
 
-  <!-- Hero scene: Cake + Orbiting cubes + Floating messages -->
-  <section class="hero-scene" id="hero-scene">
-    <div class="hero-bg-gradient"></div>
-    <div id="messages-layer"></div>
-    <div id="cubes-layer"></div>
-    <div class="cake-center" id="cake-center">
-      <div class="cake-aura-ring r1"></div>
-      <div class="cake-aura-ring r2"></div>
-      <div class="cake-aura-ring r3"></div>
-      <img src="cake.jpg" class="cake-img-main" alt="Banh sinh nhat Bo Nhu">
+  <!-- HERO SECTION -->
+  <header class="hero" id="hero">
+    <div class="hero-aurora"></div>
+    <div class="hero-stars" id="hero-stars"></div>
+    <div class="hero-content">
+      <p class="hero-sub">✨ Kính tặng Bố Như kính yêu của chúng con ✨</p>
+      <h1 class="hero-title">
+        <span class="ht ht1">Chúc</span>
+        <span class="ht ht2">Mừng</span>
+        <span class="ht ht3">Sinh</span>
+        <span class="ht ht4">Nhật</span>
+        <span class="ht ht5">Bố Như!</span>
+        <span class="ht ht6">🎂</span>
+      </h1>
+
+      <div class="date-box">
+        <div class="date-item">
+          <span class="date-label">📅 Hôm nay</span>
+          <span class="date-value" id="today-date">--</span>
+        </div>
+        <div class="date-divider"></div>
+        <div class="date-item">
+          <span class="date-label">🎂 Sinh nhật Bố Như</span>
+          <span class="date-bday" id="bday-val">17 Tháng 9</span>
+          <span class="date-badge" id="bday-notice">🎉 Hôm nay là sinh nhật Bố!</span>
+        </div>
+      </div>
+
+      <div class="scroll-down-hint">
+        <span>Cuộn xuống cùng khám phá</span>
+        <div class="bounce-arrow">↓</div>
+      </div>
     </div>
-  </section>
+  </header>
 
-  <!-- Scroll content -->
+  <!-- ĐẾM NGƯỢC COUNTDOWN -->
   <section class="section countdown-section">
     <div class="section-inner">
       <h2 class="section-title">⏳ Đếm Ngược Đến Sinh Nhật Bố</h2>
@@ -93,21 +137,65 @@
         <div class="cd-card"><span class="cd-num" id="cd-mins">00</span><span class="cd-lbl">Phút</span></div>
         <div class="cd-card"><span class="cd-num" id="cd-secs">00</span><span class="cd-lbl">Giây</span></div>
       </div>
-      <p class="cd-today-msg hidden" id="cd-msg">🎉 HÔM NAY LÀ SINH NHẬT BỐ! HAPPY BIRTHDAY! 🎉</p>
+      <p class="cd-special-msg hidden" id="cd-msg">🎉 HÔM NAY LÀ SINH NHẬT BỐ NHƯ! HAPPY BIRTHDAY! 🎉</p>
     </div>
   </section>
 
-  <footer class="footer">
-    <div class="footer-hearts"><span>❤️</span><span>💛</span><span>💚</span><span>💙</span><span>💜</span></div>
-    <p class="footer-text">Làm bằng cả trái tim ❤️ dành tặng Bố Như</p>
-    <p id="footer-year" style="color:#6b4a8a;font-size:.8rem"></p>
-  </footer>
-</div>
+  <!-- BÁNH SINH NHẬT & THỔI NẾN -->
+  <section class="section cake-section" id="cake-section">
+    <div class="section-inner">
+      <h2 class="section-title">🕯️ Thổi Nến Sinh Nhật</h2>
+      <p class="section-sub">Bố hãy chạm vào từng ngọn nến để thổi tắt và ước một điều ước nhé!</p>
 
-<button id="music-btn" class="music-btn hidden">
-  <span class="music-note">♪</span>
-  <span class="music-waves"><b></b><b></b><b></b></span>
-</button>
+      <div class="cake-container">
+        <div class="cake-frame" id="cake-frame">
+          <img src="cake.jpg" class="cake-photo" alt="Bánh sinh nhật Bố Như" id="cake-img">
+          <div class="cake-glow-effect"></div>
+          <!-- 5 ngọn nến lung linh -->
+          <div class="candles-layer" id="candles-layer"></div>
+        </div>
+
+        <p class="candle-counter"><span id="candles-left">5</span> ngọn nến đang thắp sáng</p>
+
+        <div class="cake-actions">
+          <button type="button" class="btn btn-purple" id="btn-blow-all">💨 Thổi Tắt Tất Cả</button>
+          <button type="button" class="btn btn-gold hidden" id="btn-relight">🕯️ Thắp Lại Nến</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUẢ CẦU KỶ NIỆM 3D (LỜI CHÚC Ý NGHĨA & HÌNH ẢNH) -->
+  <section class="section memories-section" id="memories-section">
+    <div class="section-inner">
+      <h2 class="section-title">💎 Kỷ Niệm & Lời Chúc Yêu Thương</h2>
+      <p class="section-sub">Quả cầu 3D xoay tròn – vuốt hoặc chạm vào các viên ngọc để đọc những lời chúc ý nghĩa nhất</p>
+
+      <div class="sphere-wrapper" id="sphere-scene">
+        <div class="sphere-inner" id="sphere-inner"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POPUP XEM CHI TIẾT LỜI CHÚC & ẢNH -->
+  <div class="sphere-popup hidden" id="sphere-popup">
+    <div class="popup-box">
+      <button type="button" class="popup-close-btn" id="popup-close" aria-label="Đóng">✕</button>
+      <div class="popup-media-wrap" id="popup-media"></div>
+      <div class="popup-msg-text" id="popup-msg"></div>
+    </div>
+  </div>
+
+  <!-- FOOTER YÊU THƯƠNG -->
+  <footer class="site-footer">
+    <div class="footer-hearts">
+      <span>❤️</span><span>💛</span><span>💚</span><span>💙</span><span>💜</span>
+    </div>
+    <p class="footer-quote">"Làm bằng cả trái tim và lòng kính yêu ❤️ dành tặng Bố Như"</p>
+    <p class="footer-copyright" id="footer-year">© 2026</p>
+  </footer>
+
+</main>
 
 <script src="app.js"></script>
 </body>
