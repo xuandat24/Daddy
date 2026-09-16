@@ -7,71 +7,71 @@ const BDAY_MONTH = 9;      // Tháng 9
 const BDAY_DAY   = 17;     // Ngày 17
 const PIN_CODE   = "1709"; // Mật khẩu ngày sinh: 17/09
 
-// 8 Hộp Kỷ Niệm 3D với 8 chủ đề lời chúc ý nghĩa, sâu sắc nhất dành tặng Bố Như
-// Người dùng có thể thêm ảnh p1.jpg -> p8.jpg vào thư mục photos/
+// 8 Hộp Kỷ Niệm 3D với 8 chủ đề lời chúc ý nghĩa, hiện đại và sâu sắc
+// Liên kết chính xác 8 ảnh thực tế trong thư mục photos/ của bạn:
 const CUBE_ITEMS = [
   {
-    photo: "photos/p1.jpg",
-    title: "Tình Yêu Của Bố",
-    sub: "Điểm tựa cuộc đời",
-    wish: "Bố Như ơi, con yêu Bố nhiều lắm! Cảm ơn Bố vì cả cuộc đời đã luôn là điểm tựa vững chãi, là bến đỗ bình yên nhất cho gia đình chúng con.",
-    emoji: "❤️",
+    photo: "photos/IMG_0408.png",
+    title: "Sức Khỏe Vàng & Dẻo Dai",
+    sub: "Thân tâm an lạc",
+    wish: "Kính chúc Bố Như luôn dồi dào sức khỏe, đôi chân luôn vững vàng, mỗi ngày thức dậy đều tràn đầy năng lượng tươi mới và sự dẻo dai.",
+    emoji: "💪",
     color: "#ec4899"
   },
   {
-    photo: "photos/p2.jpg",
-    title: "Người Hùng Thầm Lặng",
-    sub: "Che chở bão giông",
-    wish: "Bố là người hùng vĩ đại nhất trong tim con – không khoác áo choàng nhưng luôn dang rộng đôi tay che chở cho con qua mọi thử thách cuộc đời.",
-    emoji: "🌟",
+    photo: "photos/IMG_0409.png",
+    title: "Niềm Vui & Tiếng Cười",
+    sub: "Nụ cười rạng rỡ",
+    wish: "Chúc Bố mỗi ngày trôi qua đều ngập tràn tiếng cười, tìm thấy niềm vui trong từng khoảnh khắc giản dị và lúc nào tâm hồn cũng trẻ trung, yêu đời.",
+    emoji: "😊",
     color: "#f59e0b"
   },
   {
-    photo: "photos/p3.jpg",
-    title: "Chúc Thọ Bố Như",
-    sub: "Tuổi mới bình an",
-    wish: "Kính chúc Bố Như bước sang tuổi mới luôn dồi dào sức khỏe, tinh thần an vui, hạnh phúc đong đầy và vạn sự như ý bên con cháu!",
-    emoji: "🎂",
+    photo: "photos/IMG_0413.png",
+    title: "Công Việc Thuận Lợi & Hanh Thông",
+    sub: "Vạn sự hanh thông",
+    wish: "Chúc cho mọi dự định và công việc của Bố luôn xuôi chèo mát mái, vạn sự hanh thông, gặt hái nhiều thành quả tốt đẹp và trọn vẹn ý nguyện.",
+    emoji: "💼",
     color: "#8b5cf6"
   },
   {
-    photo: "photos/p4.jpg",
-    title: "Bàn Tay Che Chở",
-    sub: "Hy sinh vô bờ",
-    wish: "Cảm ơn những nếp nhăn và đôi bàn tay chai sạn của Bố – tất cả sự hy sinh thầm lặng suốt bao năm tháng ấy con luôn khắc ghi và biết ơn khôn nguôi.",
+    photo: "photos/IMG_0415.png",
+    title: "Bình An & Thư Thái Tâm Hồn",
+    sub: "An nhiên tự tại",
+    wish: "Chúc Bố luôn có những phút giây an yên, tâm hồn thư thái nhẹ nhàng, không còn những âu lo bộn bề, mỗi ngày đều là một ngày bình an trọn vẹn.",
     emoji: "🌿",
     color: "#10b981"
   },
   {
-    photo: "photos/p5.jpg",
-    title: "Tình Thấu Biển Trời",
-    sub: "Ấm áp bao la",
-    wish: "Tình thương của Bố như núi cao biển rộng. Dù con có đi đến chân trời nào, về bên Bố vẫn là nơi ấm áp và bình yên nhất trên thế gian.",
-    emoji: "🏔️",
+    photo: "photos/IMG_0423.png",
+    title: "Cuộc Sống Viên Mãn & May Mắn",
+    sub: "Hạnh phúc đủ đầy",
+    wish: "Chúc cuộc sống của Bố luôn ngập tràn điều may mắn, ấm no sung túc, gia đạo an vui và được tận hưởng trọn vẹn những quả ngọt của cuộc đời.",
+    emoji: "🍀",
     color: "#06b6d4"
   },
   {
-    photo: "photos/p6.jpg",
-    title: "Nụ Cười Của Bố",
-    sub: "Nắng ấm gia đình",
-    wish: "Nụ cười rạng rỡ của Bố chính là niềm hạnh phúc lớn nhất của chúng con. Chúc Bố mỗi ngày trôi qua đều ngập tràn tiếng cười và sự an nhiên.",
-    emoji: "☀️",
+    photo: "photos/IMG_0425.png",
+    title: "Gia Đình Sum Vầy & Ấm Áp",
+    sub: "Tổ ấm yêu thương",
+    wish: "Cảm ơn Bố vì luôn là ngọn lửa ấm che chở và sưởi ấm gia đình. Chúc tổ ấm của chúng ta mãi mãi sum vầy, thuận hòa và đong đầy tình yêu thương.",
+    emoji: "🏠",
     color: "#f97316"
   },
   {
-    photo: "photos/p7.jpg",
-    title: "Người Thầy Vĩ Đại",
-    sub: "Dạy bằng yêu thương",
-    wish: "Bố dạy con bằng chính cuộc đời kiên cường, nhân hậu và bao dung của mình. Con tự hào vô cùng vì được làm con của Bố Như!",
-    emoji: "🦋",
+    photo: "photos/IMG_0439.png",
+    title: "Điểm Tựa Vững Chãi Của Con",
+    sub: "Niềm tự hào vô bờ",
+    wish: "Bố luôn là tấm gương sáng, là điểm tựa vững chãi nhất để con tự tin bước đi. Con biết ơn và tự hào vô cùng vì được làm con của Bố Như!",
+    emoji: "🏔️",
     color: "#d946ef"
   },
   {
-    photo: "photos/p8.jpg",
-    title: "Bách Niên Giai Lão",
-    sub: "Mãi mãi bên con",
-    wish: "Chúc Bố Như sống lâu trăm tuổi, mãi mạnh khỏe, an khang và luôn là chỗ dựa tinh thần vô giá cho cả gia đình chúng con! ❤️",
-    emoji: "💖",
+    photo: "photos/IMG_0447.png",
+    title: "Tuổi Mới Rực Rỡ & Hạnh Phúc",
+    sub: "Mừng sinh nhật Bố",
+    wish: "Chúc mừng sinh nhật Bố Như thân yêu! Chúc Bố bước sang tuổi mới với muôn vàn phước lành, niềm vui nhân đôi và hạnh phúc đong đầy bên con cháu! ❤️",
+    emoji: "🎂",
     color: "#f43f5e"
   }
 ];
@@ -79,9 +79,9 @@ const CUBE_ITEMS = [
 const IS_MOBILE = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) || window.innerWidth < 650;
 
 // ============================================================
-// 1. CÁNH HOA & LÁ HOA RƠI TỰ NHIÊN (CANVAS PETALS)
+// 1. HOA ĐÀO & LÁ HOA RƠI NHIỀU NHƯ GIÓ (CANVAS PETALS)
 // ============================================================
-(function initPetals() {
+(function initPetalsWind() {
   const canvas = document.getElementById("petals-canvas");
   if (!canvas) return;
   const ctx = canvas.getContext("2d");
@@ -94,14 +94,16 @@ const IS_MOBILE = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) |
   });
 
   const petals = [];
-  const TOTAL_PETALS = IS_MOBILE ? 24 : 36;
+  // Tăng nhiều cánh hoa & lá hoa rơi theo gió (65 cánh hoa)
+  const TOTAL_PETALS = IS_MOBILE ? 45 : 68;
   const COLORS = [
-    { fill: "#f43f5e", type: "rose" },
-    { fill: "#fbcfe8", type: "sakura" },
-    { fill: "#fb7185", type: "rose" },
-    { fill: "#4ade80", type: "leaf" },
-    { fill: "#22c55e", type: "leaf" },
-    { fill: "#fef08a", type: "yellow" }
+    { fill: "#fb7185", type: "sakura" }, // Hoa đào hồng
+    { fill: "#f43f5e", type: "rose" },   // Hoa hồng đỏ thắm
+    { fill: "#fbcfe8", type: "sakura" }, // Hoa đào phấn nhẹ
+    { fill: "#fda4af", type: "sakura" }, // Hoa đào tươi
+    { fill: "#4ade80", type: "leaf" },   // Lá xanh non
+    { fill: "#22c55e", type: "leaf" },   // Lá xanh tươi
+    { fill: "#fef08a", type: "gold" }    // Hạt vàng lấp lánh
   ];
 
   for (let i = 0; i < TOTAL_PETALS; i++) {
@@ -111,35 +113,40 @@ const IS_MOBILE = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) |
   function createPetal(randomY) {
     const c = COLORS[Math.floor(Math.random() * COLORS.length)];
     return {
-      x: Math.random() * w,
-      y: randomY ? Math.random() * h : -20,
-      sz: Math.random() * 8 + 8,
-      vx: (Math.random() - 0.5) * 1.2,
-      vy: Math.random() * 1.4 + 1.0,
+      x: Math.random() * (w + 200) - 100,
+      y: randomY ? Math.random() * h : -25,
+      sz: Math.random() * 8 + 7,
+      vx: Math.random() * 1.8 + 1.2, // Gió thổi dạt sang phải
+      vy: Math.random() * 1.6 + 1.2,
       rotX: Math.random() * Math.PI,
       rotY: Math.random() * Math.PI,
       rotZ: Math.random() * Math.PI,
-      vRotX: Math.random() * 0.03 + 0.01,
-      vRotY: Math.random() * 0.03 + 0.01,
+      vRotX: Math.random() * 0.03 + 0.015,
+      vRotY: Math.random() * 0.03 + 0.015,
       vRotZ: Math.random() * 0.02 + 0.01,
       color: c.fill,
       isLeaf: c.type === "leaf"
     };
   }
 
+  let windTime = 0;
   function drawPetals() {
     ctx.clearRect(0, 0, w, h);
+    windTime += 0.015;
+    // Mô phỏng cơn gió mùa xuân thổi lượn sóng
+    const gustX = Math.sin(windTime) * 1.6 + 1.2;
 
     for (let i = 0; i < petals.length; i++) {
       const p = petals[i];
       p.y += p.vy;
-      p.x += p.vx + Math.sin(p.y * 0.015) * 0.8;
+      p.x += p.vx + gustX;
       p.rotX += p.vRotX;
       p.rotY += p.vRotY;
       p.rotZ += p.vRotZ;
 
-      if (p.y > h + 20) {
+      if (p.y > h + 25 || p.x > w + 60) {
         petals[i] = createPetal(false);
+        petals[i].x = Math.random() * (w * 0.7) - 60;
         continue;
       }
 
@@ -151,12 +158,12 @@ const IS_MOBILE = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) |
       ctx.scale(scaleX, scaleY);
 
       ctx.fillStyle = p.color;
-      ctx.globalAlpha = 0.78;
+      ctx.globalAlpha = 0.82;
       ctx.beginPath();
       if (p.isLeaf) {
-        ctx.ellipse(0, 0, p.sz * 0.5, p.sz * 1.2, Math.PI / 4, 0, Math.PI * 2);
+        ctx.ellipse(0, 0, p.sz * 0.5, p.sz * 1.25, Math.PI / 4, 0, Math.PI * 2);
       } else {
-        ctx.ellipse(0, 0, p.sz, p.sz * 1.3, 0, 0, Math.PI * 2);
+        ctx.ellipse(0, 0, p.sz, p.sz * 1.35, 0, 0, Math.PI * 2);
       }
       ctx.fill();
       ctx.restore();
@@ -185,10 +192,10 @@ const pinErr = document.getElementById("pin-err");
 (function initBrightStars() {
   const container = document.getElementById("lock-stars");
   if (!container) return;
-  for (let i = 0; i < 45; i++) {
+  for (let i = 0; i < 48; i++) {
     const star = document.createElement("div");
     star.className = "bright-star";
-    const sz = Math.random() * 3 + 2;
+    const sz = Math.random() * 3.5 + 2;
     star.style.cssText = `
       width: ${sz}px; height: ${sz}px;
       left: ${Math.random() * 100}%;
@@ -422,7 +429,6 @@ function initDatesAndCountdown() {
   const daysOfWeek = ["Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy"];
   const months = ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"];
 
-  // Dòng ngày hôm nay to rõ: "Thứ năm, 17 Tháng 9"
   document.getElementById("today-date").textContent = 
     `${daysOfWeek[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]}`;
 
@@ -660,7 +666,7 @@ function launchCelebrationShower() {
 // ============================================================
 // 6. 8 HỘP KỶ NIỆM 3D DI CHUYỂN & XOAY THEO ĐƯỜNG ALPHA (α) CẦU VỒNG
 // ============================================================
-let activeCubeModalItem = null;
+let isSceneHovered = false;
 
 function initAlphaCubes() {
   const track = document.getElementById("cubes-track");
@@ -669,13 +675,12 @@ function initAlphaCubes() {
 
   const cubeEls = [];
 
-  // Tạo 8 khối hộp 3D
+  // Tạo 8 khối hộp 3D hiển thị ảnh của người dùng
   CUBE_ITEMS.forEach((item, idx) => {
     const cubeWrap = document.createElement("div");
     cubeWrap.className = "alpha-cube-item";
     cubeWrap.dataset.index = idx;
 
-    // 6 mặt của khối hộp
     const faceClasses = ["face-f", "face-b", "face-r", "face-l", "face-t", "face-d"];
     let facesHtml = "";
     faceClasses.forEach(fc => {
@@ -693,8 +698,9 @@ function initAlphaCubes() {
 
     cubeWrap.innerHTML = facesHtml;
 
-    // Khi nhấp hoặc chạm vào hộp -> Mở thiệp chúc mừng sinh nhật
-    cubeWrap.addEventListener("click", () => {
+    // Chạm hoặc nhấp vào hộp -> Mở thiệp chúc mừng sinh nhật
+    cubeWrap.addEventListener("click", (e) => {
+      e.stopPropagation();
       openLuxuryCard(item);
     });
 
@@ -702,7 +708,15 @@ function initAlphaCubes() {
     cubeEls.push(cubeWrap);
   });
 
-  // Vật lý chuyển động trên quỹ đạo hình Alpha (α)
+  // Khi người dùng rê chuột vào khu vực các hộp, tự động chậm lại để cực kỳ dễ bấm
+  scene.addEventListener("mouseenter", () => { isSceneHovered = true; });
+  scene.addEventListener("mouseleave", () => { isSceneHovered = false; });
+  scene.addEventListener("touchstart", () => { isSceneHovered = true; }, { passive: true });
+  scene.addEventListener("touchend", () => { 
+    setTimeout(() => { isSceneHovered = false; }, 1500); 
+  }, { passive: true });
+
+  // Kéo xoay tự do trong không gian 3D
   let alphaTime = 0;
   let isSceneDragging = false;
   let startX = 0, startY = 0;
@@ -719,8 +733,8 @@ function initAlphaCubes() {
     if (!isSceneDragging) return;
     const dx = e.clientX - startX;
     const dy = e.clientY - startY;
-    sceneRotY += dx * 0.4;
-    sceneRotX -= dy * 0.4;
+    sceneRotY += dx * 0.35;
+    sceneRotX -= dy * 0.35;
     startX = e.clientX;
     startY = e.clientY;
   });
@@ -728,30 +742,26 @@ function initAlphaCubes() {
   window.addEventListener("pointerup", () => { isSceneDragging = false; });
   window.addEventListener("pointercancel", () => { isSceneDragging = false; });
 
-  // Vòng lặp chuyển động 60fps mượt mà
   function animateAlphaTrack() {
-    alphaTime += 0.007; // Tốc độ di chuyển êm dịu
+    // Nếu đang rê chuột/chạm thì di chuyển siêu chậm (0.001) để người dùng dễ bấm trúng
+    const speed = isSceneHovered ? 0.0015 : 0.0065;
+    alphaTime += speed;
 
     const scaleX = IS_MOBILE ? 150 : 255;
     const scaleY = IS_MOBILE ? 80 : 130;
     const scaleZ = IS_MOBILE ? 90 : 160;
 
     cubeEls.forEach((cube, i) => {
-      // Góc pha phân bố đều 8 hộp dọc theo đường cong
       const theta = alphaTime + (i * Math.PI * 2) / 8;
 
-      // Phương trình tham số đường cong hình Alpha (α) trong không gian 3D
-      // X tạo 2 cánh lượn, Y tạo nút giao chữ alpha, Z tạo chiều sâu không gian
       const x = scaleX * Math.cos(theta);
       const y = scaleY * Math.sin(2 * theta) * 0.65;
       const z = scaleZ * Math.sin(theta);
 
-      // Tự xoay 3D riêng biệt của từng hộp
       const rotX = (theta * 50 + i * 45) % 360;
       const rotY = (theta * 70 + i * 35) % 360;
       const rotZ = (theta * 30) % 360;
 
-      // Hiệu ứng cầu vồng nhẹ (shimmering rainbow hue)
       const rainbowHue = ((alphaTime * 60) + (i * 45)) % 360;
       cube.style.setProperty("--rainbow-col", `hsl(${rainbowHue}, 95%, 68%)`);
 
@@ -764,7 +774,7 @@ function initAlphaCubes() {
     });
 
     if (!isSceneDragging) {
-      sceneRotY += 0.05; // Xoay nhẹ không gian tổng thể
+      sceneRotY += 0.04;
     }
     track.style.transform = `rotateX(${sceneRotX.toFixed(1)}deg) rotateY(${sceneRotY.toFixed(1)}deg)`;
 
@@ -774,8 +784,7 @@ function initAlphaCubes() {
 }
 
 // ============================================================
-// 7. THIỆP CHÚC MỪNG SINH NHẬT 3D CAO CẤP (LUXURY GREETING CARD)
-// Màu sắc sáng hơn, nhiều hiệu ứng đẹp, animation thích thú
+// 7. THIỆP CHÚC MỪNG SINH NHẬT 3D CAO CẤP (SIÊU SÁNG & LỘNG LẪY)
 // ============================================================
 function initGreetingCardModal() {
   const modal = document.getElementById("card-modal");
@@ -786,7 +795,6 @@ function initGreetingCardModal() {
   closeBtn.addEventListener("click", closeLuxuryCard);
   backdrop.addEventListener("click", closeLuxuryCard);
 
-  // Hiệu ứng nổ tim ngập tràn khi bấm "Con yêu Bố nhiều lắm ❤️"
   loveBtn.addEventListener("click", e => {
     e.stopPropagation();
     triggerLoveBurst(e.clientX || window.innerWidth / 2, e.clientY || window.innerHeight / 2);
@@ -794,7 +802,6 @@ function initGreetingCardModal() {
 }
 
 function openLuxuryCard(item) {
-  activeCubeModalItem = item;
   const modal = document.getElementById("card-modal");
   const titleEl = document.getElementById("card-title");
   const msgEl = document.getElementById("card-message");
@@ -803,6 +810,7 @@ function openLuxuryCard(item) {
   titleEl.textContent = item.title;
   msgEl.textContent = item.wish;
 
+  // Hiển thị ảnh thực tế to rõ và sắc nét
   photoBox.innerHTML = `
     <img src="${item.photo}" alt="${item.title}" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
     <div class="card-emoji-big" style="display: none;">${item.emoji}</div>
@@ -810,7 +818,7 @@ function openLuxuryCard(item) {
 
   modal.classList.remove("hidden");
 
-  // Bắn nhẹ chùm pháo hoa chúc mừng tấm thiệp
+  // Nổ pháo hoa chúc mừng tấm thiệp
   spawnFirework(window.innerWidth * 0.5, window.innerHeight * 0.35);
 }
 
@@ -819,16 +827,15 @@ function closeLuxuryCard() {
   modal.classList.add("hidden");
 }
 
-// HIỆU ỨNG THẢ NGÀN TRÁI TIM BAY KHI NHẤN NÚT
 function triggerLoveBurst(originX, originY) {
-  const hearts = ["❤️", "💖", "💕", "💗", "💓", "💝", "✨"];
-  for (let i = 0; i < 20; i++) {
+  const hearts = ["❤️", "💖", "💕", "💗", "💓", "💝", "✨", "🌸"];
+  for (let i = 0; i < 22; i++) {
     const heart = document.createElement("div");
     heart.className = "floating-heart-particle";
     heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-    heart.style.left = `${originX + (Math.random() - 0.5) * 100}px`;
-    heart.style.top = `${originY + (Math.random() - 0.5) * 60}px`;
-    heart.style.setProperty("--rx", `${(Math.random() - 0.5) * 140}px`);
+    heart.style.left = `${originX + (Math.random() - 0.5) * 110}px`;
+    heart.style.top = `${originY + (Math.random() - 0.5) * 70}px`;
+    heart.style.setProperty("--rx", `${(Math.random() - 0.5) * 160}px`);
     heart.style.animationDelay = `${Math.random() * 0.25}s`;
     document.body.appendChild(heart);
 
@@ -837,7 +844,7 @@ function triggerLoveBurst(originX, originY) {
 }
 
 // ============================================================
-// 8. HỆ THỐNG PHÁT NHẠC SINH NHẬT (AUTOPLAY & WEB AUDIO)
+// 8. HỆ THỐNG PHÁT NHẠC NỀN LIÊN TỤC (TỰ ĐỘNG PHÁT TỪ ĐẦU)
 // ============================================================
 const bgAudio = document.getElementById("bg-music");
 const musicBtn = document.getElementById("music-btn");
@@ -853,17 +860,17 @@ function triggerMusicAutoplay() {
       isAudioPlaying = true;
       musicBtn.classList.add("playing");
     }).catch(() => {
-      playWebAudioMelody();
+      // Nếu browser chặn trước khi tương tác, chờ cử chỉ đầu tiên
     });
-  } else {
-    playWebAudioMelody();
   }
 }
 
+// Cố gắng phát ngay khi tải trang
 window.addEventListener("load", () => {
   triggerMusicAutoplay();
 });
 
+// Bắt bất cứ tương tác chạm / click / phím đầu tiên để phát nhạc liên tục
 const firstInteractionEvents = ["click", "touchstart", "keydown", "pointerdown"];
 function handleFirstInteraction() {
   triggerMusicAutoplay();
@@ -871,20 +878,26 @@ function handleFirstInteraction() {
 }
 firstInteractionEvents.forEach(evt => window.addEventListener(evt, handleFirstInteraction, { passive: true }));
 
+// Nút bật/tắt nhạc
 musicBtn.addEventListener("click", () => {
   if (isAudioPlaying) {
-    stopAllMusic();
+    if (bgAudio) bgAudio.pause();
+    if (melodyTimeout) clearTimeout(melodyTimeout);
+    musicBtn.classList.remove("playing");
+    isAudioPlaying = false;
   } else {
-    triggerMusicAutoplay();
+    if (bgAudio) {
+      bgAudio.play().then(() => {
+        isAudioPlaying = true;
+        musicBtn.classList.add("playing");
+      }).catch(() => {
+        playWebAudioMelody();
+      });
+    } else {
+      playWebAudioMelody();
+    }
   }
 });
-
-function stopAllMusic() {
-  if (bgAudio) bgAudio.pause();
-  if (melodyTimeout) clearTimeout(melodyTimeout);
-  musicBtn.classList.remove("playing");
-  isAudioPlaying = false;
-}
 
 function playWebAudioMelody() {
   try {

@@ -1,7 +1,7 @@
 /* ===================================================
    🎂 STYLESHEET: SINH NHẬT BỐ NHƯ
-   8 Hộp 3D lượn sóng Alpha cầu vồng, Thiệp chúc mừng 3D cao cấp,
-   Hộp ngày tháng phóng to rõ ràng, hiệu ứng 60fps mượt mà
+   Avatar to hình bánh kem, hoa đào rơi như gió, 8 hộp 3D lượn sóng,
+   dòng chỉ dẫn rõ ràng, thiệp chúc mừng sáng lộng lẫy, 60fps mượt mà
    =================================================== */
 
 :root {
@@ -18,8 +18,8 @@
   --text-muted: #cbd5e1;
   --radius-lg: 24px;
   --radius-md: 16px;
-  --c-size: 112px;
-  --c-half: 56px;
+  --c-size: 116px;
+  --c-half: 58px;
   --font-title: 'Playfair Display', serif;
   --font-script: 'Dancing Script', cursive;
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
@@ -27,8 +27,8 @@
 
 @media (max-width: 600px) {
   :root {
-    --c-size: 86px;
-    --c-half: 43px;
+    --c-size: 90px;
+    --c-half: 45px;
   }
 }
 
@@ -196,7 +196,7 @@ html, body {
 }
 
 /* ===================================================
-   1. CẢNH TRANG ĐẦU: KHÓA MẬT KHẨU
+   1. CẢNH TRANG ĐẦU: KHÓA MẬT KHẨU (NỀN SÁNG, AVATAR TO)
    =================================================== */
 .lock-screen {
   position: fixed;
@@ -230,16 +230,17 @@ html, body {
   100% { transform: scale(1.3); opacity: 1; filter: drop-shadow(0 0 6px #f59e0b); }
 }
 
+/* CARD MẬT KHẨU TO RỘNG */
 .lock-card {
   position: relative;
-  width: min(390px, 94vw);
-  background: rgba(255, 255, 255, 0.9);
-  border: 2px solid rgba(245, 158, 11, 0.45);
+  width: min(430px, 94vw);
+  background: rgba(255, 255, 255, 0.92);
+  border: 2px solid rgba(245, 158, 11, 0.5);
   border-radius: var(--radius-lg);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  padding: 28px 22px 24px;
-  box-shadow: 0 18px 45px rgba(225, 29, 72, 0.16), 0 0 30px rgba(245, 158, 11, 0.25);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 30px 24px 26px;
+  box-shadow: 0 20px 50px rgba(225, 29, 72, 0.18), 0 0 35px rgba(245, 158, 11, 0.3);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -249,21 +250,42 @@ html, body {
 }
 
 .lock-header {
-  margin-bottom: 14px;
+  margin-bottom: 16px;
   width: 100%;
 }
 
+/* KHUNG TRÒN TO VIỀN BÁNH SINH NHẬT */
 .lock-avatar-wrap {
   position: relative;
-  width: 96px;
-  height: 96px;
-  margin: 0 auto 12px;
+  width: 136px;
+  height: 136px;
+  margin: 0 auto 16px;
   border-radius: 50%;
-  padding: 3.5px;
+  padding: 4px;
   background: linear-gradient(135deg, #f59e0b, #ec4899, #a855f7);
-  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4), 0 0 15px rgba(236, 72, 153, 0.3);
+  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.5), 0 0 20px rgba(236, 72, 153, 0.4);
   cursor: pointer;
   transition: transform 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 600px) {
+  .lock-avatar-wrap {
+    width: 115px;
+    height: 115px;
+  }
+}
+
+.cake-crown-deco {
+  position: absolute;
+  top: -24px;
+  font-size: 1.4rem;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.25));
+  animation: bounce 1.8s infinite;
+  z-index: 10;
 }
 
 .lock-avatar-wrap:hover {
@@ -291,12 +313,12 @@ html, body {
 }
 
 .avatar-icon {
-  font-size: 2.3rem;
+  font-size: 2.8rem;
   line-height: 1;
 }
 
 .avatar-tag {
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 700;
   color: #be185d;
   margin-top: 2px;
@@ -304,23 +326,23 @@ html, body {
 
 .avatar-shine-ring {
   position: absolute;
-  inset: -6px;
+  inset: -8px;
   border-radius: 50%;
-  border: 2px dashed #f59e0b;
+  border: 2.5px dashed #f59e0b;
   animation: spinSlow 14s linear infinite;
   pointer-events: none;
 }
 
 .avatar-badge {
   position: absolute;
-  bottom: -6px;
+  bottom: -8px;
   left: 50%;
   transform: translateX(-50%);
   background: linear-gradient(135deg, #f59e0b, #d97706);
   color: #fff;
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 700;
-  padding: 2px 10px;
+  padding: 3px 12px;
   border-radius: 20px;
   box-shadow: 0 2px 8px rgba(217, 119, 6, 0.4);
   white-space: nowrap;
@@ -328,7 +350,7 @@ html, body {
 
 .lock-title {
   font-family: var(--font-script);
-  font-size: 1.85rem;
+  font-size: 1.95rem;
   font-weight: 700;
   color: #831843;
   line-height: 1.25;
@@ -336,20 +358,20 @@ html, body {
 }
 
 .lock-sub {
-  font-size: 0.88rem;
+  font-size: 0.92rem;
   color: #6b7280;
   margin-top: 4px;
 }
 
 .pin-dots-container {
   display: flex;
-  gap: 16px;
+  gap: 18px;
   margin: 14px 0 10px;
 }
 
 .pin-dot {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   border: 2px solid #f59e0b;
   background: rgba(245, 158, 11, 0.1);
@@ -360,18 +382,18 @@ html, body {
   background: #f59e0b;
   border-color: #d97706;
   transform: scale(1.2);
-  box-shadow: 0 0 12px rgba(245, 158, 11, 0.7);
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.75);
 }
 
 .pin-hint {
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   color: #9d174d;
   font-weight: 500;
   margin-bottom: 6px;
 }
 
 .pin-err {
-  font-size: 0.84rem;
+  font-size: 0.86rem;
   color: #dc2626;
   font-weight: 600;
   margin-bottom: 8px;
@@ -387,19 +409,19 @@ html, body {
 .numpad {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+  gap: 14px;
   width: 100%;
-  max-width: 290px;
+  max-width: 310px;
   margin-top: 6px;
 }
 
 .num-key {
-  height: 56px;
+  height: 58px;
   border-radius: 50px;
   border: 1.5px solid rgba(244, 114, 182, 0.4);
   background: #ffffff;
   color: #831843;
-  font-size: 1.5rem;
+  font-size: 1.55rem;
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -418,7 +440,7 @@ html, body {
 }
 
 .num-key.key-action {
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   background: #fdf2f8;
   color: #be185d;
   border-color: #fbcfe8;
@@ -443,7 +465,7 @@ html, body {
 }
 
 .success-box {
-  width: min(380px, 92vw);
+  width: min(390px, 92vw);
   background: #ffffff;
   border: 2px solid #f59e0b;
   border-radius: var(--radius-lg);
@@ -461,20 +483,20 @@ html, body {
 
 .success-title {
   font-family: var(--font-script);
-  font-size: 2rem;
+  font-size: 2.1rem;
   color: #be185d;
   margin-bottom: 4px;
 }
 
 .success-name {
   font-family: var(--font-title);
-  font-size: 1.55rem;
+  font-size: 1.6rem;
   color: #831843;
   margin-bottom: 12px;
 }
 
 .success-desc {
-  font-size: 0.94rem;
+  font-size: 0.96rem;
   color: #4b5563;
   line-height: 1.6;
   margin-bottom: 20px;
@@ -574,7 +596,7 @@ html, body {
 .hero-content {
   position: relative;
   z-index: 2;
-  max-width: 860px;
+  max-width: 880px;
 }
 
 .hero-sub {
@@ -618,15 +640,13 @@ html, body {
   100% { filter: hue-rotate(360deg); }
 }
 
-/* ===================================================
-   THẺ NGÀY THÁNG ĐƯỢC LÀM TO RÕ RÀNG THEO YÊU CẦU
-   =================================================== */
+/* THẺ NGÀY THÁNG PHÓNG TO RÕ RÀNG */
 .date-box {
   display: inline-flex;
   align-items: center;
   gap: 28px;
-  background: rgba(30, 14, 56, 0.88);
-  border: 2px solid rgba(245, 200, 66, 0.6);
+  background: rgba(30, 14, 56, 0.9);
+  border: 2px solid rgba(245, 200, 66, 0.65);
   border-radius: 20px;
   padding: 22px 34px;
   backdrop-filter: blur(14px);
@@ -649,7 +669,6 @@ html, body {
   align-items: center;
 }
 
-/* Nhãn HÔM NAY & SINH NHẬT BỐ NHƯ to rõ hơn */
 .date-label {
   font-size: clamp(0.95rem, 1.8vw, 1.15rem);
   font-weight: 700;
@@ -662,7 +681,6 @@ html, body {
   gap: 6px;
 }
 
-/* Dòng "Thứ năm, 17 Tháng 9" phóng to rõ nét */
 .date-value {
   font-size: clamp(1.4rem, 2.8vw, 1.95rem);
   font-weight: 700;
@@ -677,7 +695,6 @@ html, body {
   background: linear-gradient(to bottom, transparent, rgba(245, 200, 66, 0.8), transparent);
 }
 
-/* Dòng "17 Tháng 9" cực to và nổi bật với ánh vàng rực rỡ */
 .date-bday {
   font-family: var(--font-title);
   font-size: clamp(1.85rem, 3.6vw, 2.5rem);
@@ -687,7 +704,6 @@ html, body {
   letter-spacing: 0.02em;
 }
 
-/* Huy hiệu "Hôm nay là sinh nhật Bố Như!" to rõ */
 .date-badge {
   font-size: clamp(0.95rem, 1.8vw, 1.15rem);
   font-weight: 700;
@@ -748,11 +764,53 @@ html, body {
   text-align: center;
   color: var(--text-muted);
   font-size: 0.96rem;
-  margin-bottom: 34px;
+  margin-bottom: 24px;
   max-width: 650px;
   margin-left: auto;
   margin-right: auto;
   line-height: 1.5;
+}
+
+/* BANNER CHỈ DẪN NHẤP VÀO HỘP */
+.cubes-pointer-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  max-width: fit-content;
+  margin: 0 auto 28px;
+  padding: 10px 24px;
+  border-radius: 50px;
+  background: linear-gradient(135deg, rgba(236, 72, 153, 0.3), rgba(245, 200, 66, 0.3));
+  border: 1.5px solid var(--gold);
+  box-shadow: 0 0 20px rgba(245, 200, 66, 0.45);
+  animation: bannerGlow 2.5s infinite alternate;
+}
+
+@keyframes bannerGlow {
+  0% { transform: scale(1); box-shadow: 0 0 15px rgba(245, 200, 66, 0.3); }
+  100% { transform: scale(1.03); box-shadow: 0 0 28px rgba(236, 72, 153, 0.6), 0 0 18px var(--gold); }
+}
+
+.pointer-hand-icon {
+  font-size: 1.4rem;
+  animation: pointHand 0.8s infinite alternate;
+}
+
+@keyframes pointHand {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(6px); }
+}
+
+.pointer-text {
+  font-weight: 700;
+  color: #ffffff;
+  font-size: clamp(0.85rem, 2vw, 1rem);
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+}
+
+.pointer-gift-icon {
+  font-size: 1.3rem;
 }
 
 /* COUNTDOWN */
@@ -982,7 +1040,7 @@ html, body {
 .alpha-cubes-scene {
   position: relative;
   width: 100%;
-  height: 520px;
+  height: 540px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -998,13 +1056,12 @@ html, body {
   }
 }
 
-/* Vầng hào quang cầu vồng nhẹ ở trung tâm */
 .alpha-rainbow-halo {
   position: absolute;
-  width: min(480px, 90vw);
-  height: 280px;
+  width: min(500px, 90vw);
+  height: 300px;
   border-radius: 50%;
-  background: radial-gradient(ellipse at 50% 50%, rgba(236, 72, 153, 0.2) 0%, rgba(245, 200, 66, 0.15) 35%, rgba(56, 189, 248, 0.15) 60%, transparent 75%);
+  background: radial-gradient(ellipse at 50% 50%, rgba(236, 72, 153, 0.22) 0%, rgba(245, 200, 66, 0.18) 35%, rgba(56, 189, 248, 0.16) 60%, transparent 75%);
   filter: blur(30px);
   pointer-events: none;
   animation: rainbowHueRotate 8s linear infinite;
@@ -1015,7 +1072,6 @@ html, body {
   100% { filter: blur(30px) hue-rotate(360deg); }
 }
 
-/* Đường cong Alpha ảo ảnh */
 .alpha-curve-svg {
   position: absolute;
   width: min(580px, 95vw);
@@ -1026,9 +1082,8 @@ html, body {
 
 .alpha-path {
   fill: none;
-  stroke: url(#alpha-grad, #f5c842);
   stroke: linear-gradient(to right, #ff4e50, #f9d423, #00c9ff, #92fe9d, #f72585);
-  stroke-width: 2;
+  stroke-width: 2.5;
   stroke-dasharray: 6 6;
   animation: dashMove 20s linear infinite;
 }
@@ -1057,12 +1112,12 @@ html, body {
   transform-style: preserve-3d;
   cursor: pointer;
   touch-action: manipulation;
-  transition: filter 0.25s ease;
+  transition: filter 0.25s ease, transform 0.2s ease;
   will-change: transform;
 }
 
 .alpha-cube-item:hover {
-  filter: brightness(1.25);
+  filter: brightness(1.3);
   z-index: 50;
 }
 
@@ -1071,19 +1126,18 @@ html, body {
   position: absolute;
   width: var(--c-size);
   height: var(--c-size);
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
   background: #180d2e;
-  /* Viền cầu vồng nhẹ lung linh */
-  border: 2px solid rgba(245, 200, 66, 0.65);
-  box-shadow: 0 0 12px rgba(245, 200, 66, 0.4), inset 0 0 10px rgba(0,0,0,0.5);
+  border: 2px solid rgba(245, 200, 66, 0.7);
+  box-shadow: 0 0 14px var(--rainbow-col, rgba(245, 200, 66, 0.5)), inset 0 0 10px rgba(0,0,0,0.5);
   backface-visibility: visible;
   -webkit-backface-visibility: visible;
   transition: box-shadow 0.3s;
 }
 
 .alpha-cube-item:hover .cube-face-mini {
-  box-shadow: 0 0 20px rgba(245, 200, 66, 0.8), 0 0 12px rgba(236, 72, 153, 0.6);
+  box-shadow: 0 0 24px var(--rainbow-col, rgba(245, 200, 66, 0.9)), 0 0 14px rgba(236, 72, 153, 0.8);
 }
 
 .face-f { transform: translateZ(var(--c-half)); }
@@ -1093,11 +1147,10 @@ html, body {
 .face-t { transform: rotateX(90deg) translateZ(var(--c-half)); }
 .face-d { transform: rotateX(-90deg) translateZ(var(--c-half)); }
 
-/* Ánh sáng cầu vồng nhẹ lướt qua mặt hộp */
 .cube-face-sheen {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.05) 45%, transparent 65%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.06) 45%, transparent 65%);
   pointer-events: none;
   z-index: 5;
 }
@@ -1144,8 +1197,7 @@ html, body {
 }
 
 /* ===================================================
-   THIỆP CHÚC MỪNG SINH NHẬT 3D CAO CẤP (GREETING CARD)
-   Màu sắc sáng hơn, nhiều hiệu ứng đẹp, animation lôi cuốn
+   THIỆP CHÚC MỪNG SINH NHẬT 3D CAO CẤP (SIÊU SÁNG & LỘNG LẪY)
    =================================================== */
 .greeting-card-modal {
   position: fixed;
@@ -1168,13 +1220,13 @@ html, body {
 
 .luxury-card-wrap {
   position: relative;
-  width: min(520px, 94vw);
+  width: min(540px, 94vw);
   max-height: 90vh;
-  /* Màu sắc sáng, sang trọng kết hợp ngọc trai, vàng champagne và hồng đào */
-  background: linear-gradient(145deg, #ffffff 0%, #fffdfa 45%, #fff1f2 100%);
-  border: 3px solid #f59e0b;
+  /* Màu sắc sáng tinh khôi, ngọc trai ánh vàng champagne */
+  background: linear-gradient(145deg, #ffffff 0%, #fffbf2 40%, #fff1f3 100%);
+  border: 3.5px solid #f59e0b;
   border-radius: 28px;
-  box-shadow: 0 25px 65px rgba(0, 0, 0, 0.5), 0 0 45px rgba(245, 158, 11, 0.45);
+  box-shadow: 0 25px 65px rgba(0, 0, 0, 0.5), 0 0 50px rgba(245, 158, 11, 0.5);
   overflow: hidden;
   z-index: 2;
   animation: cardUnfold 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
@@ -1193,7 +1245,14 @@ html, body {
   }
 }
 
-/* Dải ruy băng nơ vàng kim trang trí */
+.card-sparkles-ambient {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 85% 15%, rgba(245, 158, 11, 0.2) 0%, transparent 45%),
+              radial-gradient(circle at 15% 85%, rgba(236, 72, 153, 0.15) 0%, transparent 45%);
+  pointer-events: none;
+}
+
 .card-ribbon {
   position: absolute;
   top: 18px;
@@ -1201,7 +1260,7 @@ html, body {
   width: 140px;
   background: linear-gradient(135deg, #f59e0b, #d97706);
   color: #ffffff;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   padding: 5px 0;
@@ -1215,13 +1274,13 @@ html, body {
   position: absolute;
   top: 14px;
   right: 16px;
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background: #fdf2f8;
   border: 2px solid #fbcfe8;
   color: #be185d;
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -1247,24 +1306,16 @@ html, body {
   text-align: center;
 }
 
-.card-sparkles-effect {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 80% 20%, rgba(245, 158, 11, 0.15) 0%, transparent 50%),
-              radial-gradient(circle at 20% 80%, rgba(236, 72, 153, 0.12) 0%, transparent 50%);
-  pointer-events: none;
-}
-
-/* KHUNG ẢNH KỶ NIỆM */
+/* KHUNG ẢNH KỶ NIỆM RÕ NÉT */
 .card-photo-frame {
   position: relative;
-  width: min(280px, 75vw);
+  width: min(300px, 78vw);
   margin-bottom: 18px;
-  padding: 6px;
+  padding: 7px;
   background: #ffffff;
-  border: 2px solid #f59e0b;
-  border-radius: 18px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15), 0 0 15px rgba(245, 158, 11, 0.3);
+  border: 2.5px solid #f59e0b;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15), 0 0 18px rgba(245, 158, 11, 0.35);
   animation: floatPhoto 3s ease-in-out infinite alternate;
 }
 
@@ -1275,8 +1326,8 @@ html, body {
 
 .photo-glow-border {
   position: absolute;
-  inset: -3px;
-  border-radius: 20px;
+  inset: -4px;
+  border-radius: 22px;
   border: 1.5px dashed #f59e0b;
   pointer-events: none;
   animation: spinSlow 20s linear infinite;
@@ -1284,13 +1335,19 @@ html, body {
 
 .card-photo-box {
   width: 100%;
-  height: 200px;
-  border-radius: 12px;
+  height: 230px;
+  border-radius: 14px;
   overflow: hidden;
   background: #fdf2f8;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media (max-width: 600px) {
+  .card-photo-box {
+    height: 180px;
+  }
 }
 
 .card-photo-box img {
@@ -1307,25 +1364,24 @@ html, body {
 }
 
 .card-photo-pin {
-  font-size: 0.72rem;
+  font-size: 0.76rem;
   font-weight: 700;
   color: #9d174d;
-  margin-top: 5px;
+  margin-top: 6px;
 }
 
-/* NỘI DUNG LỜI CHÚC */
 .card-text-content {
   width: 100%;
 }
 
 .card-header-badge {
   display: inline-block;
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   font-weight: 800;
   background: linear-gradient(135deg, #f59e0b, #ec4899);
   color: #ffffff;
-  padding: 3px 12px;
-  border-radius: 14px;
+  padding: 4px 14px;
+  border-radius: 16px;
   letter-spacing: 0.08em;
   margin-bottom: 8px;
   box-shadow: 0 2px 6px rgba(245, 158, 11, 0.35);
@@ -1333,7 +1389,7 @@ html, body {
 
 .card-title {
   font-family: var(--font-title);
-  font-size: clamp(1.4rem, 3.2vw, 1.85rem);
+  font-size: clamp(1.45rem, 3.4vw, 1.95rem);
   font-weight: 700;
   color: #831843;
   margin-bottom: 8px;
@@ -1350,13 +1406,13 @@ html, body {
 }
 
 .flourish-line {
-  width: 45px;
-  height: 1.5px;
+  width: 50px;
+  height: 2px;
   background: linear-gradient(to right, transparent, #f59e0b, transparent);
 }
 
 .card-message-scroll {
-  max-height: 150px;
+  max-height: 160px;
   overflow-y: auto;
   padding: 0 10px;
   margin-bottom: 18px;
@@ -1364,13 +1420,12 @@ html, body {
 
 .card-message {
   font-family: var(--font-script);
-  font-size: clamp(1.3rem, 3.6vw, 1.65rem);
+  font-size: clamp(1.35rem, 3.8vw, 1.75rem);
   color: #4c0519;
   line-height: 1.55;
   font-weight: 600;
 }
 
-/* NÚT THẢ TIM TƯNG BỪNG */
 .card-actions {
   display: flex;
   justify-content: center;
@@ -1378,12 +1433,12 @@ html, body {
 }
 
 .btn-love-burst {
-  padding: 12px 28px;
+  padding: 13px 30px;
   border-radius: 50px;
   background: linear-gradient(135deg, #ec4899, #f43f5e);
   color: #ffffff;
   border: none;
-  font-size: 0.98rem;
+  font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
   display: flex;
@@ -1401,12 +1456,11 @@ html, body {
 }
 
 .btn-love-burst small {
-  font-size: 0.72rem;
-  opacity: 0.85;
+  font-size: 0.74rem;
+  opacity: 0.9;
   font-weight: 500;
 }
 
-/* HIỆU ỨNG TRÁI TIM BAY KHI NHẤN NÚT */
 .floating-heart-particle {
   position: fixed;
   font-size: 1.8rem;
@@ -1494,6 +1548,13 @@ html, body {
 
 /* RESPONSIVE MOBILE TWEAKS */
 @media (max-width: 600px) {
+  .lock-card {
+    padding: 24px 18px 22px;
+  }
+  .num-key {
+    height: 52px;
+    font-size: 1.4rem;
+  }
   .date-box {
     padding: 16px 18px;
     gap: 16px;
@@ -1522,13 +1583,7 @@ html, body {
     padding: 12px 14px;
     min-width: 65px;
   }
-  .luxury-card-wrap {
-    padding: 0;
-  }
   .card-inner-body {
     padding: 26px 18px 20px;
-  }
-  .card-photo-box {
-    height: 160px;
   }
 }
