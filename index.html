@@ -7,15 +7,15 @@
   <meta name="description" content="Trang web chúc mừng sinh nhật đặc biệt dành tặng Bố Như kính yêu">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- Nhạc nền sinh nhật (tự động phát hoặc phát bằng Web Audio API) -->
+<!-- Nhạc nền sinh nhật -->
 <audio id="bg-music" src="music.mp3" loop preload="auto"></audio>
 
-<!-- Canvas pháo hoa liên tục (tối ưu hóa 60fps mượt mà) -->
+<!-- Canvas pháo hoa liên tục (60fps mượt mà) -->
 <canvas id="fireworks-canvas"></canvas>
 <!-- Canvas cánh hoa & lá hoa rơi tự nhiên -->
 <canvas id="petals-canvas"></canvas>
@@ -32,15 +32,14 @@
 </button>
 
 <!-- ========================================== -->
-<!-- 1. CẢNH TRANG ĐẦU: KHÓA MẬT KHẨU (NỀN SÁNG, LẤP LÁNH, HOA RƠI) -->
+<!-- 1. CẢNH TRANG ĐẦU: KHÓA MẬT KHẨU (NỀN SÁNG, HOA RƠI) -->
 <!-- ========================================== -->
 <div id="lock-screen" class="lock-screen">
-  <!-- Hiệu ứng sao vàng lấp lánh ở nền sáng -->
   <div class="lock-stars-layer" id="lock-stars"></div>
 
   <div class="lock-card" id="lock-card">
     <div class="lock-header">
-      <!-- Khung tròn để thêm ảnh Bố Như (click để đổi hoặc thay file photos/dad.jpg) -->
+      <!-- Khung tròn ảnh Bố Như (thêm ảnh vào photos/dad.jpg) -->
       <div class="lock-avatar-wrap" id="lock-avatar-wrap" title="Thêm ảnh Bố vào photos/dad.jpg">
         <img src="photos/dad.jpg" class="lock-avatar-img" id="avatar-img" alt="Bố Như" onerror="this.style.display='none';document.getElementById('lock-fallback-avatar').style.display='flex'">
         <div class="lock-avatar-fallback" id="lock-fallback-avatar">
@@ -66,7 +65,7 @@
     <p class="pin-hint">💡 Gợi ý: Ngày + Tháng sinh của Bố (4 chữ số: 1709)</p>
     <p class="pin-err hidden" id="pin-err">❌ Mã chưa đúng rồi, Bố thử lại nhé! 😊</p>
 
-    <!-- Bàn phím số điện thoại tiện lợi, to rõ, bấm cực nhạy -->
+    <!-- Bàn phím số điện thoại tiện lợi, to rõ -->
     <div class="numpad" id="numpad">
       <button type="button" class="num-key" data-val="1">1</button>
       <button type="button" class="num-key" data-val="2">2</button>
@@ -116,16 +115,17 @@
         <span class="ht ht6">🎂</span>
       </h1>
 
-      <div class="date-box">
+      <!-- THẺ NGÀY THÁNG ĐƯỢC PHÓNG TO RÕ RÀNG THEO YÊU CẦU -->
+      <div class="date-box" id="date-box">
         <div class="date-item">
-          <span class="date-label">📅 Hôm nay</span>
-          <span class="date-value" id="today-date">--</span>
+          <span class="date-label">🗓️ HÔM NAY</span>
+          <span class="date-value" id="today-date">Thứ năm, 17 Tháng 9</span>
         </div>
         <div class="date-divider"></div>
         <div class="date-item">
-          <span class="date-label">🎂 Sinh nhật Bố Như</span>
+          <span class="date-label">🎂 SINH NHẬT BỐ NHƯ</span>
           <span class="date-bday" id="bday-val">17 Tháng 9</span>
-          <span class="date-badge" id="bday-notice">🎉 Hôm nay là sinh nhật Bố!</span>
+          <span class="date-badge" id="bday-notice">🎉 Hôm nay là sinh nhật Bố Như!</span>
         </div>
       </div>
 
@@ -183,62 +183,75 @@
     </div>
   </section>
 
-  <!-- HỘP VUÔNG KỶ NIỆM 3D (XOAY FULL GÓC, KHÔNG BỊ MẤT, ÁNH SÁNG ẢO DIỆU) -->
+  <!-- 8 HÌNH HỘP KỶ NIỆM 3D DI CHUYỂN & XOAY THEO HÌNH ALPHA CẦU VỒNG -->
   <section class="section memories-section" id="memories-section">
     <div class="section-inner">
-      <h2 class="section-title">🎁 Hộp Kỷ Niệm 3D Yêu Thương</h2>
-      <p class="section-sub">Khối hộp kỷ niệm 3D xoay full góc 360° – kéo vuốt để xoay mọi hướng, nhấp vào từng mặt để xem ảnh & lời chúc</p>
+      <h2 class="section-title">🎁 8 Hộp Kỷ Niệm 3D Yêu Thương</h2>
+      <p class="section-sub">8 khối hộp 3D lượn sóng xoay theo đường cong Alpha (α) lấp lánh cầu vồng – Chạm vào hộp để mở tấm thiệp sinh nhật tuyệt đẹp</p>
 
-      <div class="cube-scene-container" id="cube-scene">
-        <!-- Ánh sáng hào quang ảo diệu phía sau khối hộp -->
-        <div class="cube-ambient-glow"></div>
+      <div class="alpha-cubes-scene" id="alpha-scene">
+        <!-- Vầng hào quang cầu vồng nhẹ ở trung tâm đường cong Alpha -->
+        <div class="alpha-rainbow-halo"></div>
+        <!-- Vòng đường cong Alpha ảo ảnh -->
+        <svg class="alpha-curve-svg" viewBox="-320 -160 640 320" aria-hidden="true">
+          <path class="alpha-path" d="M 0,0 C 120,130 260,90 260,0 C 260,-90 120,-130 0,0 C -120,130 -260,90 -260,0 C -260,-90 -120,-130 0,0 Z"></path>
+        </svg>
 
-        <div class="cube-3d" id="cube-3d">
-          <!-- 6 Mặt của khối hộp lập phương (Front, Back, Right, Left, Top, Bottom) -->
-          <div class="cube-face face-front" data-face="0">
-            <div class="face-sheen"></div>
-            <div class="face-content" id="face-0"></div>
-          </div>
-          <div class="cube-face face-back" data-face="1">
-            <div class="face-sheen"></div>
-            <div class="face-content" id="face-1"></div>
-          </div>
-          <div class="cube-face face-right" data-face="2">
-            <div class="face-sheen"></div>
-            <div class="face-content" id="face-2"></div>
-          </div>
-          <div class="cube-face face-left" data-face="3">
-            <div class="face-sheen"></div>
-            <div class="face-content" id="face-3"></div>
-          </div>
-          <div class="cube-face face-top" data-face="4">
-            <div class="face-sheen"></div>
-            <div class="face-content" id="face-4"></div>
-          </div>
-          <div class="cube-face face-bottom" data-face="5">
-            <div class="face-sheen"></div>
-            <div class="face-content" id="face-5"></div>
-          </div>
-        </div>
-
-        <!-- Bóng đổ sàn 3D -->
-        <div class="cube-floor-shadow"></div>
+        <!-- Container chứa 8 hộp lập phương 3D -->
+        <div class="alpha-cubes-track" id="cubes-track"></div>
       </div>
 
-      <!-- Hướng dẫn xoay cho người dùng -->
+      <!-- Hướng dẫn tương tác -->
       <div class="cube-controls-hint">
-        <span>🔄 Vuốt hoặc kéo chuột để xoay hộp 360° • Chạm vào mặt hộp để phóng to</span>
+        <span>✨ 8 hộp xoay tự do và lượn sóng Alpha • Nhấp vào bất kỳ hộp nào để mở thiệp chúc mừng sinh nhật</span>
       </div>
     </div>
   </section>
 
-  <!-- POPUP XEM CHI TIẾT LỜI CHÚC & ẢNH CỦA TỪNG MẶT HỘP -->
-  <div class="sphere-popup hidden" id="cube-popup">
-    <div class="popup-box">
-      <button type="button" class="popup-close-btn" id="popup-close" aria-label="Đóng">✕</button>
-      <div class="popup-media-wrap" id="popup-media"></div>
-      <h3 class="popup-title" id="popup-title"></h3>
-      <div class="popup-msg-text" id="popup-msg"></div>
+  <!-- THIỆP CHÚC MỪNG SINH NHẬT 3D CAO CẤP (SÁNG ĐẸP, NHIỀU HIỆU ỨNG & ANIMATION) -->
+  <div class="greeting-card-modal hidden" id="card-modal">
+    <div class="card-backdrop" id="card-backdrop"></div>
+    
+    <div class="luxury-card-wrap" id="luxury-card">
+      <!-- Dải ruy băng nơ vàng kim trang trí góc thiệp -->
+      <div class="card-ribbon"><span>🎂 BỐ NHƯ</span></div>
+      <button type="button" class="card-close-btn" id="card-close" aria-label="Đóng thiệp">✕</button>
+
+      <!-- Khung thiệp chính có hiệu ứng ánh sáng ngọc trai và viền vàng kim -->
+      <div class="card-inner-body">
+        <div class="card-sparkles-effect"></div>
+
+        <!-- Khung ảnh kỷ niệm viền nổi mạ vàng -->
+        <div class="card-photo-frame">
+          <div class="photo-glow-border"></div>
+          <div class="card-photo-box" id="card-photo-box">
+            <!-- Ảnh hoặc placeholder -->
+          </div>
+          <div class="card-photo-pin">📍 Kỷ niệm quý giá</div>
+        </div>
+
+        <!-- Nội dung thiệp chúc mừng -->
+        <div class="card-text-content">
+          <div class="card-header-badge">✨ CHÚC MỪNG SINH NHẬT BỐ ✨</div>
+          <h2 class="card-title" id="card-title">Tình Yêu Của Bố</h2>
+          
+          <div class="card-divider-flourish">
+            <span>❦</span><div class="flourish-line"></div><span>❤️</span><div class="flourish-line"></div><span>❦</span>
+          </div>
+
+          <div class="card-message-scroll">
+            <p class="card-message" id="card-message">Bố ơi, con yêu Bố nhiều lắm...</p>
+          </div>
+
+          <!-- Nút tương tác thả tim tưng bừng -->
+          <div class="card-actions">
+            <button type="button" class="btn-love-burst" id="btn-love-burst">
+              <span>Con yêu Bố nhiều lắm ❤️</span>
+              <small>(Nhấn để gửi ngàn trái tim)</small>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
