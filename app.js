@@ -803,9 +803,9 @@ function initAlphaCubes() {
     const speed = isSceneHovered ? 0.0032 : 0.0048;
     alphaTime += speed;
 
-    const scaleX = IS_MOBILE ? 145 : 255;
-    const scaleY = IS_MOBILE ? 75 : 130;
-    const scaleZ = IS_MOBILE ? 85 : 160;
+    const scaleX = IS_MOBILE ? 155 : 255;
+    const scaleY = IS_MOBILE ? 60 : 130;
+    const scaleZ = IS_MOBILE ? 90 : 160;
 
     cubeEls.forEach((cube, i) => {
       const theta = alphaTime + (i * Math.PI * 2) / 8;

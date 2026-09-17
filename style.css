@@ -26,10 +26,10 @@
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 650px) {
   :root {
-    --c-size: 92px;
-    --c-half: 46px;
+    --c-size: 68px;
+    --c-half: 34px;
   }
 }
 
@@ -1230,8 +1230,8 @@ html, body {
   background: #180d2e;
   border: 2px solid rgba(245, 200, 66, 0.7);
   box-shadow: 0 0 14px var(--rainbow-col, rgba(245, 200, 66, 0.5)), inset 0 0 10px rgba(0,0,0,0.5);
-  backface-visibility: visible;
-  -webkit-backface-visibility: visible;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   transition: box-shadow 0.3s;
 }
 
@@ -1469,30 +1469,49 @@ html, body {
 
 .card-photo-box {
   width: 100%;
-  height: 230px;
+  height: auto;
+  min-height: 200px;
+  max-height: 320px;
   border-radius: 14px;
   overflow: hidden;
-  background: #fdf2f8;
+  background: radial-gradient(circle at 50% 50%, #fff7ed 0%, #fdf2f8 100%);
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 6px;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 650px) {
+  .card-photo-frame {
+    width: min(320px, 86vw);
+    padding: 5px;
+  }
   .card-photo-box {
-    height: 180px;
+    min-height: 190px;
+    max-height: 270px;
+    padding: 4px;
   }
 }
 
 .card-photo-box img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 300px;
+  object-fit: contain;
   display: block;
+  border-radius: 10px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 650px) {
+  .card-photo-box img {
+    max-height: 260px;
+  }
 }
 
 .card-photo-box .card-emoji-big {
-  font-size: 5rem;
+  font-size: 4.5rem;
   line-height: 1;
   animation: bounce 1.2s infinite;
 }
