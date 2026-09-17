@@ -5,17 +5,18 @@
    =================================================== */
 
 :root {
-  --bg-dark: #0c061a;
-  --bg-card: rgba(26, 14, 50, 0.85);
-  --gold: #f5c842;
-  --gold-light: #ffea85;
-  --gold-dark: #d4a017;
-  --purple: #8b28d6;
-  --purple-light: #c084fc;
-  --pink: #ec4899;
-  --rose: #f43f5e;
-  --text-main: #f8fafc;
-  --text-muted: #cbd5e1;
+  --bg-dark: #1e0936;
+  --bg-mid: #351052;
+  --bg-card: rgba(62, 22, 98, 0.88);
+  --gold: #fcd34d;
+  --gold-light: #fef08a;
+  --gold-dark: #f59e0b;
+  --purple: #a855f7;
+  --purple-light: #e9d5ff;
+  --pink: #f43f5e;
+  --rose: #fb7185;
+  --text-main: #ffffff;
+  --text-muted: #f1f5f9;
   --radius-lg: 24px;
   --radius-md: 16px;
   --c-size: 118px;
@@ -42,7 +43,7 @@
 html, body {
   width: 100%;
   min-height: 100%;
-  background-color: var(--bg-dark);
+  background: radial-gradient(circle at 50% 12%, #4d1a72 0%, #2c0c45 42%, #19052b 100%);
   color: var(--text-main);
   font-family: var(--font-sans);
   overflow-x: hidden;
@@ -665,7 +666,7 @@ html, body {
 .hero-aurora {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 30%, rgba(139, 40, 214, 0.35) 0%, rgba(236, 72, 153, 0.2) 45%, transparent 70%);
+  background: radial-gradient(circle at 50% 25%, rgba(250, 204, 21, 0.35) 0%, rgba(244, 63, 94, 0.28) 40%, rgba(168, 85, 247, 0.2) 65%, transparent 78%);
   pointer-events: none;
 }
 
@@ -909,7 +910,9 @@ html, body {
 
 /* COUNTDOWN */
 .countdown-section {
-  background: linear-gradient(180deg, #0c061a 0%, #15092e 100%);
+  background: linear-gradient(180deg, #1e0936 0%, #3a1159 50%, #250a3d 100%);
+  border-top: 1px solid rgba(250, 204, 21, 0.2);
+  border-bottom: 1px solid rgba(250, 204, 21, 0.2);
 }
 
 .countdown-grid {
@@ -921,7 +924,7 @@ html, body {
 
 .cd-card {
   background: var(--bg-card);
-  border: 1px solid rgba(245, 200, 66, 0.28);
+  border: 1.5px solid rgba(250, 204, 21, 0.4);
   border-radius: var(--radius-md);
   padding: 16px 20px;
   display: flex;
@@ -929,6 +932,7 @@ html, body {
   align-items: center;
   min-width: 80px;
   backdrop-filter: blur(8px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25), 0 0 15px rgba(250, 204, 21, 0.15);
 }
 
 .cd-num {
@@ -964,7 +968,8 @@ html, body {
 
 /* BÁNH KEM & THỔI NẾN */
 .cake-section {
-  background: linear-gradient(180deg, #15092e 0%, #1b0a3c 100%);
+  background: linear-gradient(180deg, #250a3d 0%, #441364 50%, #2b0b46 100%);
+  border-bottom: 1px solid rgba(244, 63, 94, 0.2);
 }
 
 .cake-container {
@@ -1128,7 +1133,7 @@ html, body {
    8 HỘP KỶ NIỆM 3D DI CHUYỂN & XOAY THEO ĐƯỜNG ALPHA (α)
    =================================================== */
 .memories-section {
-  background: linear-gradient(180deg, #1b0a3c 0%, #0c061a 100%);
+  background: linear-gradient(180deg, #2b0b46 0%, #3f1361 50%, #1e0936 100%);
 }
 
 .alpha-cubes-scene {
@@ -1344,6 +1349,43 @@ html, body {
   background: radial-gradient(circle at 85% 15%, rgba(245, 158, 11, 0.2) 0%, transparent 45%),
               radial-gradient(circle at 15% 85%, rgba(236, 72, 153, 0.15) 0%, transparent 45%);
   pointer-events: none;
+}
+
+/* HIỆU ỨNG BẮN TIM & MƯA TRÁI TIM RƠI TRONG THIỆP */
+.card-hearts-rain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 15;
+}
+
+.falling-heart-item {
+  position: absolute;
+  top: -35px;
+  user-select: none;
+  pointer-events: none;
+  animation: heartFallRain var(--fall-dur, 3s) linear forwards;
+  filter: drop-shadow(0 2px 5px rgba(244, 63, 94, 0.4));
+  will-change: transform, opacity;
+}
+
+@keyframes heartFallRain {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg) scale(0.6);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.95;
+    transform: translateY(35px) translateX(var(--drift, 15px)) rotate(18deg) scale(1.15);
+  }
+  80% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(680px) translateX(var(--drift-end, -25px)) rotate(140deg) scale(0.8);
+    opacity: 0;
+  }
 }
 
 .card-ribbon {
@@ -1638,18 +1680,42 @@ html, body {
   50% { transform: translateY(-10px); }
 }
 
-/* RESPONSIVE MOBILE TWEAKS */
-@media (max-width: 600px) {
+/* RESPONSIVE MOBILE TWEAKS & 60FPS GPU OPTIMIZATION */
+@media (max-width: 650px) {
+  /* Tắt backdrop-filter blur đắt đỏ trên điện thoại để GPU mượt 60fps */
+  .lock-card, .cd-card, .luxury-card-wrap, .card-backdrop {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
   .lock-card {
-    padding: 22px 16px 20px;
+    background: #fff8fa !important;
+    padding: 24px 16px 20px;
+    border-width: 3px;
+  }
+  .card-backdrop {
+    background: rgba(18, 5, 34, 0.92) !important;
+  }
+  .luxury-card-wrap {
+    background: #ffffff !important;
+  }
+  .cd-card {
+    background: rgba(48, 14, 76, 0.94) !important;
+  }
+  /* Tối ưu bóng đổ khối 3D trên mobile */
+  .cube-face-mini {
+    box-shadow: 0 0 8px rgba(245, 200, 66, 0.45) !important;
+  }
+  /* Tắt drop-shadow đắt đỏ của bóng bay trên mobile */
+  .balloon {
+    filter: none !important;
   }
   .num-key {
-    height: 52px;
-    font-size: 1.4rem;
+    height: 54px;
+    font-size: 1.45rem;
   }
   .date-box {
     padding: 16px 18px;
-    gap: 16px;
+    gap: 14px;
   }
   .date-divider {
     width: 60px;
@@ -1677,5 +1743,8 @@ html, body {
   }
   .card-inner-body {
     padding: 26px 18px 20px;
+  }
+  .alpha-cubes-scene {
+    height: 400px;
   }
 }

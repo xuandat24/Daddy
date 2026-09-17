@@ -79,7 +79,7 @@ const CUBE_ITEMS = [
 const IS_MOBILE = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) || window.innerWidth < 650;
 
 // ============================================================
-// 1. HOA ĐÀO & LÁ HOA RƠI NHIỀU NHƯ GIÓ (CANVAS PETALS & LEAVES IN THE WIND)
+// 1. HOA ĐÀO & LÁ HOA RƠI NHIỀU NHƯ GIÓ (CANVAS PETALS - SIÊU MƯỢT 60FPS)
 // ============================================================
 (function initPetalsWind() {
   const canvas = document.getElementById("petals-canvas");
@@ -94,16 +94,18 @@ const IS_MOBILE = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) |
   });
 
   const petals = [];
-  // Mật độ hoa đào, lá rơi dày dặn, dạt theo gió xuân rực rỡ
-  const TOTAL_PETALS = IS_MOBILE ? 60 : 92;
+  // Tối ưu số lượng trên điện thoại để đạt 60FPS không giật lag
+  const TOTAL_PETALS = IS_MOBILE ? 28 : 72;
   const PETAL_TYPES = [
-    { fill: "#f43f5e", fill2: "#fb7185", type: "sakura" }, // Hoa đào hồng thắm
-    { fill: "#fb7185", fill2: "#fda4af", type: "sakura" }, // Hoa đào hồng phấn
-    { fill: "#fbcfe8", fill2: "#ffffff", type: "sakura" }, // Cánh hoa đào trắng hồng
-    { fill: "#e11d48", fill2: "#be123c", type: "rose" },   // Cánh hoa hồng nhung
-    { fill: "#22c55e", fill2: "#4ade80", type: "leaf" },   // Lá xanh tươi non
-    { fill: "#16a34a", fill2: "#22c55e", type: "leaf" },   // Lá xanh biếc
-    { fill: "#f59e0b", fill2: "#fef08a", type: "gold" }    // Bụi vàng lấp lánh
+    { fill: "#f43f5e", type: "sakura" },
+    { fill: "#fb7185", type: "sakura" },
+    { fill: "#fda4af", type: "sakura" },
+    { fill: "#fbcfe8", type: "sakura" },
+    { fill: "#e11d48", type: "rose" },
+    { fill: "#22c55e", type: "leaf" },
+    { fill: "#16a34a", type: "leaf" },
+    { fill: "#4ade80", type: "leaf" },
+    { fill: "#fbbf24", type: "gold" }
   ];
 
   for (let i = 0; i < TOTAL_PETALS; i++) {
@@ -113,21 +115,20 @@ const IS_MOBILE = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) |
   function createPetal(randomY) {
     const pt = PETAL_TYPES[Math.floor(Math.random() * PETAL_TYPES.length)];
     return {
-      x: Math.random() * (w + 300) - 150,
-      y: randomY ? Math.random() * h : -30,
-      sz: Math.random() * 8 + 8,
-      vx: Math.random() * 2.8 + 2.0, // Gió thổi mạnh sang phải
-      vy: Math.random() * 1.8 + 1.2, // Rơi từ từ xuống dưới
+      x: Math.random() * (w + 200) - 100,
+      y: randomY ? Math.random() * h : -25,
+      sz: Math.random() * 7 + 7,
+      vx: Math.random() * 2.4 + 1.8,
+      vy: Math.random() * 1.6 + 1.1,
       wobble: Math.random() * Math.PI * 2,
-      vWobble: Math.random() * 0.05 + 0.02,
+      vWobble: Math.random() * 0.04 + 0.02,
       rotX: Math.random() * Math.PI,
       rotY: Math.random() * Math.PI,
       rotZ: Math.random() * Math.PI * 2,
-      vRotX: Math.random() * 0.035 + 0.015,
-      vRotY: Math.random() * 0.035 + 0.015,
-      vRotZ: (Math.random() - 0.5) * 0.04,
+      vRotX: Math.random() * 0.03 + 0.01,
+      vRotY: Math.random() * 0.03 + 0.01,
+      vRotZ: (Math.random() - 0.5) * 0.03,
       fill: pt.fill,
-      fill2: pt.fill2,
       type: pt.type
     };
   }
@@ -135,25 +136,24 @@ const IS_MOBILE = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) |
   let windTime = 0;
   function drawPetals() {
     ctx.clearRect(0, 0, w, h);
-    windTime += 0.018;
+    windTime += 0.016;
 
-    // Cơn gió xuân thổi lượn sóng cuồn cuộn
-    const windGust = Math.sin(windTime * 1.4) * 3.2 + Math.cos(windTime * 0.8) * 2.0 + 2.2;
+    // Gió xuân thổi ngang lượn sóng cuồn cuộn
+    const windGust = Math.sin(windTime * 1.3) * 2.8 + 2.0;
 
     for (let i = 0; i < petals.length; i++) {
       const p = petals[i];
       p.wobble += p.vWobble;
-      p.y += p.vy + Math.sin(p.wobble) * 0.6;
-      p.x += p.vx + windGust + Math.cos(p.wobble) * 0.8;
+      p.y += p.vy + Math.sin(p.wobble) * 0.5;
+      p.x += p.vx + windGust + Math.cos(p.wobble) * 0.6;
 
       p.rotX += p.vRotX;
       p.rotY += p.vRotY;
       p.rotZ += p.vRotZ;
 
-      // Hết màn hình thì tạo lại bên trái/trên để gió thổi vào liên tục
-      if (p.y > h + 30 || p.x > w + 80) {
+      if (p.y > h + 25 || p.x > w + 60) {
         petals[i] = createPetal(false);
-        petals[i].x = Math.random() * (w * 0.6) - 100;
+        petals[i].x = Math.random() * (w * 0.5) - 60;
         continue;
       }
 
@@ -161,52 +161,39 @@ const IS_MOBILE = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) |
       ctx.translate(p.x, p.y);
       ctx.rotate(p.rotZ);
 
-      // Tránh scale = 0 tuyệt đối để canvas không bao giờ bị lỗi ma trận
-      const sx = Math.sign(Math.cos(p.rotX) || 1) * Math.max(0.15, Math.abs(Math.cos(p.rotX)));
-      const sy = Math.sign(Math.sin(p.rotY) || 1) * Math.max(0.15, Math.abs(Math.sin(p.rotY)));
+      // An toàn không bao giờ scale = 0
+      const sx = Math.sign(Math.cos(p.rotX) || 1) * Math.max(0.18, Math.abs(Math.cos(p.rotX)));
+      const sy = Math.sign(Math.sin(p.rotY) || 1) * Math.max(0.18, Math.abs(Math.sin(p.rotY)));
       ctx.scale(sx, sy);
 
-      ctx.globalAlpha = 0.92;
+      ctx.globalAlpha = 0.9;
+      ctx.fillStyle = p.fill;
 
       if (p.type === "leaf") {
-        // Vẽ lá cây xanh tươi có sống lá
-        const grad = ctx.createLinearGradient(0, -p.sz, 0, p.sz);
-        grad.addColorStop(0, p.fill2);
-        grad.addColorStop(1, p.fill);
-        ctx.fillStyle = grad;
-
+        // Vẽ lá cây xanh thanh thoát (không tạo object gradient gây giật lag)
         ctx.beginPath();
         ctx.moveTo(0, -p.sz * 1.3);
-        ctx.bezierCurveTo(p.sz * 0.8, -p.sz * 0.5, p.sz * 0.8, p.sz * 0.5, 0, p.sz * 1.3);
-        ctx.bezierCurveTo(-p.sz * 0.8, p.sz * 0.5, -p.sz * 0.8, -p.sz * 0.5, 0, -p.sz * 1.3);
+        ctx.bezierCurveTo(p.sz * 0.75, -p.sz * 0.5, p.sz * 0.75, p.sz * 0.5, 0, p.sz * 1.3);
+        ctx.bezierCurveTo(-p.sz * 0.75, p.sz * 0.5, -p.sz * 0.75, -p.sz * 0.5, 0, -p.sz * 1.3);
         ctx.fill();
 
-        // Gân lá
-        ctx.strokeStyle = "rgba(255,255,255,0.45)";
+        // Gân lá nhẹ
+        ctx.strokeStyle = "rgba(255,255,255,0.4)";
         ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.moveTo(0, -p.sz);
         ctx.lineTo(0, p.sz);
         ctx.stroke();
       } else if (p.type === "sakura" || p.type === "rose") {
-        // Vẽ cánh hoa đào mềm mại hình trái tim/khía
-        const grad = ctx.createRadialGradient(0, 0, 1, 0, 0, p.sz * 1.2);
-        grad.addColorStop(0, p.fill2);
-        grad.addColorStop(0.8, p.fill);
-        grad.addColorStop(1, p.fill);
-        ctx.fillStyle = grad;
-
+        // Cánh hoa mềm mại
         ctx.beginPath();
         ctx.moveTo(0, p.sz * 1.1);
-        ctx.bezierCurveTo(-p.sz * 1.2, p.sz * 0.4, -p.sz * 1.1, -p.sz * 0.8, -p.sz * 0.2, -p.sz * 1.1);
+        ctx.bezierCurveTo(-p.sz * 1.1, p.sz * 0.4, -p.sz * 1.0, -p.sz * 0.8, -p.sz * 0.2, -p.sz * 1.1);
         ctx.bezierCurveTo(0, -p.sz * 0.8, 0, -p.sz * 0.8, p.sz * 0.2, -p.sz * 1.1);
-        ctx.bezierCurveTo(p.sz * 1.1, -p.sz * 0.8, p.sz * 1.2, p.sz * 0.4, 0, p.sz * 1.1);
+        ctx.bezierCurveTo(p.sz * 1.0, -p.sz * 0.8, p.sz * 1.1, p.sz * 0.4, 0, p.sz * 1.1);
         ctx.fill();
       } else {
         // Hạt bụi vàng lấp lánh
-        ctx.fillStyle = p.fill2;
-        ctx.shadowColor = "#f59e0b";
-        ctx.shadowBlur = 8;
         ctx.beginPath();
         ctx.arc(0, 0, p.sz * 0.35, 0, Math.PI * 2);
         ctx.fill();
@@ -346,7 +333,7 @@ const FW_COLORS = [
 let fwCanvas, fwCtx, fwW, fwH;
 let fwParticles = [];
 let fwRockets = [];
-const MAX_PARTICLES = IS_MOBILE ? 85 : 120;
+const MAX_PARTICLES = IS_MOBILE ? 48 : 110;
 
 (function initFireworksEngine() {
   fwCanvas = document.getElementById("fireworks-canvas");
@@ -360,7 +347,8 @@ const MAX_PARTICLES = IS_MOBILE ? 85 : 120;
   resize();
   window.addEventListener("resize", resize);
 
-  setInterval(launchRocket, 1400);
+  const rocketInterval = IS_MOBILE ? 2400 : 1500;
+  setInterval(launchRocket, rocketInterval);
   requestAnimationFrame(fireworkLoop);
 
   window.addEventListener("pointerdown", e => {
@@ -370,23 +358,23 @@ const MAX_PARTICLES = IS_MOBILE ? 85 : 120;
 })();
 
 function launchRocket() {
-  if (fwRockets.length > 2) return;
+  if (fwRockets.length > (IS_MOBILE ? 1 : 2)) return;
   fwRockets.push({
     x: fwW * (Math.random() * 0.7 + 0.15),
     y: fwH + 10,
-    vx: (Math.random() - 0.5) * 1.8,
-    vy: -(Math.random() * 4 + (IS_MOBILE ? 8 : 10)),
+    vx: (Math.random() - 0.5) * 1.6,
+    vy: -(Math.random() * 3 + (IS_MOBILE ? 8 : 10)),
     targetY: fwH * (Math.random() * 0.35 + 0.1),
     color: FW_COLORS[Math.floor(Math.random() * FW_COLORS.length)]
   });
 }
 
 function spawnFirework(x, y) {
-  if (fwParticles.length >= MAX_PARTICLES - 28) {
-    fwParticles.splice(0, 28);
+  const count = IS_MOBILE ? 16 : 28;
+  if (fwParticles.length >= MAX_PARTICLES - count) {
+    fwParticles.splice(0, count);
   }
   const color = FW_COLORS[Math.floor(Math.random() * FW_COLORS.length)];
-  const count = IS_MOBILE ? 24 : 32;
 
   for (let i = 0; i < count; i++) {
     const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.3;
@@ -744,7 +732,29 @@ function initAlphaCubes() {
 
     cubeWrap.innerHTML = facesHtml;
 
-    // Chạm hoặc nhấp vào hộp -> Mở thiệp chúc mừng sinh nhật
+    // Chạm hoặc nhấp vào hộp -> Mở thiệp chúc mừng sinh nhật tức thì, mượt mà trên điện thoại
+    let touchStartX = 0, touchStartY = 0, touchStartTime = 0;
+    cubeWrap.addEventListener("touchstart", (e) => {
+      if (e.touches.length === 1) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        touchStartTime = performance.now();
+      }
+    }, { passive: true });
+
+    cubeWrap.addEventListener("touchend", (e) => {
+      if (e.changedTouches.length === 1) {
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        const dy = e.changedTouches[0].clientY - touchStartY;
+        const dt = performance.now() - touchStartTime;
+        if (dx * dx + dy * dy < 144 && dt < 450) {
+          e.preventDefault();
+          e.stopPropagation();
+          openLuxuryCard(item);
+        }
+      }
+    });
+
     cubeWrap.addEventListener("click", (e) => {
       e.stopPropagation();
       openLuxuryCard(item);
@@ -754,12 +764,12 @@ function initAlphaCubes() {
     cubeEls.push(cubeWrap);
   });
 
-  // Khi người dùng rê chuột vào khu vực các hộp, tự động chậm lại để cực kỳ dễ bấm
+  // Khi người dùng rê chuột/chạm, giảm tốc nhẹ nhàng để quan sát, không bị khựng chậm quá
   scene.addEventListener("mouseenter", () => { isSceneHovered = true; });
   scene.addEventListener("mouseleave", () => { isSceneHovered = false; });
   scene.addEventListener("touchstart", () => { isSceneHovered = true; }, { passive: true });
   scene.addEventListener("touchend", () => { 
-    setTimeout(() => { isSceneHovered = false; }, 1500); 
+    setTimeout(() => { isSceneHovered = false; }, 800); 
   }, { passive: true });
 
   // Kéo xoay tự do trong không gian 3D
@@ -789,13 +799,13 @@ function initAlphaCubes() {
   window.addEventListener("pointercancel", () => { isSceneDragging = false; });
 
   function animateAlphaTrack() {
-    // Nếu đang rê chuột/chạm thì di chuyển siêu chậm (0.001) để người dùng dễ bấm trúng
-    const speed = isSceneHovered ? 0.0015 : 0.0065;
+    // Tốc độ xoay đều, mức trung bình thanh thoát vừa mắt, không bị giật hay chậm khựng
+    const speed = isSceneHovered ? 0.0032 : 0.0048;
     alphaTime += speed;
 
-    const scaleX = IS_MOBILE ? 150 : 255;
-    const scaleY = IS_MOBILE ? 80 : 130;
-    const scaleZ = IS_MOBILE ? 90 : 160;
+    const scaleX = IS_MOBILE ? 145 : 255;
+    const scaleY = IS_MOBILE ? 75 : 130;
+    const scaleZ = IS_MOBILE ? 85 : 160;
 
     cubeEls.forEach((cube, i) => {
       const theta = alphaTime + (i * Math.PI * 2) / 8;
@@ -830,8 +840,10 @@ function initAlphaCubes() {
 }
 
 // ============================================================
-// 7. THIỆP CHÚC MỪNG SINH NHẬT 3D CAO CẤP (SIÊU SÁNG & LỘNG LẪY)
+// 7. THIỆP CHÚC MỪNG SINH NHẬT 3D CAO CẤP (BẮN TIM & MƯA TRÁI TIM RƠI)
 // ============================================================
+let heartRainTimer = null;
+
 function initGreetingCardModal() {
   const modal = document.getElementById("card-modal");
   const backdrop = document.getElementById("card-backdrop");
@@ -845,6 +857,44 @@ function initGreetingCardModal() {
     e.stopPropagation();
     triggerLoveBurst(e.clientX || window.innerWidth / 2, e.clientY || window.innerHeight / 2);
   });
+}
+
+function startCardHeartsRain() {
+  stopCardHeartsRain();
+  const container = document.getElementById("card-hearts-rain");
+  if (!container) return;
+  container.innerHTML = "";
+  const hearts = ["❤️", "💖", "💕", "💗", "💓", "💝", "✨", "🌸", "🍓"];
+
+  function dropSingleHeart() {
+    if (!document.getElementById("card-modal") || document.getElementById("card-modal").classList.contains("hidden")) {
+      stopCardHeartsRain();
+      return;
+    }
+    const h = document.createElement("div");
+    h.className = "falling-heart-item";
+    h.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+    h.style.left = `${Math.random() * 88 + 6}%`;
+    h.style.setProperty("--fall-dur", `${Math.random() * 1.5 + 2.2}s`);
+    h.style.setProperty("--drift", `${(Math.random() - 0.5) * 35}px`);
+    h.style.setProperty("--drift-end", `${(Math.random() - 0.5) * 50}px`);
+    h.style.fontSize = `${Math.random() * 0.7 + 1.15}rem`;
+    container.appendChild(h);
+    setTimeout(() => h.remove(), 4000);
+  }
+
+  // Bắn loạt tim đầu tiên rơi xuống ngay khi mở thiệp
+  for (let i = 0; i < 7; i++) {
+    setTimeout(dropSingleHeart, i * 140);
+  }
+  heartRainTimer = setInterval(dropSingleHeart, 420);
+}
+
+function stopCardHeartsRain() {
+  if (heartRainTimer) {
+    clearInterval(heartRainTimer);
+    heartRainTimer = null;
+  }
 }
 
 function openLuxuryCard(item) {
@@ -864,6 +914,9 @@ function openLuxuryCard(item) {
 
   modal.classList.remove("hidden");
 
+  // Bắt đầu hiệu ứng bắn tim & mưa trái tim rơi xuống trong thiệp
+  startCardHeartsRain();
+
   // Nổ pháo hoa chúc mừng tấm thiệp
   spawnFirework(window.innerWidth * 0.5, window.innerHeight * 0.35);
 }
@@ -871,18 +924,19 @@ function openLuxuryCard(item) {
 function closeLuxuryCard() {
   const modal = document.getElementById("card-modal");
   modal.classList.add("hidden");
+  stopCardHeartsRain();
 }
 
 function triggerLoveBurst(originX, originY) {
-  const hearts = ["❤️", "💖", "💕", "💗", "💓", "💝", "✨", "🌸"];
-  for (let i = 0; i < 22; i++) {
+  const hearts = ["❤️", "💖", "💕", "💗", "💓", "💝", "✨", "🌸", "🎉"];
+  for (let i = 0; i < 26; i++) {
     const heart = document.createElement("div");
     heart.className = "floating-heart-particle";
     heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
     heart.style.left = `${originX + (Math.random() - 0.5) * 110}px`;
     heart.style.top = `${originY + (Math.random() - 0.5) * 70}px`;
-    heart.style.setProperty("--rx", `${(Math.random() - 0.5) * 160}px`);
-    heart.style.animationDelay = `${Math.random() * 0.25}s`;
+    heart.style.setProperty("--rx", `${(Math.random() - 0.5) * 180}px`);
+    heart.style.animationDelay = `${Math.random() * 0.2}s`;
     document.body.appendChild(heart);
 
     setTimeout(() => heart.remove(), 1800);
